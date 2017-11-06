@@ -1,0 +1,35 @@
+# Use 'condor_submit submit_pvm' to submit this job to Condor.
+
+# Now we're in the pvm universe
+universe = Scheduler
+
+# The name of our (master) executable
+Executable = master_MYAPP_socket
+
+# Max image size (meg)
+Image_Size = 4
+
+# We'll 'require' 4 meg of memory.
++MemoryRequirements = 4
+
+# This goes into stdin for the master.
+Input = in_master.socket
+
+# The file to hold the master's output (the master's stdout is redirected to this file).
+Output = out_master.socket
+
+# The file to hold the workers' output (the worker's stdout is redirected to this file).
+Error = out_worker.socket
+
+# Keep a log in case of problems.
+Log = _MYAPP.log
+
+#Requirements
+Requirements = (Arch == "INTEL" && OPSYS=="LINUX")
+
+# Only start out with one machine; add more ourselves
+# The two numbers are the min and max number of hosts to get before startup.
+Machine_count = 1..1
+
+# Put into the queue, and wait to be scheduled!
+Queue

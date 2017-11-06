@@ -1,0 +1,44 @@
+This directory contains code to solve knapsack problems 
+using a branch-and-bound algorithm in MW.
+
+The knapsack problem is an integer programming problem that 
+a given set of items, each with its own size and profit, 
+is to be packed into the knapsack of a certain size. The objective 
+is to maximize the toal profit of the selected items.
+
+The data file format to be read in for the knapsack solver consists
+of 4 columns, each separated with a space. The columns are ordered 
+as the following: 
+
+ITEM item_id size profit 
+
+The knapsack size can be either at the first or the last line of 
+the data file. The format is:
+
+CAPACITY knapsack_size
+
+For more knapsack instances, look into "~/knapsack/data".
+
+The parameter file is named "param.txt". It consists of the parameters
+that users can prespecify before the run.
+
+The knapsack solver can be compiled to run either in sequential or 
+parallel mode. This can be selected in RMCommType in the Makefile.
+
+The examples can be run for different RMComm as the following:
+
+INDEP:
+
+./knap data_file param.txt
+
+PVM:
+
+condor_submit submit_pvm
+
+SOCKET:
+
+condor_submit submit_socket
+
+ 
+
+

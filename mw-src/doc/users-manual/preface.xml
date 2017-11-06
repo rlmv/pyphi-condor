@@ -1,0 +1,135 @@
+<!-- $Id: preface.xml,v 1.7 2005/07/12 14:48:09 gthain Exp $ -->
+
+  <chapter id="chapreface">
+  <title>
+    Preface
+  </title>
+
+  <para>&mw; is a software library that enables user's to quickly
+    and easily create master-worker type parallel applications on
+    Computational Grids.  This user's guide is intended to help you
+    get started using &mw; quickly. &mw; is an object-oriented C++
+    library providing abstractions to the master, worker, and task
+    entities thta define a master-worker type application. 
+  </para>
+
+  <para>Here I will describe the chapters.  For example, we begin in
+    <xref linkend="chapgettingstarted"/> with a quick getting started
+    guide. </para>
+
+  <sect1>
+    <title>
+      Prerequisites
+    </title>
+
+    <para>This manual assumes you have a working knowledge of C++ and
+	of Condor.
+    </para>
+  </sect1>
+
+  <sect1>
+    <title>
+      Notation and Naming Conventions
+    </title>
+
+    <para>Throughout this manual we will use the following
+      typographic rules:
+      <itemizedlist>
+	<listitem>
+	  <para>keywords, methods, functions, objects, and classes
+	    appear in a special
+	    <classname>typeface</classname>,</para>
+	</listitem>
+	<listitem>
+	  <para>larger program listings are specified in the text in
+	    special sections such as: <programlisting>this is code
+	    </programlisting>
+	    and </para>
+	</listitem>
+	<listitem>
+	  <para>important ideas are emphasized using
+	    <emphasis>italics</emphasis>.</para>
+	</listitem>
+      </itemizedlist>
+    </para>
+
+  </sect1>
+
+  <sect1><title> Tested Platforms</title>
+  <para>
+
+  &mw; is shipped as a set of source files.  We have tried to keep this source code
+  portable, so it should compile on any reasonable C++ compiler.  However, as the MW-File
+  module needs to link with the condor C++ userlog class, the compiler used for &mw;
+  must be compatible with the compiler that built the libcondorapi.a library which ships
+  with condor.  None of othe other RMComm modules have this restriction.  These are 
+  the following platforms &mw; has been tested on, all against Condor version 6.7.
+
+  </para>
+  <table frame="all">
+  <title>Tested Platforms</title>
+  <tgroup cols="4">
+    <colspec colname="OS"/>
+    <colspec colname="CPU"/>
+    <colspec colname="C++ Compiler"/>
+    <thead>
+      <row>
+        <entry>OS</entry>
+        <entry>CPU</entry>
+        <entry>Compiler</entry>
+        <entry>Notes</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry>RedHat Linux 9</entry>
+        <entry>Intel x86</entry>
+        <entry>G++ 3.4.3</entry>
+      </row>
+      <row>
+        <entry>Solaris 9</entry>
+        <entry>SPARC</entry>
+        <entry>G++ 2.95</entry>
+      </row>
+      <row>
+        <entry>MAC OSX</entry>
+        <entry>PowerPC</entry>
+        <entry>G++ 1256</entry>
+      </row>
+      <row>
+        <entry>Linux SLES</entry>
+        <entry>IA-64</entry>
+        <entry>G++ 3.2.2</entry>
+      </row>
+      <row>
+        <entry>Linux RHAS 3</entry>
+        <entry>x86_64</entry>
+        <entry>G++ 3.2.3</entry>
+        <entry>32 or 64 bit mode, latter with restrictions</entry>
+      </row>
+      <row>
+        <entry>Windows XP</entry>
+        <entry>Intel x86</entry>
+        <entry>G++ 3.3.4</entry>
+        <entry>via cywgin</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</table>
+  </sect1>
+
+  <sect1>
+  <title>The License</title>
+  <para>
+  Here we should include a copy of the MW license agreement.
+  </para>
+  </sect1>
+
+  <sect1>
+    <title>Acknowledgements</title>
+    <para>&mw; was developed under the metaNEOS project (grant) and
+      is suported by grants number ...
+    </para>
+  </sect1>
+
+  </chapter>

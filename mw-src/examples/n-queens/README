@@ -1,0 +1,42 @@
+This directory contains a parallel n-queens examples.  This is
+the well-known problem of placing n queens on a n x n square 
+chessboard such that none can attack each other.
+
+We use a n-squared algorithm, so larger inputs can take a while.
+
+Note the Driver-nQueens.C is hard-coded to select a Linux/x86
+target worker.  If this is not your target platform, please change
+the driver on line 67 from INTEL and LINUX to you desired platform.
+
+The input file for independent mode is in_master.  The other RMComms
+have an input file named like in_master.mwfile, in_master.socket,
+in_master.pvm
+
+The format of this input when you have one executable type (the usual
+case) is:
+
+1
+1
+worker_executable_name 0
+size_of_chessboard
+
+Note that a chessboard of size 8 takes very little time, and a chessboard of 
+size 12 takes a very long time to run.
+
+After running make, run the examples for the RMComm layers as follows:
+
+Independent:
+
+./masterNqueens < in_master
+
+Condor-pvm:
+
+condor_submit submit_pvm
+
+MW-Socket:
+
+condor_submit submit_socket
+
+MW-File:
+
+condor_submit submit_mwfile

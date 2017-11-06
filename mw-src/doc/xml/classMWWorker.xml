@@ -1,0 +1,492 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classMWWorker" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>MWWorker</compoundname>
+    <includes refid="MWWorker_8h" local="no">MWWorker.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" prot="public" static="yes" mutable="no">
+        <type><ref refid="classMWRMComm" kindref="compound">MWRMComm</ref> *</type>
+        <definition>MWRMComm* MWWorker::RMC</definition>
+        <argsstring></argsstring>
+        <name>RMC</name>
+        <briefdescription>
+<para>Our RM / Comm class. Used here only for communication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="68" column="1" bodyfile="src/MWWorker.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">suicide</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWWorker::master</definition>
+        <argsstring></argsstring>
+        <name>master</name>
+        <briefdescription>
+<para>The task ID of the master - used for sending messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="73" column="1" bodyfile="src/MWWorker.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="classMWWorker_1a206f250e302ff46e6da8298140268710" compoundref="MWWorker_8C" startline="28" endline="32">MWWorker</referencedby>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">suicide</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMWTask" kindref="compound">MWTask</ref> *</type>
+        <definition>MWTask* MWWorker::workingTask</definition>
+        <argsstring></argsstring>
+        <name>workingTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The task instance that a worker will use for packing/unpacking information from the master </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="77" column="1" bodyfile="src/MWWorker.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a206f250e302ff46e6da8298140268710" compoundref="MWWorker_8C" startline="28" endline="32">MWWorker</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWWorker_1a881f8e6d0dfb3c21f49dad7ff50e64f1" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMWTask" kindref="compound">MWTask</ref> *</type>
+        <definition>MWTask* MWWorker::controlTask</definition>
+        <argsstring></argsstring>
+        <name>controlTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="78" column="1" bodyfile="src/MWWorker.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWWorker_1a483214a078c164ece7b4b545761b48a1" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char MWWorker::mach_name[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>mach_name</name>
+        <briefdescription>
+<para>The name of the machine the worker is running on. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="81" column="1" bodyfile="src/MWWorker.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">suicide</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWWorker_1a1a4ee2d03564b36547585e068f0c1bad" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char MWWorker::master_mach_name[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>master_mach_name</name>
+        <briefdescription>
+<para>The name of the master machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="84" column="1" bodyfile="src/MWWorker.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMWWorker_1a87f6c0b746b3bb065600a37a024bb27d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWWorker::workerid</definition>
+        <argsstring></argsstring>
+        <name>workerid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="184" column="1" bodyfile="src/MWWorker.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMWWorker_1a206f250e302ff46e6da8298140268710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MWWorker::MWWorker</definition>
+        <argsstring>()</argsstring>
+        <name>MWWorker</name>
+        <briefdescription>
+<para>Default constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="54" column="1" bodyfile="src/MWWorker.C" bodystart="28" bodyend="32"/>
+        <references refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" compoundref="MWWorker_8h" startline="73">master</references>
+        <references refid="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" compoundref="MWWorker_8h" startline="77">workingTask</references>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a5162af053c4ee7e0e01f680d6792ffa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MWWorker::~MWWorker</definition>
+        <argsstring>()</argsstring>
+        <name>~MWWorker</name>
+        <briefdescription>
+<para>Default Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="57" column="1" bodyfile="src/MWWorker.C" bodystart="34" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWWorker::go</definition>
+        <argsstring>(int argc, char *argv[])</argsstring>
+        <name>go</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>Giddyap! </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="60" column="1" bodyfile="src/MWWorker.C" bodystart="50" bodyend="66"/>
+        <references refid="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" compoundref="MWWorker_8h" startline="77">workingTask</references>
+        <references refid="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" compoundref="MWWorker_8h" startline="68">RMC</references>
+        <references refid="classMWRMComm_1a6c500b03f49fbab5a879dfec1f8c492e">MWRMComm::setup</references>
+        <references refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" compoundref="MWWorker_8h" startline="73">master</references>
+        <references refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</references>
+        <references refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</references>
+        <referencedby refid="classMWDriver_1a0dfb4201b9bce44ba2a59019f7fc2dd2" compoundref="MWDriver_8C" startline="3389" endline="3406">MWDriver::addSortedTasks</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1aebb56958c01c2cdc0457348c9784b4c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWReturn</type>
+        <definition>MWReturn MWWorker::do_benchmark_cmd</definition>
+        <argsstring>()</argsstring>
+        <name>do_benchmark_cmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="62" column="1" bodyfile="src/MWWorker.C" bodystart="95" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1ab36420a16258463f33625a482c7eda1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWReturn</type>
+        <definition>MWReturn MWWorker::worker_mainloop_oneshot</definition>
+        <argsstring>()</argsstring>
+        <name>worker_mainloop_oneshot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="64" column="1" bodyfile="src/MWWorker.C" bodystart="181" bodyend="479"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1abbf8a1d6f324842dc59cc2518b2b91d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWWorker::send_update_message</definition>
+        <argsstring>()</argsstring>
+        <name>send_update_message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="176" column="1" bodyfile="src/MWWorker.C" bodystart="494" bodyend="497"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a9aa6c3bf91fc664fae932e4b8e669b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWWorker::check_update_message</definition>
+        <argsstring>()</argsstring>
+        <name>check_update_message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="179" column="1" bodyfile="src/MWWorker.C" bodystart="500" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a5c88f62b7cb0269ec2e9cf25a0fb23b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWWorker::unpack_update</definition>
+        <argsstring>()</argsstring>
+        <name>unpack_update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="182" column="1" bodyfile="src/MWWorker.h" bodystart="182" bodyend="182"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWWorker::pack_worker_initinfo</definition>
+        <argsstring>()</argsstring>
+        <name>pack_worker_initinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Here we might in the future pack some useful information about the specific machine on which we&apos;re running. Right now, all workers are equal, and we pass only the hostname.</para><para>There must be a &quot;matching&quot; unpack_worker_initinfo() in the <ref refid="classMWDriver" kindref="compound">MWDriver</ref> class. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="94" column="1" bodyfile="src/MWWorker.h" bodystart="94" bodyend="94"/>
+        <references refid="classMWWorker_1ad25d07ada482a0db02baa4ff1d8023e9" compoundref="MWWorker_8C" startline="39" endline="48">benchmark</references>
+        <references refid="classMWWorker_1aa831917347c8f33026a75a5b8df94406">execute_task</references>
+        <references refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767">unpack_init_data</references>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>MWReturn</type>
+        <definition>virtual MWReturn MWWorker::unpack_init_data</definition>
+        <argsstring>()=0</argsstring>
+        <name>unpack_init_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This unpacks the initial data that is sent to the worker once the master knows that he has started.</para><para>There must be a &quot;matching&quot; pack_worker_init_data() in the <ref refid="classMWDriver" kindref="compound">MWDriver</ref> class derived for your application. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="107" column="1"/>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" compoundref="MWWorker_8h" startline="94" endline="94">pack_worker_initinfo</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1aa831917347c8f33026a75a5b8df94406" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWWorker::execute_task</definition>
+        <argsstring>(MWTask *)=0</argsstring>
+        <name>execute_task</name>
+        <param>
+          <type><ref refid="classMWTask" kindref="compound">MWTask</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This function performs the actions that happen once the Worker finds out there is a task to do. You will need to cast the <ref refid="classMWTask" kindref="compound">MWTask</ref> * to a pointer of the Task type derived for your application. For example</para><para>{verbatim} Task_Fib *dt = dynamic_cast&lt;Task_Fib *&gt; ( t ); assert( dt ); {verbatim} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="120" column="1"/>
+        <referencedby refid="classMWWorker_1ad25d07ada482a0db02baa4ff1d8023e9" compoundref="MWWorker_8C" startline="39" endline="48">benchmark</referencedby>
+        <referencedby refid="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" compoundref="MWWorker_8h" startline="94" endline="94">pack_worker_initinfo</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1ad25d07ada482a0db02baa4ff1d8023e9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>double</type>
+        <definition>double MWWorker::benchmark</definition>
+        <argsstring>(MWTask *t)</argsstring>
+        <name>benchmark</name>
+        <param>
+          <type><ref refid="classMWTask" kindref="compound">MWTask</ref> *</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This function performs the action that happens once the worker receives a subtask. Subtask id starts at 0 and ends at n-1 subtasks.</para><para>Deprecated - changing subtask model for container of tasks model The number of subtasks per worker is defined here. If this function is not implemented, then data streaming/subtasks is turned off and Master-Worker executes normally.</para><para>Deprecated - changing subtask model for container of tasks modelRun a benchmark, given an MWTASK. The default implementation is to call {verbatim} execute_task(t) {verbatim} and return 1.0/(Task Time) as a benchmark of how fast the machine is </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="144" column="1" bodyfile="src/MWWorker.C" bodystart="39" bodyend="48"/>
+        <references refid="classMWWorker_1aa831917347c8f33026a75a5b8df94406">execute_task</references>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" compoundref="MWWorker_8h" startline="94" endline="94">pack_worker_initinfo</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWWorker::unpack_driver_task_data</definition>
+        <argsstring>(void)</argsstring>
+        <name>unpack_driver_task_data</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If you have some driver data that you would like to use on the worker in order to execute the task, you should unpack it here. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="150" column="1" bodyfile="src/MWWorker.h" bodystart="150" bodyend="150"/>
+        <references refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</references>
+        <references refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">suicide</references>
+        <references refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</references>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWReturn</type>
+        <definition>MWReturn MWWorker::greet_master</definition>
+        <argsstring>()</argsstring>
+        <name>greet_master</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This is run before the <ref refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" kindref="member">worker_mainloop()</ref>. It prints a message that the worker has been spawned, sends the master an INIT message, and awaits a reply from the master, upon which it calls <ref refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767" kindref="member">unpack_init_data()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="159" column="1" bodyfile="src/MWWorker.C" bodystart="68" bodyend="93"/>
+        <references refid="classMWWorker_1ad25d07ada482a0db02baa4ff1d8023e9" compoundref="MWWorker_8C" startline="39" endline="48">benchmark</references>
+        <references refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd">MWRMComm::bufinfo</references>
+        <references refid="classMWRMComm_1ab4ce8dae654516f77d20fc912da3e188">MWRMComm::exit</references>
+        <references refid="classMWRMComm_1a12c2add8bea8577d5d150c49c7d42e5d">MWRMComm::initsend</references>
+        <references refid="classMWWorker_1a483214a078c164ece7b4b545761b48a1" compoundref="MWWorker_8h" startline="81">mach_name</references>
+        <references refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" compoundref="MWWorker_8h" startline="73">master</references>
+        <references refid="classMWWorker_1a1a4ee2d03564b36547585e068f0c1bad" compoundref="MWWorker_8h" startline="84">master_mach_name</references>
+        <references refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4">MWRMComm::pack</references>
+        <references refid="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" compoundref="MWWorker_8h" startline="94" endline="94">pack_worker_initinfo</references>
+        <references refid="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8">MWRMComm::recv</references>
+        <references refid="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" compoundref="MWWorker_8h" startline="68">RMC</references>
+        <references refid="classMWRMComm_1abfe166a1b1c70e35069fbc0f1beb250f">MWRMComm::send</references>
+        <references refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f">MWRMComm::unpack</references>
+        <references refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767">unpack_init_data</references>
+        <references refid="classMWTask_1ac5802dedca5470a9a12cd2a6cdab17d3">MWTask::unpack_work</references>
+        <references refid="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" compoundref="MWWorker_8h" startline="77">workingTask</references>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">go</referencedby>
+        <referencedby refid="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" compoundref="MWWorker_8h" startline="150" endline="150">unpack_driver_task_data</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWWorker::worker_mainloop</definition>
+        <argsstring>()</argsstring>
+        <name>worker_mainloop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This sits in a loop in which it asks for work from the master and does the work. Maybe we should name this class GradStudent. { :-)} </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="166" column="1" bodyfile="src/MWWorker.C" bodystart="174" bodyend="179"/>
+        <references refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd">MWRMComm::bufinfo</references>
+        <references refid="classMWWorker_1aa831917347c8f33026a75a5b8df94406">execute_task</references>
+        <references refid="classMWRMComm_1ab4ce8dae654516f77d20fc912da3e188">MWRMComm::exit</references>
+        <references refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">greet_master</references>
+        <references refid="classMWRMComm_1a12c2add8bea8577d5d150c49c7d42e5d">MWRMComm::initsend</references>
+        <references refid="classMWWorker_1a483214a078c164ece7b4b545761b48a1" compoundref="MWWorker_8h" startline="81">mach_name</references>
+        <references refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" compoundref="MWWorker_8h" startline="73">master</references>
+        <references refid="classMWTask_1ad133dd1be9c974871a1564e78eed8715" compoundref="MWTask_8h" startline="66">MWTask::number</references>
+        <references refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4">MWRMComm::pack</references>
+        <references refid="classMWTask_1a75f9ac3f76cbca33c6c8bd18ea3c0bab">MWTask::pack_results</references>
+        <references refid="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8">MWRMComm::recv</references>
+        <references refid="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" compoundref="MWWorker_8h" startline="68">RMC</references>
+        <references refid="classMWRMComm_1abfe166a1b1c70e35069fbc0f1beb250f">MWRMComm::send</references>
+        <references refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">suicide</references>
+        <references refid="classMWTask_1a3899784f624c803ae211ab781f180ca3" compoundref="MWTask_8h" startline="70">MWTask::taskType</references>
+        <references refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f">MWRMComm::unpack</references>
+        <references refid="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" compoundref="MWWorker_8h" startline="150" endline="150">unpack_driver_task_data</references>
+        <references refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767">unpack_init_data</references>
+        <references refid="classMWTask_1ac5802dedca5470a9a12cd2a6cdab17d3">MWTask::unpack_work</references>
+        <references refid="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" compoundref="MWWorker_8h" startline="77">workingTask</references>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">go</referencedby>
+        <referencedby refid="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" compoundref="MWWorker_8h" startline="150" endline="150">unpack_driver_task_data</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWWorker::suicide</definition>
+        <argsstring>()</argsstring>
+        <name>suicide</name>
+        <briefdescription>
+<para>Die!!!!!! </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWWorker.h" line="169" column="1" bodyfile="src/MWWorker.C" bodystart="484" bodyend="489"/>
+        <references refid="classMWWorker_1a483214a078c164ece7b4b545761b48a1" compoundref="MWWorker_8h" startline="81">mach_name</references>
+        <references refid="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" compoundref="MWWorker_8h" startline="68">RMC</references>
+        <references refid="classMWRMComm_1ab4ce8dae654516f77d20fc912da3e188">MWRMComm::exit</references>
+        <references refid="classMWRMComm_1abfe166a1b1c70e35069fbc0f1beb250f">MWRMComm::send</references>
+        <references refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" compoundref="MWWorker_8h" startline="73">master</references>
+        <references refid="classMWRMComm_1a96b1eb6dd9c1d3f25ae63ac375f7206c" compoundref="MWRMComm_8h" startline="323" endline="323">MWRMComm::nrecv</references>
+        <references refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd">MWRMComm::bufinfo</references>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">worker_mainloop</referencedby>
+        <referencedby refid="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" compoundref="MWWorker_8h" startline="150" endline="150">unpack_driver_task_data</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This is the worker class that performs the tasks in the opportunistic condor environment. It is an oppressed worker class in that in simply executes the tasks given to it and reports the results back to the master. { :-)}</para><para>Capitalist stooges who wish to create an application must derive a class from this class, and implement the following two methods</para><para>{itemize}  <ref refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767" kindref="member">unpack_init_data()</ref>  <ref refid="classMWWorker_1aa831917347c8f33026a75a5b8df94406" kindref="member">execute_task()</ref> {itemize}</para><para><simplesect kind="see"><para><ref refid="classMWDriver" kindref="compound">MWDriver</ref> </para></simplesect>
+<simplesect kind="see"><para><ref refid="classMWWorker" kindref="compound">MWWorker</ref> </para></simplesect>
+<simplesect kind="author"><para>Mike Yoder, modified by Jeff Linderoth and Jean-Pierre Goux </para></simplesect>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="13">
+        <label>MWRMComm</label>
+        <link refid="classMWRMComm"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>worker_executables</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>MWWorker</label>
+        <link refid="classMWWorker"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>RMC</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>workingTask</edgelabel>
+          <edgelabel>controlTask</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>MWTask</label>
+        <link refid="classMWTask"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>RMC</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>RMC_executable</label>
+        <link refid="structRMC__executable"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/MWWorker.h" line="49" column="1" bodyfile="src/MWWorker.h" bodystart="48" bodyend="185"/>
+    <listofallmembers>
+      <member refid="classMWWorker_1ad25d07ada482a0db02baa4ff1d8023e9" prot="protected" virt="virtual"><scope>MWWorker</scope><name>benchmark</name></member>
+      <member refid="classMWWorker_1a9aa6c3bf91fc664fae932e4b8e669b45" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>check_update_message</name></member>
+      <member refid="classMWWorker_1a881f8e6d0dfb3c21f49dad7ff50e64f1" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>controlTask</name></member>
+      <member refid="classMWWorker_1aebb56958c01c2cdc0457348c9784b4c2" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>do_benchmark_cmd</name></member>
+      <member refid="classMWWorker_1aa831917347c8f33026a75a5b8df94406" prot="protected" virt="pure-virtual"><scope>MWWorker</scope><name>execute_task</name></member>
+      <member refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>go</name></member>
+      <member refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>greet_master</name></member>
+      <member refid="classMWWorker_1a483214a078c164ece7b4b545761b48a1" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>mach_name</name></member>
+      <member refid="classMWWorker_1a7511ee3da13dac338c4d0d97a589937b" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>master</name></member>
+      <member refid="classMWWorker_1a1a4ee2d03564b36547585e068f0c1bad" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>master_mach_name</name></member>
+      <member refid="classMWWorker_1a206f250e302ff46e6da8298140268710" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>MWWorker</name></member>
+      <member refid="classMWWorker_1a8a71e471b6376a829ea9ec716f723ae8" prot="protected" virt="virtual"><scope>MWWorker</scope><name>pack_worker_initinfo</name></member>
+      <member refid="classMWWorker_1ae5af340f99b0562ba20114c183d444f6" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>RMC</name></member>
+      <member refid="classMWWorker_1abbf8a1d6f324842dc59cc2518b2b91d1" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>send_update_message</name></member>
+      <member refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>suicide</name></member>
+      <member refid="classMWWorker_1a2c5ef75df666407d7268f51a86143eb6" prot="protected" virt="virtual"><scope>MWWorker</scope><name>unpack_driver_task_data</name></member>
+      <member refid="classMWWorker_1a3643c48f110d3f26e4d9aef00569d767" prot="protected" virt="pure-virtual"><scope>MWWorker</scope><name>unpack_init_data</name></member>
+      <member refid="classMWWorker_1a5c88f62b7cb0269ec2e9cf25a0fb23b0" prot="public" virt="virtual"><scope>MWWorker</scope><name>unpack_update</name></member>
+      <member refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>worker_mainloop</name></member>
+      <member refid="classMWWorker_1ab36420a16258463f33625a482c7eda1c" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>worker_mainloop_oneshot</name></member>
+      <member refid="classMWWorker_1a87f6c0b746b3bb065600a37a024bb27d" prot="public" virt="non-virtual"><scope>MWWorker</scope><name>workerid</name></member>
+      <member refid="classMWWorker_1acbd928ad8c2d7a66b9077d5127408bed" prot="protected" virt="non-virtual"><scope>MWWorker</scope><name>workingTask</name></member>
+      <member refid="classMWWorker_1a5162af053c4ee7e0e01f680d6792ffa1" prot="public" virt="virtual"><scope>MWWorker</scope><name>~MWWorker</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

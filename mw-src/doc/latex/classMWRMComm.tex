@@ -1,0 +1,650 @@
+\hypertarget{classMWRMComm}{}\section{M\+W\+R\+M\+Comm Class Reference}
+\label{classMWRMComm}\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMWRMComm_a94ada3d2aa96190bf5444dfc64dd7147}{M\+W\+R\+M\+Comm} ()
+\item 
+\mbox{\Hypertarget{classMWRMComm_a88c434d97ad8a782d22497719d2ebc64}\label{classMWRMComm_a88c434d97ad8a782d22497719d2ebc64}} 
+virtual \hyperlink{classMWRMComm_a88c434d97ad8a782d22497719d2ebc64}{$\sim$\+M\+W\+R\+M\+Comm} ()
+\begin{DoxyCompactList}\small\item\em Destructor... \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a2eb445f774968a712a8f966dc1e09f40}\label{classMWRMComm_a2eb445f774968a712a8f966dc1e09f40}} 
+double {\bfseries get\+\_\+bytes\+\_\+packed} () const
+\item 
+\mbox{\Hypertarget{classMWRMComm_aa3573b54682780279675f833417cc16d}\label{classMWRMComm_aa3573b54682780279675f833417cc16d}} 
+double {\bfseries get\+\_\+bytes\+\_\+unpacked} () const
+\item 
+\mbox{\Hypertarget{classMWRMComm_a9032f22c8dfd857af4a26fa69f19e024}\label{classMWRMComm_a9032f22c8dfd857af4a26fa69f19e024}} 
+virtual int {\bfseries recv\+\_\+all} (int from\+\_\+whom, int msgtag)=0
+\item 
+\mbox{\Hypertarget{classMWRMComm_ad802e30a8f9304241cd60d39bdceae73}\label{classMWRMComm_ad802e30a8f9304241cd60d39bdceae73}} 
+virtual int {\bfseries setrbuf} (int bid)=0
+\item 
+\mbox{\Hypertarget{classMWRMComm_ad0019f50d9f820af6160e4c19055f803}\label{classMWRMComm_ad0019f50d9f820af6160e4c19055f803}} 
+virtual int {\bfseries freebuf} (int bid)=0
+\item 
+\mbox{\Hypertarget{classMWRMComm_afe97af8616485b9e8aca183fbca3417b}\label{classMWRMComm_afe97af8616485b9e8aca183fbca3417b}} 
+virtual int {\bfseries next\+\_\+buf} ()=0
+\item 
+\mbox{\Hypertarget{classMWRMComm_ad8cbe06f00312db9397a04394b931130}\label{classMWRMComm_ad8cbe06f00312db9397a04394b931130}} 
+virtual M\+W\+List$<$ void $>$ $\ast$ {\bfseries recv\+\_\+buffers} ()=0
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ A. Resource Management Functions}\par
+{\em Here are all the methods you could want to have for managing a set of machines. See each method for details... }\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classMWRMComm_ab4ce8dae654516f77d20fc912da3e188}{exit} (int exitval)
+\item 
+virtual int \hyperlink{classMWRMComm_a6c500b03f49fbab5a879dfec1f8c492e}{setup} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, int $\ast$my\+\_\+id, int $\ast$master\+\_\+id)=0
+\item 
+virtual int \hyperlink{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}{config} (int $\ast$nhosts, int $\ast$narches, M\+W\+Worker\+ID $\ast$$\ast$$\ast$w)
+\item 
+virtual int \hyperlink{classMWRMComm_a0064a409542e4308c77eb598b161138e}{start\+\_\+worker} (M\+W\+Worker\+ID $\ast$w)=0
+\item 
+virtual int \hyperlink{classMWRMComm_a50088a80976b2aee031e987393bceeb2}{init\+\_\+beginning\+\_\+workers} (int $\ast$nworkers, M\+W\+Worker\+ID $\ast$$\ast$$\ast$workers)=0
+\item 
+virtual int \hyperlink{classMWRMComm_a532c61bca2f954df18a46fb4f1578606}{remove\+Worker} (M\+W\+Worker\+ID $\ast$w)=0
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ B. Checkpointing Functions}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual int \hyperlink{classMWRMComm_a497ab814d1bc00c8fa562e85c2fd6570}{write\+\_\+checkpoint} (F\+I\+LE $\ast$fp)
+\item 
+virtual int \hyperlink{classMWRMComm_ac04df4ffaa419034cf0ee335cd932dcd}{read\+\_\+checkpoint} (F\+I\+LE $\ast$fp)
+\item 
+virtual int \hyperlink{classMWRMComm_afeb6975c08febef60274b552090fdc95}{read\+\_\+\+R\+Mstate} (F\+I\+LE $\ast$fp)
+\item 
+\mbox{\Hypertarget{classMWRMComm_a7570e146ed6b1c42a20fa015ddc1b823}\label{classMWRMComm_a7570e146ed6b1c42a20fa015ddc1b823}} 
+virtual int {\bfseries write\+\_\+\+R\+Mstate} (F\+I\+LE $\ast$fp)
+\item 
+virtual int \hyperlink{classMWRMComm_a831a7994d307d075f877b4415cb65657}{restart\+\_\+beginning\+\_\+workers} (int $\ast$num, M\+W\+Worker\+ID $\ast$$\ast$$\ast$temp\+Workers, M\+Wmessages msg)=0
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ The Communication Routines}\par
+{\em These message passing routines are very closely modeled on P\+VM\textquotesingle{}s message passing facility. They are, however, pretty generic in that any message passing interface should be able to implement them. }\begin{DoxyCompactItemize}
+\item 
+virtual int \hyperlink{classMWRMComm_a12c2add8bea8577d5d150c49c7d42e5d}{initsend} (int encoding=0)=0
+\item 
+virtual int \hyperlink{classMWRMComm_abfe166a1b1c70e35069fbc0f1beb250f}{send} (int to\+\_\+whom, int msgtag)=0
+\item 
+virtual int \hyperlink{classMWRMComm_a9f10630a68baee310e48d0df33fb2dd8}{recv} (int from\+\_\+whom, int msgtag)=0
+\item 
+virtual int \hyperlink{classMWRMComm_a96b1eb6dd9c1d3f25ae63ac375f7206c}{nrecv} (int from\+\_\+whom, int msgtag)
+\item 
+virtual int \hyperlink{classMWRMComm_a7670401dc33950de354e41183dd392cd}{bufinfo} (int buf\+\_\+id, int $\ast$len, int $\ast$tag, int $\ast$from)=0
+\item 
+virtual void \hyperlink{classMWRMComm_acb947438d2447b15a0d621392802ff2e}{who} (int $\ast$wh)=0
+\item 
+virtual void \hyperlink{classMWRMComm_a8cc7e0fa6b024fe7441fca581b4edf83}{hostadd} ()
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Pack Functions}\par
+{\em In the following \hyperlink{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}{pack()} functions, there are some common themes. First, each stuffs some data into a buffer to be sent. The nitem parameter is just a count of the number of items. The stride parameter specifies {\itshape which} items to pack. 1 implies all, 2 would be every 2nd item, 3 is every 3rd item, etc.
+
+The return value is user defined. It should be standardized, but I\textquotesingle{}ll do that later. }\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}\label{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}} 
+virtual int \hyperlink{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}{pack} (const char $\ast$bytes, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em Pack some bytes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a247f848fbef158e09d9fa01020c2e7ae}\label{classMWRMComm_a247f848fbef158e09d9fa01020c2e7ae}} 
+virtual int \hyperlink{classMWRMComm_a247f848fbef158e09d9fa01020c2e7ae}{pack} (const float $\ast$f, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em float \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a00262ce5d015b7ede73b7b68b9d9306e}\label{classMWRMComm_a00262ce5d015b7ede73b7b68b9d9306e}} 
+virtual int \hyperlink{classMWRMComm_a00262ce5d015b7ede73b7b68b9d9306e}{pack} (const double $\ast$d, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em double \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_ae0da5373d13493779930df6121e78558}\label{classMWRMComm_ae0da5373d13493779930df6121e78558}} 
+virtual int \hyperlink{classMWRMComm_ae0da5373d13493779930df6121e78558}{pack} (const int $\ast$i, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em int \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_acd1255e2b9c9af469c9d44c28b1cc530}\label{classMWRMComm_acd1255e2b9c9af469c9d44c28b1cc530}} 
+virtual int \hyperlink{classMWRMComm_acd1255e2b9c9af469c9d44c28b1cc530}{pack} (const unsigned int $\ast$ui, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned int \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a67a843ece78582381c2f5bb43b1fecb1}\label{classMWRMComm_a67a843ece78582381c2f5bb43b1fecb1}} 
+virtual int \hyperlink{classMWRMComm_a67a843ece78582381c2f5bb43b1fecb1}{pack} (const short $\ast$sh, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em short \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a1e0c5e96072b649676c5ee41637da973}\label{classMWRMComm_a1e0c5e96072b649676c5ee41637da973}} 
+virtual int \hyperlink{classMWRMComm_a1e0c5e96072b649676c5ee41637da973}{pack} (const unsigned short $\ast$ush, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned short \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a11ab3f7099236acb71b32271a1b31cc8}\label{classMWRMComm_a11ab3f7099236acb71b32271a1b31cc8}} 
+virtual int \hyperlink{classMWRMComm_a11ab3f7099236acb71b32271a1b31cc8}{pack} (const long $\ast$l, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em long \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a60cf34f0d51540b7aac88b43eabdf6ef}\label{classMWRMComm_a60cf34f0d51540b7aac88b43eabdf6ef}} 
+virtual int \hyperlink{classMWRMComm_a60cf34f0d51540b7aac88b43eabdf6ef}{pack} (const unsigned long $\ast$ul, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned long \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a28ff1802b9abdf3b7e9d8d927ecc0308}\label{classMWRMComm_a28ff1802b9abdf3b7e9d8d927ecc0308}} 
+virtual int \hyperlink{classMWRMComm_a28ff1802b9abdf3b7e9d8d927ecc0308}{pack} (const char $\ast$string)=0
+\begin{DoxyCompactList}\small\item\em Pack a N\+U\+L\+L-\/terminated string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Unpack Functions}\par
+{\em These unpack functions unpack data packed with the \hyperlink{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}{pack()} functions. See the \hyperlink{classMWRMComm_a611ac04479ee1c3731cf459427d18fb4}{pack()} functions for more details. }\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}\label{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}} 
+virtual int \hyperlink{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}{unpack} (char $\ast$bytes, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em Unpack some bytes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a7e2abe0edd1daee09e8dedf33b6ad76d}\label{classMWRMComm_a7e2abe0edd1daee09e8dedf33b6ad76d}} 
+virtual int \hyperlink{classMWRMComm_a7e2abe0edd1daee09e8dedf33b6ad76d}{unpack} (float $\ast$f, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em float \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a477b4686600d40320ae1c39caed4aca1}\label{classMWRMComm_a477b4686600d40320ae1c39caed4aca1}} 
+virtual int \hyperlink{classMWRMComm_a477b4686600d40320ae1c39caed4aca1}{unpack} (double $\ast$d, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em double \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a28fc7b564580ee8d1fb0307e36b7d4f8}\label{classMWRMComm_a28fc7b564580ee8d1fb0307e36b7d4f8}} 
+virtual int \hyperlink{classMWRMComm_a28fc7b564580ee8d1fb0307e36b7d4f8}{unpack} (int $\ast$i, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em int \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_aa8e6d63675e60f4323eba279906b98c1}\label{classMWRMComm_aa8e6d63675e60f4323eba279906b98c1}} 
+virtual int \hyperlink{classMWRMComm_aa8e6d63675e60f4323eba279906b98c1}{unpack} (unsigned int $\ast$ui, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned int \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a95a4054e0b75b56b7318c3d6756a4a33}\label{classMWRMComm_a95a4054e0b75b56b7318c3d6756a4a33}} 
+virtual int \hyperlink{classMWRMComm_a95a4054e0b75b56b7318c3d6756a4a33}{unpack} (short $\ast$sh, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em short \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a8778534aaef8a935bf43f7a3b5edcdc5}\label{classMWRMComm_a8778534aaef8a935bf43f7a3b5edcdc5}} 
+virtual int \hyperlink{classMWRMComm_a8778534aaef8a935bf43f7a3b5edcdc5}{unpack} (unsigned short $\ast$ush, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned short \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a0c4b6e41adbef7bfb4c26e120dd2d3f0}\label{classMWRMComm_a0c4b6e41adbef7bfb4c26e120dd2d3f0}} 
+virtual int \hyperlink{classMWRMComm_a0c4b6e41adbef7bfb4c26e120dd2d3f0}{unpack} (long $\ast$l, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em long \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a789b8c27745d87118d1eb951518499ac}\label{classMWRMComm_a789b8c27745d87118d1eb951518499ac}} 
+virtual int \hyperlink{classMWRMComm_a789b8c27745d87118d1eb951518499ac}{unpack} (unsigned long $\ast$ul, int nitem, int stride=1)=0
+\begin{DoxyCompactList}\small\item\em unsigned long \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a277f159c464e1977f5fa5ef04f377f6c}\label{classMWRMComm_a277f159c464e1977f5fa5ef04f377f6c}} 
+virtual int \hyperlink{classMWRMComm_a277f159c464e1977f5fa5ef04f377f6c}{unpack} (char $\ast$string)=0
+\begin{DoxyCompactList}\small\item\em Unpack a N\+U\+L\+L-\/terminated string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+M\+W\+List$<$ void $>$ $\ast$ \hyperlink{classMWRMComm_ac0edce61ba0263a04a569df694397fe1}{recv\+\_\+buf\+\_\+list}
+\item 
+\mbox{\Hypertarget{classMWRMComm_a859f4795dc121dcf92e5cd62b4447fe3}\label{classMWRMComm_a859f4795dc121dcf92e5cd62b4447fe3}} 
+double \hyperlink{classMWRMComm_a859f4795dc121dcf92e5cd62b4447fe3}{bytes\+\_\+packed\+\_\+}
+\begin{DoxyCompactList}\small\item\em Keeps the number of bytes packed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_a0af7c21bc9a76df3135ed4d638bbb514}\label{classMWRMComm_a0af7c21bc9a76df3135ed4d638bbb514}} 
+double \hyperlink{classMWRMComm_a0af7c21bc9a76df3135ed4d638bbb514}{bytes\+\_\+unpacked\+\_\+}
+\begin{DoxyCompactList}\small\item\em Holds the number of bytes unpacked. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWRMComm_ac3dcc3a36f06b163e83dc4661028cddd}\label{classMWRMComm_ac3dcc3a36f06b163e83dc4661028cddd}} 
+class {\bfseries M\+W\+Driver}
+\end{DoxyCompactItemize}
+\subsection*{C. Executable Management Interface functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classMWRMComm_adc0160ae06e86f3a9287b20d0a2f50f4}{exec\+\_\+classes}
+\item 
+int \hyperlink{classMWRMComm_a34760512eb56356d6581e18475f77050}{num\+\_\+arches}
+\item 
+char $\ast$$\ast$ \hyperlink{classMWRMComm_a0e22f07e5fbc90f5fc746c4c1195067b}{arch\+\_\+class\+\_\+attributes}
+\item 
+int \hyperlink{classMWRMComm_acf783eaa2bac49d0cca1b403725d8f66}{num\+\_\+executables}
+\item 
+\mbox{\Hypertarget{classMWRMComm_aa81c7090bff5f936a6e0eeb5679a7ee7}\label{classMWRMComm_aa81c7090bff5f936a6e0eeb5679a7ee7}} 
+int {\bfseries tempnum\+\_\+executables}
+\item 
+struct \hyperlink{structRMC__executable}{R\+M\+C\+\_\+executable} $\ast$$\ast$ \hyperlink{classMWRMComm_af444e4e9104d9a9b7ee35e3e4d025bb6}{worker\+\_\+executables}
+\item 
+\mbox{\Hypertarget{classMWRMComm_ad51b57f12bcd01fbecb78c0c060df60d}\label{classMWRMComm_ad51b57f12bcd01fbecb78c0c060df60d}} 
+bool \hyperlink{classMWRMComm_ad51b57f12bcd01fbecb78c0c060df60d}{worker\+\_\+checkpointing}
+\begin{DoxyCompactList}\small\item\em Would you like the workers to be checkpointed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWRMComm_ac81fec5e34fee7d872fcdacf9ab3b01a}\label{classMWRMComm_ac81fec5e34fee7d872fcdacf9ab3b01a}} 
+int $\ast$ {\bfseries M\+W\+\_\+exec\+\_\+class\+\_\+num\+\_\+workers}
+\item 
+void \hyperlink{classMWRMComm_a78424915f8da7195a01008ae5977da32}{set\+\_\+num\+\_\+exec\+\_\+classes} (int num)
+\item 
+int \hyperlink{classMWRMComm_ac74cbe518e434e9796eba40687a3ec6b}{get\+\_\+num\+\_\+exec\+\_\+classes} ()
+\item 
+void \hyperlink{classMWRMComm_a37e1550401acab038a3f1d94f8c50669}{set\+\_\+num\+\_\+arch\+\_\+classes} (int n)
+\item 
+void \hyperlink{classMWRMComm_acc1a551c808ef615fd02992f0ab9fffb}{set\+\_\+arch\+\_\+class\+\_\+attributes} (int arch\+\_\+class, const char $\ast$attr)
+\item 
+int \hyperlink{classMWRMComm_a13a4ea4e7279c556ad1608c0b250a33f}{get\+\_\+num\+\_\+arch\+\_\+classes} ()
+\item 
+void \hyperlink{classMWRMComm_a874259ae975681f5bbac122c119c2067}{set\+\_\+num\+\_\+executables} (int num)
+\item 
+\mbox{\Hypertarget{classMWRMComm_ad55f08e4878d4e2c241538bba4711b28}\label{classMWRMComm_ad55f08e4878d4e2c241538bba4711b28}} 
+int {\bfseries get\+\_\+num\+\_\+executables} ()
+\item 
+void \hyperlink{classMWRMComm_ad45f645fdb840975d25614217626532d}{add\+\_\+executable} (int exec\+\_\+class, int arch\+\_\+class, char $\ast$exec\+\_\+name, char $\ast$requirements)
+\item 
+\mbox{\Hypertarget{classMWRMComm_aeb6d7df2a7d9c633539837aa5e1778d8}\label{classMWRMComm_aeb6d7df2a7d9c633539837aa5e1778d8}} 
+void {\bfseries add\+\_\+executable} (const char $\ast$exec\+\_\+name, const char $\ast$requirements)
+\item 
+virtual char $\ast$ \hyperlink{classMWRMComm_a10818d71f30ad62b5d747e0b5ef07d68}{process\+\_\+executable\+\_\+name} (char $\ast$exec\+\_\+name, int ex\+\_\+cl, int num\+\_\+arc)
+\item 
+virtual void \hyperlink{classMWRMComm_abff2205c7cd05ba73701b5e813873e46}{set\+\_\+worker\+\_\+checkpointing} (bool wc)
+\end{DoxyCompactItemize}
+\subsection*{D. Host Management Members}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classMWRMComm_ada92e3d26d11d240b121b7452a5ac7f9}{target\+\_\+num\+\_\+workers}
+\item 
+int $\ast$ \hyperlink{classMWRMComm_ab61af84df9df94c41c9f3c428775b58a}{exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers}
+\item 
+int \hyperlink{classMWRMComm_a6c742808ed04090144b1247933b2ff7e}{hostinc\+\_\+}
+\item 
+void \hyperlink{classMWRMComm_a9723b0a13c493923e1282d7832b86b65}{set\+\_\+target\+\_\+num\+\_\+workers} (int num\+\_\+workers)
+\item 
+\mbox{\Hypertarget{classMWRMComm_ace352001b604de4cd829960414fcb09d}\label{classMWRMComm_ace352001b604de4cd829960414fcb09d}} 
+void {\bfseries set\+\_\+target\+\_\+num\+\_\+workers} (int exec\+\_\+class, int num\+\_\+workers)
+\item 
+\mbox{\Hypertarget{classMWRMComm_ab662b2fc47855cd46d9b6a9ba2f552e8}\label{classMWRMComm_ab662b2fc47855cd46d9b6a9ba2f552e8}} 
+int {\bfseries get\+\_\+target\+\_\+num\+\_\+workers} (int exec\+\_\+class=-\/1)
+\item 
+void \hyperlink{classMWRMComm_adcb46dfbabd51a0690d70e39a0396659}{set\+\_\+worker\+\_\+increment} (int newinc)
+\item 
+\mbox{\Hypertarget{classMWRMComm_a89caf7a6465de613d392cf04a65430a1}\label{classMWRMComm_a89caf7a6465de613d392cf04a65430a1}} 
+int {\bfseries get\+\_\+worker\+\_\+increment} () const
+\item 
+virtual int \hyperlink{classMWRMComm_a4ded74716925e2213d6f898543491ce1}{hostaddlogic} (int $\ast$num\+\_\+workers)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMWRMComm_a94ada3d2aa96190bf5444dfc64dd7147}\label{classMWRMComm_a94ada3d2aa96190bf5444dfc64dd7147}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{M\+W\+R\+M\+Comm()}{MWRMComm()}}
+{\footnotesize\ttfamily M\+W\+R\+M\+Comm\+::\+M\+W\+R\+M\+Comm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor. Sets data to -\/1\textquotesingle{}s. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMWRMComm_ad45f645fdb840975d25614217626532d}\label{classMWRMComm_ad45f645fdb840975d25614217626532d}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!add\+\_\+executable@{add\+\_\+executable}}
+\index{add\+\_\+executable@{add\+\_\+executable}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{add\+\_\+executable()}{add\_executable()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::add\+\_\+executable (\begin{DoxyParamCaption}\item[{int}]{exec\+\_\+class,  }\item[{int}]{arch\+\_\+class,  }\item[{char $\ast$}]{exec\+\_\+name,  }\item[{char $\ast$}]{requirements }\end{DoxyParamCaption})}
+
+Set the name of the binary and the requirements string for an arch class. Technically, the requirements string is not needed for M\+W\+Pvm\+RC -\/ it is defined in the submit file. It {\itshape is} needed in the M\+W\+File\+RC, however, for job submission. 
+\begin{DoxyParams}{Parameters}
+{\em arch\+\_\+class} & This specifies which arch class the above requirements will apply to. \\
+\hline
+{\em exec\+\_\+name} & The name of the worker executable for this arch class. \\
+\hline
+{\em requirements} & A string containing the \char`\"{}requirements\char`\"{} attribute of a given arch class of workers. This will be something that can be used in a submit file, like \char`\"{}(arch == \textbackslash{}\char`\"{}I\+N\+T\+EL" \&\& opsys == "S\+O\+L\+A\+R\+I\+S26")" \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMWRMComm_a7670401dc33950de354e41183dd392cd}\label{classMWRMComm_a7670401dc33950de354e41183dd392cd}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!bufinfo@{bufinfo}}
+\index{bufinfo@{bufinfo}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{bufinfo()}{bufinfo()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::bufinfo (\begin{DoxyParamCaption}\item[{int}]{buf\+\_\+id,  }\item[{int $\ast$}]{len,  }\item[{int $\ast$}]{tag,  }\item[{int $\ast$}]{from }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Provide info on the message just received 
+
+Referenced by M\+W\+Driver\+::go(), M\+W\+Worker\+::greet\+\_\+master(), M\+W\+Worker\+::suicide(), and M\+W\+Worker\+::worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}\label{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!config@{config}}
+\index{config@{config}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{config()}{config()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::config (\begin{DoxyParamCaption}\item[{int $\ast$}]{nhosts,  }\item[{int $\ast$}]{narches,  }\item[{M\+W\+Worker\+ID $\ast$$\ast$$\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+This returns the state of the \char`\"{}virtual machine\char`\"{} -\/ aka the set of workers under the master\textquotesingle{}s control. 
+\begin{DoxyParams}{Parameters}
+{\em nhosts} & The number of hosts \\
+\hline
+{\em narches} & The number of architechture classes \\
+\hline
+{\em w} & A pointer to a pointer to an array of pointers. This should be N\+U\+LL when called; \hyperlink{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}{config()} will allocate the memory using new and return it to you. Don\textquotesingle{}t forget to delete not only the elements in that array, but also the array itself. The array will have nhosts elements, and they will each represent a worker machine. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMWRMComm_ab4ce8dae654516f77d20fc912da3e188}\label{classMWRMComm_ab4ce8dae654516f77d20fc912da3e188}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!exit@{exit}}
+\index{exit@{exit}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{exit()}{exit()}}
+{\footnotesize\ttfamily virtual void M\+W\+R\+M\+Comm\+::exit (\begin{DoxyParamCaption}\item[{int}]{exitval }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+System shutdown. Does not return. 
+\begin{DoxyParams}{Parameters}
+{\em exitval} & The value to call \+::exit() with \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by M\+W\+Driver\+::add\+Sorted\+Tasks(), M\+W\+Driver\+::add\+Tasks(), M\+W\+Driver\+::go(), M\+W\+Worker\+::greet\+\_\+master(), M\+W\+Worker\+::suicide(), and M\+W\+Worker\+::worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWRMComm_a13a4ea4e7279c556ad1608c0b250a33f}\label{classMWRMComm_a13a4ea4e7279c556ad1608c0b250a33f}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!get\+\_\+num\+\_\+arch\+\_\+classes@{get\+\_\+num\+\_\+arch\+\_\+classes}}
+\index{get\+\_\+num\+\_\+arch\+\_\+classes@{get\+\_\+num\+\_\+arch\+\_\+classes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{get\+\_\+num\+\_\+arch\+\_\+classes()}{get\_num\_arch\_classes()}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::get\+\_\+num\+\_\+arch\+\_\+classes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Return the number of arch classes \mbox{\Hypertarget{classMWRMComm_ac74cbe518e434e9796eba40687a3ec6b}\label{classMWRMComm_ac74cbe518e434e9796eba40687a3ec6b}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!get\+\_\+num\+\_\+exec\+\_\+classes@{get\+\_\+num\+\_\+exec\+\_\+classes}}
+\index{get\+\_\+num\+\_\+exec\+\_\+classes@{get\+\_\+num\+\_\+exec\+\_\+classes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{get\+\_\+num\+\_\+exec\+\_\+classes()}{get\_num\_exec\_classes()}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::get\+\_\+num\+\_\+exec\+\_\+classes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the above number 
+
+Referenced by M\+W\+Driver\+::delete\+\_\+tasks\+\_\+worse\+\_\+than(), and M\+W\+Driver\+::get\+\_\+workers\+\_\+head().
+
+\mbox{\Hypertarget{classMWRMComm_a8cc7e0fa6b024fe7441fca581b4edf83}\label{classMWRMComm_a8cc7e0fa6b024fe7441fca581b4edf83}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!hostadd@{hostadd}}
+\index{hostadd@{hostadd}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{hostadd()}{hostadd()}}
+{\footnotesize\ttfamily virtual void M\+W\+R\+M\+Comm\+::hostadd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Needed only for M\+W-\/\+Independent 
+
+Referenced by M\+W\+Driver\+::add\+Sorted\+Tasks().
+
+\mbox{\Hypertarget{classMWRMComm_a4ded74716925e2213d6f898543491ce1}\label{classMWRMComm_a4ded74716925e2213d6f898543491ce1}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!hostaddlogic@{hostaddlogic}}
+\index{hostaddlogic@{hostaddlogic}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{hostaddlogic()}{hostaddlogic()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::hostaddlogic (\begin{DoxyParamCaption}\item[{int $\ast$}]{num\+\_\+workers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This will figure out if we need to ask for more hosts or remove hosts. It is called whenever a host is added or removed from the system, or \hyperlink{classMWRMComm_a9723b0a13c493923e1282d7832b86b65}{set\+\_\+target\+\_\+num\+\_\+workers()} is called. 
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+workers} & A pointer to an array of length num\+\_\+arches that contains the number of workers for each arch class. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If we have more workers than we need, we return a positive number as the \char`\"{}excess\char`\"{} that can be deleted. 
+\end{DoxyReturn}
+
+
+Referenced by M\+W\+Driver\+::delete\+\_\+tasks\+\_\+worse\+\_\+than().
+
+\mbox{\Hypertarget{classMWRMComm_a50088a80976b2aee031e987393bceeb2}\label{classMWRMComm_a50088a80976b2aee031e987393bceeb2}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!init\+\_\+beginning\+\_\+workers@{init\+\_\+beginning\+\_\+workers}}
+\index{init\+\_\+beginning\+\_\+workers@{init\+\_\+beginning\+\_\+workers}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{init\+\_\+beginning\+\_\+workers()}{init\_beginning\_workers()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::init\+\_\+beginning\+\_\+workers (\begin{DoxyParamCaption}\item[{int $\ast$}]{nworkers,  }\item[{M\+W\+Worker\+ID $\ast$$\ast$$\ast$}]{workers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+This routine is used to start up multiple workers at the beginning of a run. It should only be called one time. It basically does a \hyperlink{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}{config()} to find out what machines are available, and then starts a worker on each of them. You may want to check the implementations for details... 
+\begin{DoxyParams}{Parameters}
+{\em nworkers} & The number of workers at the start (returned!) \\
+\hline
+{\em workers} & A pointer to a pointer to an array of M\+W\+Worker\+ID pointers. The memory management for this is the same as it is for the \hyperlink{classMWRMComm_a14c2e55899e741afad81df95f33afa5d}{config()} call -\/ it should be null when called and will point to allocated memory when it comes back. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on failure 
+\end{DoxyReturn}
+
+
+Referenced by M\+W\+Driver\+::go().
+
+\mbox{\Hypertarget{classMWRMComm_a12c2add8bea8577d5d150c49c7d42e5d}\label{classMWRMComm_a12c2add8bea8577d5d150c49c7d42e5d}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!initsend@{initsend}}
+\index{initsend@{initsend}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{initsend()}{initsend()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::initsend (\begin{DoxyParamCaption}\item[{int}]{encoding = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Initialize a buffer for sending some data. 
+\begin{DoxyParams}{Parameters}
+{\em encoding} & Defined by each application. 0 = default \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by M\+W\+Driver\+::get\+\_\+workers\+\_\+head(), M\+W\+Driver\+::go(), M\+W\+Worker\+::greet\+\_\+master(), M\+W\+Driver\+::handle\+\_\+benchmark(), M\+W\+Driver\+::handle\+\_\+checksum(), M\+W\+Driver\+::refresh\+Workers(), M\+W\+Driver\+::stop\+\_\+work(), and M\+W\+Worker\+::worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWRMComm_a96b1eb6dd9c1d3f25ae63ac375f7206c}\label{classMWRMComm_a96b1eb6dd9c1d3f25ae63ac375f7206c}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!nrecv@{nrecv}}
+\index{nrecv@{nrecv}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{nrecv()}{nrecv()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::nrecv (\begin{DoxyParamCaption}\item[{int}]{from\+\_\+whom,  }\item[{int}]{msgtag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+non-\/blocking receive. This is the same as recv except it returns the N\+O\+\_\+\+M\+E\+S\+S\+A\+GE tag instead of blocking if there is no data in the buffer 
+
+Referenced by M\+W\+Worker\+::suicide().
+
+\mbox{\Hypertarget{classMWRMComm_a10818d71f30ad62b5d747e0b5ef07d68}\label{classMWRMComm_a10818d71f30ad62b5d747e0b5ef07d68}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!process\+\_\+executable\+\_\+name@{process\+\_\+executable\+\_\+name}}
+\index{process\+\_\+executable\+\_\+name@{process\+\_\+executable\+\_\+name}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{process\+\_\+executable\+\_\+name()}{process\_executable\_name()}}
+{\footnotesize\ttfamily virtual char$\ast$ M\+W\+R\+M\+Comm\+::process\+\_\+executable\+\_\+name (\begin{DoxyParamCaption}\item[{char $\ast$}]{exec\+\_\+name,  }\item[{int}]{ex\+\_\+cl,  }\item[{int}]{num\+\_\+arc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+If the RM software needs to \char`\"{}process\char`\"{} the executable name in some way, this is done here. \mbox{\Hypertarget{classMWRMComm_ac04df4ffaa419034cf0ee335cd932dcd}\label{classMWRMComm_ac04df4ffaa419034cf0ee335cd932dcd}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!read\+\_\+checkpoint@{read\+\_\+checkpoint}}
+\index{read\+\_\+checkpoint@{read\+\_\+checkpoint}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{read\+\_\+checkpoint()}{read\_checkpoint()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::read\+\_\+checkpoint (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Read in restart information from a F\+I\+LE $\ast$ 
+
+Referenced by M\+W\+Driver\+::restart\+\_\+from\+\_\+ckpt().
+
+\mbox{\Hypertarget{classMWRMComm_afeb6975c08febef60274b552090fdc95}\label{classMWRMComm_afeb6975c08febef60274b552090fdc95}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!read\+\_\+\+R\+Mstate@{read\+\_\+\+R\+Mstate}}
+\index{read\+\_\+\+R\+Mstate@{read\+\_\+\+R\+Mstate}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{read\+\_\+\+R\+Mstate()}{read\_RMstate()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::read\+\_\+\+R\+Mstate (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Some Low level specific read/write functions \mbox{\Hypertarget{classMWRMComm_a9f10630a68baee310e48d0df33fb2dd8}\label{classMWRMComm_a9f10630a68baee310e48d0df33fb2dd8}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!recv@{recv}}
+\index{recv@{recv}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{recv()}{recv()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::recv (\begin{DoxyParamCaption}\item[{int}]{from\+\_\+whom,  }\item[{int}]{msgtag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Receive some data that has been packed. Should make this more P\+V\+M-\/independent; will do this sometime. 
+\begin{DoxyParams}{Parameters}
+{\em from\+\_\+whom} & From a specific source; -\/1 is from all \\
+\hline
+{\em msgtag} & With a certain tag; -\/1 is all. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by M\+W\+Driver\+::go(), M\+W\+Worker\+::greet\+\_\+master(), and M\+W\+Worker\+::worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWRMComm_a532c61bca2f954df18a46fb4f1578606}\label{classMWRMComm_a532c61bca2f954df18a46fb4f1578606}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!remove\+Worker@{remove\+Worker}}
+\index{remove\+Worker@{remove\+Worker}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{remove\+Worker()}{removeWorker()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::remove\+Worker (\begin{DoxyParamCaption}\item[{M\+W\+Worker\+ID $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Remove a worker from the virtual machine. This call will delete w, so don\textquotesingle{}t reference that memory again! 
+\begin{DoxyParams}{Parameters}
+{\em w} & The M\+W\+Worker\+ID of the machine to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, a negative number on failure 
+\end{DoxyReturn}
+
+
+Referenced by M\+W\+Driver\+::delete\+\_\+tasks\+\_\+worse\+\_\+than(), M\+W\+Driver\+::handle\+\_\+benchmark(), M\+W\+Driver\+::handle\+\_\+checksum(), M\+W\+Driver\+::handle\+\_\+taskexit(), and M\+W\+Driver\+::refresh\+Workers().
+
+\mbox{\Hypertarget{classMWRMComm_a831a7994d307d075f877b4415cb65657}\label{classMWRMComm_a831a7994d307d075f877b4415cb65657}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!restart\+\_\+beginning\+\_\+workers@{restart\+\_\+beginning\+\_\+workers}}
+\index{restart\+\_\+beginning\+\_\+workers@{restart\+\_\+beginning\+\_\+workers}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{restart\+\_\+beginning\+\_\+workers()}{restart\_beginning\_workers()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::restart\+\_\+beginning\+\_\+workers (\begin{DoxyParamCaption}\item[{int $\ast$}]{num,  }\item[{M\+W\+Worker\+ID $\ast$$\ast$$\ast$}]{temp\+Workers,  }\item[{M\+Wmessages}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+A function to restart the workers. This is called at restart from a ckpt file and it is meant to re-\/init all the workers. 
+
+Referenced by M\+W\+Driver\+::go().
+
+\mbox{\Hypertarget{classMWRMComm_abfe166a1b1c70e35069fbc0f1beb250f}\label{classMWRMComm_abfe166a1b1c70e35069fbc0f1beb250f}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!send@{send}}
+\index{send@{send}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::send (\begin{DoxyParamCaption}\item[{int}]{to\+\_\+whom,  }\item[{int}]{msgtag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Send the data that has been packed. 
+\begin{DoxyParams}{Parameters}
+{\em to\+\_\+whom} & An identifier for the recipient \\
+\hline
+{\em msgtag} & A \textquotesingle{}tag\textquotesingle{} to identify that type of message \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by M\+W\+Driver\+::get\+\_\+workers\+\_\+head(), M\+W\+Driver\+::go(), M\+W\+Worker\+::greet\+\_\+master(), M\+W\+Driver\+::handle\+\_\+benchmark(), M\+W\+Driver\+::handle\+\_\+checksum(), M\+W\+Driver\+::refresh\+Workers(), M\+W\+Driver\+::stop\+\_\+work(), M\+W\+Worker\+::suicide(), and M\+W\+Worker\+::worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWRMComm_acc1a551c808ef615fd02992f0ab9fffb}\label{classMWRMComm_acc1a551c808ef615fd02992f0ab9fffb}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+arch\+\_\+class\+\_\+attributes@{set\+\_\+arch\+\_\+class\+\_\+attributes}}
+\index{set\+\_\+arch\+\_\+class\+\_\+attributes@{set\+\_\+arch\+\_\+class\+\_\+attributes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+arch\+\_\+class\+\_\+attributes()}{set\_arch\_class\_attributes()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+arch\+\_\+class\+\_\+attributes (\begin{DoxyParamCaption}\item[{int}]{arch\+\_\+class,  }\item[{const char $\ast$}]{attr }\end{DoxyParamCaption})}
+
+set the arch attribute \mbox{\Hypertarget{classMWRMComm_a37e1550401acab038a3f1d94f8c50669}\label{classMWRMComm_a37e1550401acab038a3f1d94f8c50669}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+num\+\_\+arch\+\_\+classes@{set\+\_\+num\+\_\+arch\+\_\+classes}}
+\index{set\+\_\+num\+\_\+arch\+\_\+classes@{set\+\_\+num\+\_\+arch\+\_\+classes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+num\+\_\+arch\+\_\+classes()}{set\_num\_arch\_classes()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+num\+\_\+arch\+\_\+classes (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+Set the number of arch classes \mbox{\Hypertarget{classMWRMComm_a78424915f8da7195a01008ae5977da32}\label{classMWRMComm_a78424915f8da7195a01008ae5977da32}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+num\+\_\+exec\+\_\+classes@{set\+\_\+num\+\_\+exec\+\_\+classes}}
+\index{set\+\_\+num\+\_\+exec\+\_\+classes@{set\+\_\+num\+\_\+exec\+\_\+classes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+num\+\_\+exec\+\_\+classes()}{set\_num\_exec\_classes()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+num\+\_\+exec\+\_\+classes (\begin{DoxyParamCaption}\item[{int}]{num }\end{DoxyParamCaption})}
+
+Set the number of executable classes \mbox{\Hypertarget{classMWRMComm_a874259ae975681f5bbac122c119c2067}\label{classMWRMComm_a874259ae975681f5bbac122c119c2067}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+num\+\_\+executables@{set\+\_\+num\+\_\+executables}}
+\index{set\+\_\+num\+\_\+executables@{set\+\_\+num\+\_\+executables}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+num\+\_\+executables()}{set\_num\_executables()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+num\+\_\+executables (\begin{DoxyParamCaption}\item[{int}]{num }\end{DoxyParamCaption})}
+
+Set the number of executables \mbox{\Hypertarget{classMWRMComm_a9723b0a13c493923e1282d7832b86b65}\label{classMWRMComm_a9723b0a13c493923e1282d7832b86b65}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+target\+\_\+num\+\_\+workers@{set\+\_\+target\+\_\+num\+\_\+workers}}
+\index{set\+\_\+target\+\_\+num\+\_\+workers@{set\+\_\+target\+\_\+num\+\_\+workers}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+target\+\_\+num\+\_\+workers()}{set\_target\_num\_workers()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+target\+\_\+num\+\_\+workers (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+workers }\end{DoxyParamCaption})}
+
+Set a \char`\"{}target\char`\"{} number of workers across all arches. This is useful if you don\textquotesingle{}t care how many you get of each arch... 
+\begin{DoxyParams}{Parameters}
+{\em num\+\_\+workers} & The target number of workers \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by M\+W\+Driver\+::get\+\_\+workers\+\_\+head().
+
+\mbox{\Hypertarget{classMWRMComm_abff2205c7cd05ba73701b5e813873e46}\label{classMWRMComm_abff2205c7cd05ba73701b5e813873e46}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+worker\+\_\+checkpointing@{set\+\_\+worker\+\_\+checkpointing}}
+\index{set\+\_\+worker\+\_\+checkpointing@{set\+\_\+worker\+\_\+checkpointing}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+worker\+\_\+checkpointing()}{set\_worker\_checkpointing()}}
+{\footnotesize\ttfamily virtual void M\+W\+R\+M\+Comm\+::set\+\_\+worker\+\_\+checkpointing (\begin{DoxyParamCaption}\item[{bool}]{wc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Set whether or not you would like worker checkpointing (if the Comm\+RM implementation has the capability) \mbox{\Hypertarget{classMWRMComm_adcb46dfbabd51a0690d70e39a0396659}\label{classMWRMComm_adcb46dfbabd51a0690d70e39a0396659}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!set\+\_\+worker\+\_\+increment@{set\+\_\+worker\+\_\+increment}}
+\index{set\+\_\+worker\+\_\+increment@{set\+\_\+worker\+\_\+increment}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{set\+\_\+worker\+\_\+increment()}{set\_worker\_increment()}}
+{\footnotesize\ttfamily void M\+W\+R\+M\+Comm\+::set\+\_\+worker\+\_\+increment (\begin{DoxyParamCaption}\item[{int}]{newinc }\end{DoxyParamCaption})}
+
+The R\+M\+Comm will requests this many workers at a time \mbox{\Hypertarget{classMWRMComm_a6c500b03f49fbab5a879dfec1f8c492e}\label{classMWRMComm_a6c500b03f49fbab5a879dfec1f8c492e}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!setup@{setup}}
+\index{setup@{setup}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::setup (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]},  }\item[{int $\ast$}]{my\+\_\+id,  }\item[{int $\ast$}]{master\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Initialization of the master process. This will be called one time only when the master starts up. \begin{DoxyReturn}{Returns}
+0 on success, -\/1 on failure 
+\end{DoxyReturn}
+
+
+Referenced by M\+W\+Worker\+::go(), and M\+W\+Driver\+::go().
+
+\mbox{\Hypertarget{classMWRMComm_a0064a409542e4308c77eb598b161138e}\label{classMWRMComm_a0064a409542e4308c77eb598b161138e}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!start\+\_\+worker@{start\+\_\+worker}}
+\index{start\+\_\+worker@{start\+\_\+worker}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{start\+\_\+worker()}{start\_worker()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::start\+\_\+worker (\begin{DoxyParamCaption}\item[{M\+W\+Worker\+ID $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Start a worker on a machine that has been given to you. This is really only important if the process of starting a worker is two-\/stage. For instance, in pvm, you first get a machine. T\+H\+EN you have to spawn an executable on that machine. For something like M\+W-\/files, once you get a worker it already has the executable started on it. In that case this will basically be a no-\/op. 
+\begin{DoxyParams}{Parameters}
+{\em w} & A pointer to a M\+W\+Worker\+ID. This must point to allocated memory. It is filled with info like the machine name, id2, and the arch. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+id2 on success, -\/1 on failure 
+\end{DoxyReturn}
+
+
+Referenced by M\+W\+Driver\+::go().
+
+\mbox{\Hypertarget{classMWRMComm_acb947438d2447b15a0d621392802ff2e}\label{classMWRMComm_acb947438d2447b15a0d621392802ff2e}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!who@{who}}
+\index{who@{who}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{who()}{who()}}
+{\footnotesize\ttfamily virtual void M\+W\+R\+M\+Comm\+::who (\begin{DoxyParamCaption}\item[{int $\ast$}]{wh }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+For some system events like H\+O\+S\+T\+D\+E\+L\+E\+TE, T\+A\+S\+K\+E\+X\+IT, etc, this will tell who was affected 
+
+Referenced by M\+W\+Driver\+::handle\+\_\+checksum(), M\+W\+Driver\+::handle\+\_\+hostdel(), M\+W\+Driver\+::handle\+\_\+hostresume(), M\+W\+Driver\+::handle\+\_\+hostsuspend(), M\+W\+Driver\+::handle\+\_\+taskexit(), and M\+W\+Driver\+::stop\+\_\+work().
+
+\mbox{\Hypertarget{classMWRMComm_a497ab814d1bc00c8fa562e85c2fd6570}\label{classMWRMComm_a497ab814d1bc00c8fa562e85c2fd6570}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!write\+\_\+checkpoint@{write\+\_\+checkpoint}}
+\index{write\+\_\+checkpoint@{write\+\_\+checkpoint}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{write\+\_\+checkpoint()}{write\_checkpoint()}}
+{\footnotesize\ttfamily virtual int M\+W\+R\+M\+Comm\+::write\+\_\+checkpoint (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Write out internal state to a F\+I\+LE $\ast$ 
+
+Referenced by M\+W\+Driver\+::checkpoint().
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classMWRMComm_a0e22f07e5fbc90f5fc746c4c1195067b}\label{classMWRMComm_a0e22f07e5fbc90f5fc746c4c1195067b}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!arch\+\_\+class\+\_\+attributes@{arch\+\_\+class\+\_\+attributes}}
+\index{arch\+\_\+class\+\_\+attributes@{arch\+\_\+class\+\_\+attributes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{arch\+\_\+class\+\_\+attributes}{arch\_class\_attributes}}
+{\footnotesize\ttfamily char$\ast$$\ast$ M\+W\+R\+M\+Comm\+::arch\+\_\+class\+\_\+attributes\hspace{0.3cm}{\ttfamily [protected]}}
+
+The arch attributes \mbox{\Hypertarget{classMWRMComm_ab61af84df9df94c41c9f3c428775b58a}\label{classMWRMComm_ab61af84df9df94c41c9f3c428775b58a}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers@{exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers}}
+\index{exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers@{exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers}{exec\_class\_target\_num\_workers}}
+{\footnotesize\ttfamily int$\ast$ M\+W\+R\+M\+Comm\+::exec\+\_\+class\+\_\+target\+\_\+num\+\_\+workers\hspace{0.3cm}{\ttfamily [protected]}}
+
+The desired number of workers, exec\+\_\+class wise \mbox{\Hypertarget{classMWRMComm_adc0160ae06e86f3a9287b20d0a2f50f4}\label{classMWRMComm_adc0160ae06e86f3a9287b20d0a2f50f4}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!exec\+\_\+classes@{exec\+\_\+classes}}
+\index{exec\+\_\+classes@{exec\+\_\+classes}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{exec\+\_\+classes}{exec\_classes}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::exec\+\_\+classes\hspace{0.3cm}{\ttfamily [protected]}}
+
+The number of exec classes \mbox{\Hypertarget{classMWRMComm_a6c742808ed04090144b1247933b2ff7e}\label{classMWRMComm_a6c742808ed04090144b1247933b2ff7e}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!hostinc\+\_\+@{hostinc\+\_\+}}
+\index{hostinc\+\_\+@{hostinc\+\_\+}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{hostinc\+\_\+}{hostinc\_}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::hostinc\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+The current \mbox{\Hypertarget{classMWRMComm_a34760512eb56356d6581e18475f77050}\label{classMWRMComm_a34760512eb56356d6581e18475f77050}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!num\+\_\+arches@{num\+\_\+arches}}
+\index{num\+\_\+arches@{num\+\_\+arches}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{num\+\_\+arches}{num\_arches}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::num\+\_\+arches\hspace{0.3cm}{\ttfamily [protected]}}
+
+The number of different arch classes. \mbox{\Hypertarget{classMWRMComm_acf783eaa2bac49d0cca1b403725d8f66}\label{classMWRMComm_acf783eaa2bac49d0cca1b403725d8f66}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!num\+\_\+executables@{num\+\_\+executables}}
+\index{num\+\_\+executables@{num\+\_\+executables}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{num\+\_\+executables}{num\_executables}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::num\+\_\+executables\hspace{0.3cm}{\ttfamily [protected]}}
+
+The number of executables \mbox{\Hypertarget{classMWRMComm_ac0edce61ba0263a04a569df694397fe1}\label{classMWRMComm_ac0edce61ba0263a04a569df694397fe1}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!recv\+\_\+buf\+\_\+list@{recv\+\_\+buf\+\_\+list}}
+\index{recv\+\_\+buf\+\_\+list@{recv\+\_\+buf\+\_\+list}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{recv\+\_\+buf\+\_\+list}{recv\_buf\_list}}
+{\footnotesize\ttfamily M\+W\+List$<$void$>$$\ast$ M\+W\+R\+M\+Comm\+::recv\+\_\+buf\+\_\+list\hspace{0.3cm}{\ttfamily [protected]}}
+
+When investigating the master-\/side bottleneck problem, we realized that sometimes the master can\textquotesingle{}t handle all the messages sent from the many masters and the R\+M\+Comm layer. The messages are accumulated in the R\+M\+Comm layer\textquotesingle{}s buffer (especially in the case of using M\+W-\/\+Condor\+Pvm), but the master can\textquotesingle{}t see them, not to mention process them or delete useless messages. This makes the master unable to accormodate the chanegs in the environment, also makes most of the workers waiting for new tasks.
+
+One way to deal with this situation is to pull all the messages in the underlying message passing layer and let the master buffer them by itself, to separate the message receiving and message processing steps.
+
+Thus we will introduce a F\+I\+FO list of buf\+\_\+id (list of $\ast$int), each of the buf\+\_\+id points to a message buffer in P\+VM (and likewise in the other R\+M\+Comms). The original message processing steps are\+: R\+M\+C-\/$>$\hyperlink{classMWRMComm_a9f10630a68baee310e48d0df33fb2dd8}{recv()} R\+M\+C-\/$>$\hyperlink{classMWRMComm_a7670401dc33950de354e41183dd392cd}{bufinfo()} R\+M\+C-\/$>$\hyperlink{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}{unpack()}, R\+M\+C-\/$>$\hyperlink{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}{unpack()} And now the process will be the same, but implementation is different\+: R\+M\+C-\/$>$recv\+\_\+all() pull all messages out (in a non-\/blocking way) and put each message\textquotesingle{}s buf\+\_\+id into the F\+I\+FO list. R\+M\+C-\/$>$\hyperlink{classMWRMComm_a9f10630a68baee310e48d0df33fb2dd8}{recv()} blocking recv R\+M\+C-\/$>$\hyperlink{classMWRMComm_a7670401dc33950de354e41183dd392cd}{bufinfo()} examine the buf\+\_\+info of the buffer with given buf\+\_\+id R\+M\+C-\/$>$setrbuf() will be used to switch the active receive buffer R\+M\+C-\/$>$freebuf() will be used to free useless receive buffer R\+M\+C-\/$>$\hyperlink{classMWRMComm_af5fe22ee99ecbb178dad85b6474fe61f}{unpack()}
+
+All recv will via the buffer\+\_\+list now! \mbox{\Hypertarget{classMWRMComm_ada92e3d26d11d240b121b7452a5ac7f9}\label{classMWRMComm_ada92e3d26d11d240b121b7452a5ac7f9}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!target\+\_\+num\+\_\+workers@{target\+\_\+num\+\_\+workers}}
+\index{target\+\_\+num\+\_\+workers@{target\+\_\+num\+\_\+workers}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{target\+\_\+num\+\_\+workers}{target\_num\_workers}}
+{\footnotesize\ttfamily int M\+W\+R\+M\+Comm\+::target\+\_\+num\+\_\+workers\hspace{0.3cm}{\ttfamily [protected]}}
+
+The desired number of workers \mbox{\Hypertarget{classMWRMComm_af444e4e9104d9a9b7ee35e3e4d025bb6}\label{classMWRMComm_af444e4e9104d9a9b7ee35e3e4d025bb6}} 
+\index{M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}!worker\+\_\+executables@{worker\+\_\+executables}}
+\index{worker\+\_\+executables@{worker\+\_\+executables}!M\+W\+R\+M\+Comm@{M\+W\+R\+M\+Comm}}
+\subsubsection{\texorpdfstring{worker\+\_\+executables}{worker\_executables}}
+{\footnotesize\ttfamily struct \hyperlink{structRMC__executable}{R\+M\+C\+\_\+executable}$\ast$$\ast$ M\+W\+R\+M\+Comm\+::worker\+\_\+executables\hspace{0.3cm}{\ttfamily [protected]}}
+
+An array containing the \{ full\} pathnames of the executables. Element 0 is for arch \char`\"{}0\char`\"{}, element 1 is for arch \char`\"{}1\char`\"{}, etc. Usually read in get get\+\_\+userinfo(). 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+M\+W\+R\+M\+Comm.\+h\end{DoxyCompactItemize}

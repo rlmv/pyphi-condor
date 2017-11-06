@@ -1,0 +1,6 @@
+1
+workermatmul_socket ((OPSYS=="LINUX")&&(ARCH=="INTEL"))
+150
+200
+150
+

@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="MWDriver_8h" kind="file" language="C++">
+    <compoundname>MWDriver.h</compoundname>
+    <includes refid="MWTask_8h" local="yes">MWTask.h</includes>
+    <includes local="yes">/Users/robertmarchman/IIT/chtc/mw-source/src/MW.h</includes>
+    <includes local="yes">/Users/robertmarchman/IIT/chtc/mw-source/src/MWGroup.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="MWWorker_8h" local="yes">MWWorker.h</includes>
+    <includes local="yes">MWStats.h</includes>
+    <includes local="yes">/Users/robertmarchman/IIT/chtc/mw-source/src/MWWorkerID.h</includes>
+    <includes local="yes">/Users/robertmarchman/IIT/chtc/mw-source/src/MWList.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">float.h</includes>
+    <includes local="yes">MWList.h</includes>
+    <includes refid="MWRMComm_8h" local="no">MWRMComm.h</includes>
+    <includedby refid="MWDriver_8C" local="yes">MWDriver.C</includedby>
+    <includedby refid="MWTask_8C" local="yes">MWTask.C</includedby>
+    <incdepgraph>
+      <node id="48">
+        <label>float.h</label>
+      </node>
+      <node id="46">
+        <label>stdlib.h</label>
+      </node>
+      <node id="52">
+        <label>MWList.h</label>
+      </node>
+      <node id="41">
+        <label>MWDriver.h</label>
+        <link refid="MWDriver_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>MWTask.h</label>
+        <link refid="MWTask_8h_source"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>/Users/robertmarchman/IIT/chtc/mw-source/src/MWWorkerID.h</label>
+      </node>
+      <node id="47">
+        <label>limits.h</label>
+      </node>
+      <node id="51">
+        <label>MWRMComm.h</label>
+        <link refid="MWRMComm_8h_source"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>MWprintf.h</label>
+        <link refid="MWprintf_8h_source"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>/Users/robertmarchman/IIT/chtc/mw-source/src/MWGroup.h</label>
+      </node>
+      <node id="56">
+        <label>MWStats.h</label>
+      </node>
+      <node id="54">
+        <label>string.h</label>
+      </node>
+      <node id="49">
+        <label>MWWorkerID.h</label>
+      </node>
+      <node id="58">
+        <label>/Users/robertmarchman/IIT/chtc/mw-source/src/MWList.h</label>
+      </node>
+      <node id="50">
+        <label>MWGroup.h</label>
+      </node>
+      <node id="43">
+        <label>MW.h</label>
+        <link refid="MW_8h_source"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h_source"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classMWDriver" prot="public">MWDriver</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="MWDriver_8h_1a0b99ad07a71aa15bdf3861274bb2ea00" prot="public" static="no">
+        <name>MWKey</name>
+        <initializer>double</initializer>
+        <briefdescription>
+<para>This is the &quot;key&quot; by which the task list can be managed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="34" column="9" bodyfile="src/MWDriver.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="MWDriver_8h_1a4900b1935b523cfa72d29cd59fe62b69" prot="public" static="no">
+        <name>MWTaskAdditionMode</name>
+        <enumvalue id="MWDriver_8h_1a4900b1935b523cfa72d29cd59fe62b69aa3208e69d86b536f79f7c282007f7a19" prot="public">
+          <name>ADD_AT_END</name>
+          <briefdescription>
+<para>Tasks will be added at the end of the list. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a4900b1935b523cfa72d29cd59fe62b69ad5314a5170e82bb3bda165b27a981f53" prot="public">
+          <name>ADD_AT_BEGIN</name>
+          <briefdescription>
+<para>Tasks will be added at the beginning. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a4900b1935b523cfa72d29cd59fe62b69a12ba785ce0227e9aab08f70aa4a7173c" prot="public">
+          <name>ADD_BY_KEY</name>
+          <briefdescription>
+<para>Tasks will be added based on their key (low keys before high keys) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This is if you wish to have XML output. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ways in which tasks may be added to the list. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="43" column="1" bodyfile="src/MWDriver.h" bodystart="43" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="enum" id="MWDriver_8h_1a4975277833d1b638a714fe892aa5169b" prot="public" static="no">
+        <name>MWTaskRetrievalMode</name>
+        <enumvalue id="MWDriver_8h_1a4975277833d1b638a714fe892aa5169ba7e05366f74dda7ca3a748a030ad73d6c" prot="public">
+          <name>GET_FROM_BEGIN</name>
+          <briefdescription>
+<para>Task at head of list will be returned. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a4975277833d1b638a714fe892aa5169baf03a770922e1b440444aa9df1815a357" prot="public">
+          <name>GET_FROM_KEY</name>
+          <briefdescription>
+<para>Task with lowest key will be retrieved. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The ways in which tasks may be removed from the list. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="54" column="1" bodyfile="src/MWDriver.h" bodystart="54" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="enum" id="MWDriver_8h_1a81438d94c6b0642fcc1a2c9c071b6b2f" prot="public" static="no">
+        <name>MWREFRESH_TYPE</name>
+        <enumvalue id="MWDriver_8h_1a81438d94c6b0642fcc1a2c9c071b6b2fae6db959f67ee4147634f732f240087ff" prot="public">
+          <name>MW_ALL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a81438d94c6b0642fcc1a2c9c071b6b2fa2fd5bac7a8efdf72d1b3c9c914fb9b71" prot="public">
+          <name>MW_THIS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a81438d94c6b0642fcc1a2c9c071b6b2fa8fce5b0ce70c2e30d9fc186743c9bb2c" prot="public">
+          <name>MW_NONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="62" column="1" bodyfile="src/MWDriver.h" bodystart="61" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="enum" id="MWDriver_8h_1a22f37ca9ca187cf2d8d121a989df128b" prot="public" static="no">
+        <name>MWSuspensionPolicy</name>
+        <enumvalue id="MWDriver_8h_1a22f37ca9ca187cf2d8d121a989df128ba88ec7d5086d2469ba843c7fcceade8a6" prot="public">
+          <name>DEFAULT</name>
+          <briefdescription>
+<para>Normally do nothing unless there are idle workers. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1a22f37ca9ca187cf2d8d121a989df128bab0d752eb8a8f6d08c7a0fa9727434cad" prot="public">
+          <name>REASSIGN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Always reassign the task; move it to the front of the todo list </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The suspension policy to use - What do we do when it happens? </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="69" column="1" bodyfile="src/MWDriver.h" bodystart="69" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="enum" id="MWDriver_8h_1abafc563874babeaeb34ee0531b4026f8" prot="public" static="no">
+        <name>MWMachineOrderingPolicy</name>
+        <enumvalue id="MWDriver_8h_1abafc563874babeaeb34ee0531b4026f8ac7963bf080fd59b0cac4787082b13119" prot="public">
+          <name>NO_ORDER</name>
+          <briefdescription>
+<para>The machines are ordered simply as they become available. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1abafc563874babeaeb34ee0531b4026f8a77837b0f640676d2c0d923755d3df8ba" prot="public">
+          <name>BY_USER_BENCHMARK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Machines are ordered by the &quot;benchmark&quot; result. Larger benchmark results go first, so if using time to complete a task as the benchmark, you should return 1/time as the benchmark value. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWDriver_8h_1abafc563874babeaeb34ee0531b4026f8ad49ef422f86a20e58674bf3d237250ec" prot="public">
+          <name>BY_KFLOPS</name>
+          <briefdescription>
+<para>Machines are ordered by KFLOPS reported by Condor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Tasks are always assigned to he first &quot;IDLE&quot; machine. By ordering the machine list, we can implement a number of scheduling policies. Insert your own favorite policy here. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="81" column="1" bodyfile="src/MWDriver.h" bodystart="81" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="MWDriver_8h_1a05f937e4314c31abf388a68938a12604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWKey</type>
+        <definition>MWKey kflops</definition>
+        <argsstring>(MWWorkerID *)</argsstring>
+        <name>kflops</name>
+        <param>
+          <type>MWWorkerID *</type>
+        </param>
+        <briefdescription>
+<para>This is the function allowing the workers to be sorted by KFlops. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="1251" column="1" bodyfile="src/MWDriver.C" bodystart="3462" bodyend="3465"/>
+      </memberdef>
+      <memberdef kind="function" id="MWDriver_8h_1ada7c96c94e4eabcd9a1d174b3fa4bb41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWKey</type>
+        <definition>MWKey benchmark_result</definition>
+        <argsstring>(MWWorkerID *)</argsstring>
+        <name>benchmark_result</name>
+        <param>
+          <type>MWWorkerID *</type>
+        </param>
+        <briefdescription>
+<para>This is the function allowing the workers to be sorted by benchmarkresult. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWDriver.h" line="1254" column="1" bodyfile="src/MWDriver.C" bodystart="3468" bodyend="3471"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MWDriver.h"/>
+  </compounddef>
+</doxygen>

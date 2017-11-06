@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structRMC__executable" kind="struct" language="C++" prot="public">
+    <compoundname>RMC_executable</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structRMC__executable_1a577f7847db261e603218e6a02fe99148" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RMC_executable::arch_class</definition>
+        <argsstring></argsstring>
+        <name>arch_class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="55" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRMC__executable_1ad3fcd2281e800eeb4efcb30cf7d0f3d3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int RMC_executable::exec_class</definition>
+        <argsstring></argsstring>
+        <name>exec_class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="56" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRMC__executable_1a91a7c0633af8e46dd13836f0ba86f7c2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* RMC_executable::executable</definition>
+        <argsstring></argsstring>
+        <name>executable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="57" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRMC__executable_1ac7ed456bddac2bb28c24b8075e6b3492" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* RMC_executable::executable_name</definition>
+        <argsstring></argsstring>
+        <name>executable_name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="58" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRMC__executable_1a42bacab5c72c494d67ed8c7370d954ad" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* RMC_executable::attributes</definition>
+        <argsstring></argsstring>
+        <name>attributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="59" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/RMComm/MWRMComm.h" line="54" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="53" bodyend="60"/>
+    <listofallmembers>
+      <member refid="structRMC__executable_1a577f7847db261e603218e6a02fe99148" prot="public" virt="non-virtual"><scope>RMC_executable</scope><name>arch_class</name></member>
+      <member refid="structRMC__executable_1a42bacab5c72c494d67ed8c7370d954ad" prot="public" virt="non-virtual"><scope>RMC_executable</scope><name>attributes</name></member>
+      <member refid="structRMC__executable_1ad3fcd2281e800eeb4efcb30cf7d0f3d3" prot="public" virt="non-virtual"><scope>RMC_executable</scope><name>exec_class</name></member>
+      <member refid="structRMC__executable_1a91a7c0633af8e46dd13836f0ba86f7c2" prot="public" virt="non-virtual"><scope>RMC_executable</scope><name>executable</name></member>
+      <member refid="structRMC__executable_1ac7ed456bddac2bb28c24b8075e6b3492" prot="public" virt="non-virtual"><scope>RMC_executable</scope><name>executable_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

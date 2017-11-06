@@ -1,0 +1,57 @@
+###################################################################
+Intro:  This directory contains an sample MW application, and MW 
+	users can use it as the application skeleton. 
+
+	This example (after some minor changes, mostly change all 
+	the '%%' in source files into '%') will produce a MW 
+	appliation to pick out the largest number from a bunch 
+	of integers. 
+
+###################################################################
+How to generate a set of files for your application:
+	
+	./new_app app_name
+
+The script will create a directory ../app_name, create template 
+files in that directory, configure and build the simple example for
+you.
+
+###################################################################
+How to compile:
+	
+	autoconf; configure --with-MW=MW_install_path; make
+
+Since the new application is created at the same level as 'newskel',
+which is usually at mw/examples/app_name, and the default 
+MW_install_path (../..) should work. It not, please specify the 
+full MW path in configure --with-MW=MW_install_path. 
+
+###################################################################
+How to make changes:
+
+	Then you can read the source files to understand how to
+	develop a MW application, and make appropriate changes. 
+
+There are 8 source files: 
+
+ * Driver_MYAPP.[C|h] contain the definition and implementation
+   of the application driver class. 
+
+ * Worker_MYAPP.[C|h] contain the definition and implementation
+   of the application worker class. 
+
+ * Task_MYAPP.[C|h] contain the definition and implementation
+   of the application task class. 
+
+ * MasterMain_MYAPP.C is a wrapper around Driver_MYAPP, it contains 
+   the main() function, which is the entry point of the executable 
+   running on submit machinie. 
+
+ * WorkerMain_MYAPP.C is a wrapper around Worker_MYAPP, it contains
+   the main() function, which is the entry point of the executable 
+   running on worker machinies. 
+
+###################################################################
+How to submit (refer to Condor manual):
+	(1) prepare your submit file and input file;
+	(2) condor_submit submit_file

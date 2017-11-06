@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="MW_8h" kind="file" language="C++">
+    <compoundname>MW.h</compoundname>
+    <includes refid="MWprintf_8h" local="yes">MWprintf.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">limits.h</includes>
+    <includes local="no">float.h</includes>
+    <includedby refid="MWTask_8h" local="yes">MWTask.h</includedby>
+    <includedby refid="MWDriver_8h" local="yes">MWDriver.h</includedby>
+    <includedby refid="MWDriver_8C" local="yes">MWDriver.C</includedby>
+    <includedby refid="MWWorker_8C" local="yes">MWWorker.C</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>float.h</label>
+      </node>
+      <node id="3">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4">
+        <label>limits.h</label>
+      </node>
+      <node id="1">
+        <label>MWprintf.h</label>
+        <link refid="MWprintf_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="0">
+        <label>MW.h</label>
+        <link refid="MW_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8">
+        <label>MWDriver.h</label>
+        <link refid="MWDriver_8h_source"/>
+      </node>
+      <node id="7">
+        <label>MWTask.h</label>
+        <link refid="MWTask_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>MW.h</label>
+        <link refid="MW_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Introduction.</header>
+      <description><para>MW is a class library that can be a useful tool for building opportunistic, fault-tolerant applications for high throughput computing.</para><para>In order to build an application, there are three classes that the user { must} rederive.</para><para>{itemize}  {<ref refid="classMWDriver" kindref="compound">MWDriver</ref>}  {<ref refid="classMWWorker" kindref="compound">MWWorker</ref>}  {<ref refid="classMWTask" kindref="compound">MWTask</ref>} {itemize}</para><para>The documentation of these classes includes a description of the pure virtual methods that must be implemented for a user&apos;s particular application.</para><para>Using the MW library allows the user to focus on the application specific implementation at hand. All details related to being fault tolerant and opportunistic are implemented in the MW library.</para><para>Also included is a small, naive, example of how to create an application with the MW class library. The three classes</para><para>{itemize}  {Driver_Fib}  {Worker_Fib}  {Task_Fib} {itemize}</para><para>are concrete classes derived from MW&apos;s abstract classes. Using these classes, a simple program that makes a lot of fibonacci sequences is created. </para></description>
+      <memberdef kind="enum" id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7" prot="public" static="no">
+        <name>MWmessages</name>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7ac5f03c5f9a1f2d272feba0582520c42a" prot="public">
+          <name>HOSTADD</name>
+          <initializer>= 33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a147c1d1146cdd7795bbfc86d8eb8f173" prot="public">
+          <name>HOSTDELETE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a49b51c90345f389c0503d22d730a7476" prot="public">
+          <name>HOSTSUSPEND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7adec61ead305b7ffc23b2657b716faf9e" prot="public">
+          <name>HOSTRESUME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a9f290ecb39451b4532857c9893b73ecd" prot="public">
+          <name>TASKEXIT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a12b67c6a4ed574ecc281441958618329" prot="public">
+          <name>DO_THIS_WORK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a14b4b35c7a8b79c53370a7e79a1aa5ed" prot="public">
+          <name>RESULTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a0cb1b2c6a7db1f1084886c98909a3f36" prot="public">
+          <name>INIT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a41ecc8c25468b7c5930d5517fb83aa9b" prot="public">
+          <name>INIT_REPLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a9b66494fe20d1d7e250dfd62732b14ac" prot="public">
+          <name>BENCH_RESULTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a37d45a87c6e5bdcabc48d1b295369224" prot="public">
+          <name>KILL_YOURSELF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7aee44ad5fdd2aeeb1e5f1519fd1d587d3" prot="public">
+          <name>CHECKSUM_ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7aadbff2a3221fbd17501ed8d20bd61572" prot="public">
+          <name>RE_INIT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a1418c4911c72f0c5ae1eed401facb41a" prot="public">
+          <name>REFRESH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a76573f7a533685babeb21bbe0e3341dc" prot="public">
+          <name>SUBRESULTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a4693ad61a7f77a9d8de2652f770e07e8" prot="public">
+          <name>UPDATE_FROM_WORKER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a749654773364fccdeff8b2e4ff4ed202" prot="public">
+          <name>UPDATE_FROM_DRIVER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7afcfbf42d4adcad6219734d45c640804e" prot="public">
+          <name>NO_MESSAGE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1aa7cc6f161c1a144342578a3905fe23c7a98fe6b2857b228cdca997fbae32e72e1" prot="public">
+          <name>STOP_WORK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A list of the message tags that the Master-Worker application will send and receive. See the switch statement in master_mainloop for more information. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="98" column="1" bodyfile="src/MW.h" bodystart="98" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="enum" id="MW_8h_1afa88a84855c64ef46bf85b3ec3659269" prot="public" static="no">
+        <name>MWReturn</name>
+        <enumvalue id="MW_8h_1afa88a84855c64ef46bf85b3ec3659269a2bc49ec37d6a5715dd23e85f1ff5bb59" prot="public">
+          <name>OK</name>
+          <briefdescription>
+<para>Normal return. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1afa88a84855c64ef46bf85b3ec3659269a76bdc8adfd6c6463ab269ff4c06be9b4" prot="public">
+          <name>QUIT</name>
+          <briefdescription>
+<para>We want to exit, not an error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1afa88a84855c64ef46bf85b3ec3659269a781ad2788df9e25c59a70894c7832096" prot="public">
+          <name>ABORT</name>
+          <briefdescription>
+<para>We want to exit immediately; a bad error ocurred. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Possible return values from many virtual functions </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="122" column="1" bodyfile="src/MW.h" bodystart="122" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="enum" id="MW_8h_1a629be8f76621fe20948f913b9843c17d" prot="public" static="no">
+        <name>MWTaskType</name>
+        <enumvalue id="MW_8h_1a629be8f76621fe20948f913b9843c17dac33f47dc9824fd2e87e92155bd9faaa4" prot="public">
+          <name>MWNORMAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1a629be8f76621fe20948f913b9843c17da5ea6143918b7eced468a1c4dbe5393d7" prot="public">
+          <name>MWNWS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MW_8h_1a629be8f76621fe20948f913b9843c17da334877928353f2feeb9eee6ac00c990d" prot="public">
+          <name>MWNUMTASKTYPES</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="131" column="1" bodyfile="src/MW.h" bodystart="131" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="MW_8h_1aa93f0eb578d23995850d61f7d61c55c1" prot="public" static="no">
+        <name>FALSE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>FALSE is defined as 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="36" column="9" bodyfile="src/MW.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="MW_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" prot="public" static="no">
+        <name>TRUE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>TRUE is defined as 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="41" column="9" bodyfile="src/MW.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="MW_8h_1a2dc3870be25a19efa2940150507aaf71" prot="public" static="no">
+        <name>UNDEFINED</name>
+        <initializer>-1</initializer>
+        <briefdescription>
+<para>UNDEFINED is defined as -1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="46" column="9" bodyfile="src/MW.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="MW_8h_1a2f81b1f7fd1e046367030e3d6b5eb3fc" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int MW_MAX_WORKERS</definition>
+        <argsstring></argsstring>
+        <name>MW_MAX_WORKERS</name>
+        <initializer>= 8192</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An upper limit on the number of workers <ndash/> so we can allocated arrays to keep statistics </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MW.h" line="51" column="1" bodyfile="src/MW.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MW.h"/>
+  </compounddef>
+</doxygen>

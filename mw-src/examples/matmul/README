@@ -1,0 +1,75 @@
+This directory contains the matrix multiplication example.
+
+Two double-precision matrices A and B of user-specified dimensions are
+generated at random. Each task takes a slice of rows from A and
+multiplies by B to form a slice of the product C=AB, which is passed
+back to the master. The full matrices A and B are passed to the
+workers at startup. It is easy to change parameters in the code that
+represent the maximum number of tasks (see variable num_tasks, which
+is bounded above by the number of rows in A) and the number of workers
+requested (see variable target_num_workers).
+
+Tasks for this example can be executed  by a number of different worker
+executables, each running on a different architecture, which can be 
+specified in the input files. The first line of the input file indicates 
+the number of different executables (up to 5 allowed). Subsequent lines 
+show the names of each worker executable, followed by a string of 
+requirements in Condor format, usually indicating the architecture
+names and operating systems. See the sample input files in_master, 
+in_master.pvm, etc, for examples. 
+
+The final three numbers in the input file show the number of rows in A, 
+number of rows in B, and number of columns in B. At present all elements 
+of A and B are set to 1.0, so each entry in the result matrix C will be
+identical to the number of rows in B.
+
+Input for the four variants are contained in the following files:
+Independent: in_master
+Condor-pvm:  in_master.pvm
+MW-Socket:   in_master.socket
+MW-File:     in_master.file
+
+After running make, run the examples for the RMComm layers as follows:
+
+Independent:
+./mastermatmul_indp < in_master
+(output to stdio)
+
+Condor-pvm:
+condor_submit submit_pvm
+(output from master goes to out_master.pvm, from workers to out_worker.pvm)
+
+MW-Socket:
+condor_submit submit_socket
+(output from master goes to out_master.socket, from workers to out_worker.socket)
+
+MW-File:
+condor_submit submit_mwfile
+(output from master goes to out_master.file, from workers to out_worker.file)
+
+
+Here are the files included in this directory of the distribution:
+
+README		: This file
+Matmul.html	: The explanation of what is what and what is being done.
+Driver-Matmul.C	: - Derived class of the MWDriver
+Driver-Matmul.h	: --/
+Task-Matmul.C	: - Derived class of the MWTask - packs and unpacks data,
+                    saves state for this task.
+Task-Matmul.h	: --/
+Worker-Matmul.C	: - Derived from MWWorker - does the worker stuff - sets up
+                    initial data, executes the task for this worker.
+Worker-Matmul.h	: --/
+MasterMain-Matmul.C	: Where 'main()' resides for the master.  Little else.
+WorkerMain-Matmul.C	: Ditto for the worker.
+
+TaskContainer-Matmul.*,  TaskContainer-Matmul-Ind.C: Not currently supported.
+
+in_master	: Input to your master - independent variant
+in_master.file  : Input to the master - MW-File variant
+in_master.pvm   : Input to the master - Condor-pvm variant
+in_master.socket  : Input to the master - MW-socket variant
+
+submit_mwfile	: A sample submit file for MW-File
+submit_pvm	: A sample submit file for Condor-pvm
+submit_socket   : A sample submit file for MW-Socket

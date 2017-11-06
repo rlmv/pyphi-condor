@@ -1,0 +1,9 @@
+# Now we're in the scheduler universe
+
+universe = scheduler
+executable = knap-master
+arguments = cir50.txt params.txt
+output = knap.out
+error = knap.err
+log = condor.log
+queue

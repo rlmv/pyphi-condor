@@ -1,0 +1,693 @@
+<!-- $Id: advancedusage.xml,v 1.11 2006/07/10 17:45:42 linderot Exp $ -->
+
+<chapter id="advancedusage">
+<title>
+Advanced Features of &mw;
+</title>
+
+<sect1><title>Checkpointing long-running computations</title>
+<para>
+
+Long running applications are, at some point, going to fail.  Either a
+program bug, power loss, OS or network failure will cause the program
+to crash. If this happens on the worker side, it isn't too much of a
+problem: &mw; will automtically detect this, and resend that task onto
+another worker.  A crash on the master is much more serious, though.
+To mitigate this risk, &mw; provides a mechanism for user-level
+checkpointing of the master state.  Periodically, &mw; will open up a
+file named "checkpoint", write out all of its state to this file, and
+call a method in your Driver and unrun Tasks which should save state.
+When &mw; starts up, it checks to see if this file exists, and if it
+does, restarts from that state.  To implement checkpointing, you
+simply need to set the checkpoint frequency, and to implement the
+following four methods.
+
+</para>
+<para>
+  <variablelist>
+  <varlistentry>
+  <term><code>void Driver_TEST::write_master_state( FILE *fp )</code> and <code>void Driver_TEST::read_master_state( FILE *fp)</code></term>
+  <listitem><para>
+
+  The Driver class periodically calls <code>write_master_state</code>,
+  which is part of the user-level checkpointing code.  You should
+  simply write out all current Driver state to the fp passed into this
+  method.  Its inverse function, read_master_state, will be called if
+  the master needs to be restarted from a checkpoint file.  You should
+  make sure that the writes in the former all corresponds to reads in
+  the later.  Unless you have a tremendous amount of state in the Driver,
+  it is usually best to write out in a simple, human-readable ASCII format.
+  This also enables a weak form of "computational steering", if you kill
+  the driver, and manually edit the checkpoint file, 
+
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>void Task_TEST::write_ckpt_info(FILE *)</code>and <code>void Task_TEST::read_ckpt_info(FILE *)</code></term>
+  <listitem>
+  <para>
+
+  These two methods are used to implement master-side checkpointing of tasks.
+  Any data you need to write with pack_work and unpack_work should probably
+  be saved to this file.
+
+  </para>
+  </listitem>
+  </varlistentry>
+  </variablelist>
+
+
+</para>
+
+<para>
+The user can control the frequency of the checkpoint in two ways: a
+checkpoint can be taken upon completion of a fixed number of tasks or
+after a specified time limit.  The methods to use are the following:
+
+  <variablelist>
+  <varlistentry>
+  <term><code>int MWDriver::set_checkpoint_frequency(int freq)</code> 
+  </term>
+  <listitem><para>
+  Sets the number of task completions (calls to
+  act_on_completed_task()) between checkpoints.  The default
+  frequency is zero (no checkpoints).  A good place to set this is in
+      get_userinfo().
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>set_checkpoint_time( int secs )</code></term>
+  <listitem>
+  <para>
+  Set a time-based frequency for checkpoints.  The time units
+  are in seconds.  A value of 0 "turns off" time-based 
+  checkpointing.  Time-based checkpointing cannot be "turned 
+  on" unless the checkpoint_frequency is set to 0.  A good
+  place to do this is in get_userinfo().
+  </para>
+  </listitem>
+  </varlistentry>
+  </variablelist>
+
+</para>
+
+<para>
+Advanced MW users often wish to use the checkpointing as a kind of
+"computational steering"---stopping the computation in order to change
+some parameters.  This can be done (if done with care), by resetting
+the appropriate parameters in <code>read_master_state</code>.
+Tasks in the checkpoint file will be ordered in the master task list
+according to the task_key function if one exists.  (See <xref linkend="sectaskmanagement"/>).  To make this easier, the format of the checkpoint file 
+should be in pure ascii.  The built-in MW checkpointing functions all write
+their state this way, but if the user code also does, steering via 
+editing this file is much easier.  Though this is somewhat less effecient
+in space and time, the time spent writing the checkpoint file is usually
+very small.
+</para>
+
+</sect1>
+
+<sect1><title>Statistics and Benchmarking with &mw</title>
+
+<sect2><title>Statistics in &mw</title>
+
+<para>
+During the course of a run, &mw; records statistics about
+the characteristics of the workers, the workers' state, and the worker's 
+usage.  These statistics are maintained in the
+<classname>MWStatistics</classname> class, and the user is encouraged
+to examine the source in the files <filename>MWStats.h</filename> and
+<filename>MWStats.C</filename>.  Suppse that the job took a (total)
+wall clock time of <literal>T</literal>, and there was a set
+<literal>W</literal> of workers that participated in the
+computation.  For each worker <literal>j</literal> in
+<literal>W</literal>, the following statistics are kept:
+<itemizedlist>
+      <listitem>
+	<para><literal>u<subscript>j</subscript></literal>: Total
+	(wall) time worker <literal>j</literal> was up</para>
+	</listitem>
+	<listitem>
+	<para><literal>c<subscript>j</subscript></literal>: Total
+	(CPU) time worker <literal>j</literal> was executing tasks</para>
+	</listitem>
+	<listitem>
+	<para><literal>s<subscript>j</subscript></literal>: Total
+	(wall) time worker <literal>j</literal> was suspended.
+	<emphasis>Note: suspended time is also counted as up
+	time</emphasis></para>
+	</listitem>
+	<listitem>
+	<para><literal>b<subscript>j</subscript></literal>: Benchmark
+	factor for worker <literal>j</literal></para>
+      </listitem>
+</itemizedlist>
+
+At the end of each run, &mw prints a
+summary of the statistics.  In <xref linkend="mwstatstable"/>, we
+list these statistics and their meaning.  For further discussion of
+the statistics relating to &mw benchmarking, please see the discussion
+in <xref linkend="secbenchmarking"/>
+
+
+<table frame="all" id="mwstatstable">
+<title> &mw Statistics</title>
+<tgroup cols="2" align="center" colsep="4" rowsep="1">
+<thead>
+<row> 
+<entry>&mw output</entry>
+<entry>Meaning</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>Number of (different) workers</entry>
+<entry>
+<literal>|W|</literal>
+</entry>
+</row>
+<row>
+<entry>Wall clock time for this job</entry>
+<entry><literal>T</literal></entry>
+</row>
+<row>
+<entry>Total time workers were alive (up)</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/sumu.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/sumu.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Total cpu time used by all workers</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/sumc.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/sumc.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Total time workers were suspended</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/sums.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/sums.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Average benchmark factor</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/avgb.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/avgb.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Equivalent benchmark factor</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/equivb.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/equivb.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Minimum benchmark factor</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/minb.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/minb.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Maximum benchmark factor</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/maxb.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/maxb.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Average Number Present Workers</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/avgpw.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/avgpw.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Average Number Nonsuspended Workers</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/avgnsw.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/avgnsw.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Average Number Active Workers</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/avgnaw.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/avgnaw.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Equivalent Pool Performance</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/equivpp.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/equivpp.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Equivalent Run Time</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/equivrt.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/equivrt.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+<row>
+<entry>Overall Parallel Performance</entry>
+<entry>
+<mediaobject>
+<imageobject>
+<imagedata format="TEX" fileref="figures/opp.tex"/>
+</imageobject>
+<imageobject>
+<imagedata format="PNG" fileref="figures/opp.png"/>
+</imageobject>
+</mediaobject>
+</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+&mw; will also print the "raw" statistics to standard output if the
+XXX link in here <code>MWprintf_level</code> is set greater than 20.
+</para>
+
+</sect2>
+
+<sect2 id="secbenchmarking"><title>Benchmarking in &mw</title>
+
+<para>
+The heterogeneous and dynamic nature of a computational grid makes
+application performance difficult to assess. Standard performance
+measures such as wall clock time and cumulative CPU time do not
+separate application code performance from computing platform
+performance. By normalizing the CPU time spent on a given task with
+the performance of the corresponding worker, &mw; aggregates time
+statistics that are comparable between runs.  The normalization factor
+can be based on vendor information such as MIPS or KFLOPS, if this
+information is available from the underlying Grid service software.
+Alternatively, &mw; allows the user to register an application specific
+benchmark task that is sent to all workers that join the computational
+pool.  The speed at which the benchmark task is completed is used as
+the normalization factor.
+</para>
+
+<para>
+In order to register a benchmark task with &mw; the user need only call the method
+<methodname>register_benchmark_task</methodname> in the
+<classname>MWDriver</classname> class.  For example, in the
+<filename>examples/knapsack/KnapMaster.C</filename> code example
+included in the distribution, a benchmark task is registered with the
+call
+<programlisting>
+ register_benchmark_task(new KnapTask(KnapNode(instance_.getNumItems()), 10000));
+</programlisting>
+which creates a task that is to evaluate 1000 nodes of the branch and
+bound search tree for the instance.
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1><title>Resource Management</title>
+
+<para>
+&mw; allows the user to specify the (target) number of workers that
+should participate in the computation.  This is done with the method 
+<methodname>set_target_num_workers( int num_workers )</methodname> in
+the <classname>MWRMComm</classname> class.  For more control, the user
+can specify a target number of workers in each "class" of executable
+through the call <methodname>set_target_num_workers(int exec_class,
+int num_workers )</methodname>.  The current target number that &mw is
+striving for can be returned to the user with the call
+<methodname>get_target_num_workers(int exec_class = -1)</methodname>. 
+</para>
+
+<para>
+&mw; typically does not make all the resource requests at once, but
+rather in increments.  The user can set the increment size with a
+call to the methos <methodname>set_worker_increment(int
+newinc)</methodname> in <classname>MWRMComm</classname> and retrieve
+the current increment by calling
+<methodname>set_worker_increment()</methodname>
+</para>
+
+</sect1>
+
+<sect1><title>Task affinity and grouping</title>
+<para>
+
+</para>
+</sect1>
+
+<sect1 id="sectaskmanagement"><title>Task management</title>
+<para>
+
+If your tasks are completely independent of each other, there is
+nothing you need to do to manage them -- &mw; will run them all in no
+particular order.
+However, if your tasks do depend on one another, &mw; provides interfaces
+to ensure that they are queued in the correct order.  This can improve
+your runtime, and in some cases, even the correctness of your code.  All
+of these methods can only be called from the master process, and probably
+should be called from the act_on_completed_task method.
+</para>
+
+      <para>
+        In &mw; the master class manages a list of uncompleted
+	tasks and a list of workers.  The default scheduling mechanism in &mw;
+	is to simply assign the task at the head of the task list to the first
+	idle worker in the worker list.  However, &mw; gives flexibility to
+	the user in the manner in which each of the lists are ordered.
+      </para>
+
+
+
+<programlisting>
+#define MWKey double
+MWDriver::set_task_key_function( MWKey (*)(MWTask *));
+</programlisting>
+
+<para>
+This method sets the function which maps a MWTask to a double, which 
+can be subsequently used to sort or cull the list of outstanding tasks.
+In &mw;, tasks with small key value have higher priority than tasks
+with large key value.
+You may call set_task_key_function more than once during the master's
+run to rearrange the task queue.
+</para>
+
+<programlisting>
+MWDriver::delete_tasks_worse_than(MWKey threshold); 
+</programlisting>
+
+<para> 
+Sometime, in act_on_completed_tasks, the result of a
+newly-finished task proves that certain pending MWTasks are now
+irrelevant.  For example, assume each task searches to maximize a
+certain function. If one task returns a high value for that function,
+you can safely remove all pending tasks that search for values lower
+than your recently-found maximum.  This method can be used to remove
+those tasks, if the set_task_key_function has been set up properly.
+Note that this function only removes pending tasks, not those which
+are already running on a worker.  
+</para>
+
+<para>
+<programlisting>
+enum MWTaskAdditionMode {
+  /// Tasks will be added at the end of the list
+  ADD_AT_END,
+  /// Tasks will be added at the beginning
+  ADD_AT_BEGIN,
+  /// Tasks will be added based on their key (low keys before high keys)
+  ADD_BY_KEY
+};
+
+enum MWTaskRetrievalMode {
+  /// Task at head of list will be returned.
+  GET_FROM_BEGIN,
+  /// Task with lowest key will be retrieved
+  GET_FROM_KEY
+};
+
+MWDriver::set_task_add_mode(MWTaskAdditionMode);
+MWDriver::set_task_retrieve_mode(MWTaskRetrievalMode);
+</programlisting>
+</para>
+<para>
+These methods control how the list of pending tasks is sorted.  If
+the tasks have dependencies on each other, it is important to set
+these values up correctly.  Otherwise, &mw; is free to run the tasks
+in any random order.
+</para>
+
+<para>
+For advanced examples of using the task list management features of
+&mw;, please refer to the <xref linkend="secknapsackexample"/>
+</para>
+
+</sect1>
+
+  <sect1 id="secmultiarch">
+  <title> Running with Multiple Architectures</title>
+  <para>
+
+  With &mw, there can be worker exectables of varying operating system
+  and architecture type.  All of the executables must be linked to use
+  the same <xref linkend="secrmcomm"/>RMComm layer.
+
+  </para>
+
+  <para> 
+  <emphasis>Special Consideration:</emphasis> When using the
+  Condor-PVM RMComm to submit workers of multiple architectures,
+  there must be multiple <code>queue</code> commands in the condor
+  submission file.  <xref linkend="excondorpvmmulti"/> is an example
+  of a Condor-PVM submission file for a multi-architecture run.
+
+  The other RMComms do not have this restriction -- you specify
+  the architectures within the Driver code only.
+
+  <example id="excondorpvmmulti"><title>A Multi-architecture MW
+  Condor-PVM submission file</title>
+  <programlisting>
+  # This Condor Submit File will submit multiple architectures 
+  #  In MW -- the worker executables that will be run 
+  #  are 
+  universe = pvm
+  executable = knap-master
+  arguments = cir50.txt params.txt
+  output = master.out
+  error = worker.out
+  log = condor.log
+
+  # This is machine class "0" - Opteron
+  requirements = (( arch == "x86_64" ) && ( opsys == "LINUX" ))
+  rank = KFlops
+  machine_count = 1..1
+  queue
+
+  # This is machine class "1" - Intel-Linux
+  requirements = (( arch == "INTEL" ) && ( opsys == "LINUX" ))
+  rank = KFlops
+  machine_count = 1..1
+  queue
+  </programlisting>
+  </example>
+
+  The (worker) executables that will be run as a result of the queue
+  command must be specified within the &mw; driver code itself.  (Usually in 
+  <methodname>MWDriver::get_userinfo()</methodname>.  <xref
+  linkend="excondorpvmmulticode"/> is an example of how the
+  executables are requirements are registered with MW.  <emphasis>The
+  order of the calls to <function>add_executable</function> must be
+  the same as the order in the condor 
+  submission file</emphasis>.
+
+  <example id="excondorpvmmulticode"><title>Calling Sequence for
+    Adding Executables with Different Requirements</title>
+  <programlisting>
+    RMC->add_executable("knap-worker-x86_64", "Arch == \"x86_64\" &&
+    Opsys == \"LINUX\"");
+    RMC->add_executable("knap-worker-x86_32", "Arch == \"INTEL\" && Opsys == \"LINUX\"");
+    </programlisting>
+    </example>
+
+
+  </para>
+</sect1>
+
+<sect1><title>Tips for higher throughput</title>
+<para>
+
+  &mw; has been used with thousands of
+  concurrent workers.  Careful tuning is often needed to effectively
+  run with this many workers. 
+
+</para>
+  <sect2><title>Configuring &mw; for highly parallel work</title>
+	<para>
+		The first limit to set is the call to RMC->set_target_num_workers(int),
+		which is an upper bound on the number of workers.  The second
+		limit is the host increment parameters with 
+		RMC->set_worker_increment(int) function.  The default value of this
+		is six workers, which mean that &mw; will only ask for six new
+		workers at a time, and wait for condor to start those before
+		asking for another six.  With only six workers starting at once, rampup
+		to hundreds of workers will be very slow.  Setting this to 128
+		will get &mw; started much more quickly.
+	</para>
+  </sect2>
+  <sect2><title>Configuring Condor for highly parallel &mw; work</title>
+	<para>
+		In order to run with a large number of workers (more than 100),
+		there is often some condor tuning needed.
+	</para>
+
+	<para>
+		From an administrative perspective, it can be easier to set
+		up a personal condor just to run &mw; jobs, and set up that
+		condor "pool" to flock to other pools, or accept glide-ins
+		from elsewhere.  This allows a user without Condor administratrive
+		privileges to make changes to the condor pool running mw easily.
+		The Condor manual describes how to set up a personal condor.
+		Also, the personal condor will probably run entirely as a
+		non-root user, which means that if operating system limits
+		are hit (e.g. too many processes per user), it is much easier
+		to recover.
+	</para>
+
+	<para>
+		The first setting is the MAX_JOBS_RUNNING setting in the schedd.
+		The value needs to be set above the total number of concurrent
+		workers.  Setting it high is generally not harmful, so setting
+		it to twice the expected number of workers is a good value.  Note
+		that when the master is submitted as a scheduler universe job, it
+		counts against this limit.
+	</para>
+
+	<para>
+		When running with a large number of jobs, the condor schedd can
+		get very busy.  Because the schedd is single threaded, it can
+		become unresponsive for minutes in rare situations.
+		This cases often have to do with execute machines which have 
+		crashed at inopportune times.  The schedd will eventually 
+		recover from these cases, but often it has to let multiple 
+		timeouts expire before returning to service commands like 
+		condor_q.  One of these timeouts is specified by the 
+		condor_config variable SEC_TCP_SESSION_TIMEOUT.
+		The default value for this is 20.  Lowering this to 10 or 5 speeds
+		up the schedd when it needs to handle killed workers.
+	</para>
+
+	<para>
+
+		If the schedd is unresponsive for a configurable amount of time,
+		the condor master daemon assumes that it is "stuck", and will 
+		kill the schedd with a signal.  The config parameter that
+		controls this is named SCHEDD_NOT_RESPONDING_TIMEOUT.  The default
+		value is twenty minutes (the units are seconds).  In rare cases,
+		if the condor MasterLog reports that it is killing an unresponsive
+		schedd, upping this parameter to a large value (say hours)
+		will fix the problem.
+	</para>
+
+	<para>
+
+		By default, the condor schedd will only start one job every 
+		two seconds.  If there are a lot of matches, this can 
+		slow startup.  The parameter that controls this is
+		JOB_START_DELAY.  If the &mw; hostinc is a moderate number, 
+		JOB_START_DELAY can set to zero, which means all shadows are 
+		started as fast as possible If &mw; hostinc is larger, 
+		setting this to 1 (units are seconds) is a better value.
+	</para>
+   </sect2>
+
+  <sect2><title>Configuring the OS for highly parallel work</title>
+	<para>
+		Running a large number of workers can require operating system
+		limits to be raised from the default values.  For MW-Socket
+		and MW-File, Condor will run one shadow process per worker. If
+		the per-user limit on number of processes is low, this limits
+		the number of workers.  Also, the Condor schedd tries to estimate
+		the amount of memory and swap space need, and if it thinks that
+		running more shadows would exhaust either, it will stop
+		spawning new workers.
+	</para>
+	<para>
+		MW-Socket uses one file descriptor per running worker.  The number
+		of file descriptors is a common limit for MW-Socket, and needs to
+		be about 10 more than the peak number of workers, depending on
+		how many file descriptors the user driver code needs.
+	</para>
+		
+  </sect2>
+</sect1>
+
+</chapter>
+<!--
+Local variables:
+mode: xml
+sgml-parent-document:("usersguide.xml" "part")
+End:
+-->

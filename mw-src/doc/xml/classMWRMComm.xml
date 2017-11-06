@@ -1,0 +1,1859 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classMWRMComm" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>MWRMComm</compoundname>
+      <sectiondef kind="user-defined">
+      <header>A. Resource Management Functions</header>
+      <description><para>Here are all the methods you could want to have for managing a set of machines. See each method for details... </para></description>
+      <memberdef kind="function" id="classMWRMComm_1ab4ce8dae654516f77d20fc912da3e188" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWRMComm::exit</definition>
+        <argsstring>(int exitval)</argsstring>
+        <name>exit</name>
+        <param>
+          <type>int</type>
+          <declname>exitval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>System shutdown. Does not return. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>exitval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to call ::exit() with </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="84" column="1"/>
+        <referencedby refid="classMWDriver_1a0dfb4201b9bce44ba2a59019f7fc2dd2" compoundref="MWDriver_8C" startline="3389" endline="3406">MWDriver::addSortedTasks</referencedby>
+        <referencedby refid="classMWDriver_1a8b8a9ff2699780ce52ae600b658c9e4f" compoundref="MWDriver_8C" startline="1873" endline="1892">MWDriver::addTasks</referencedby>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">MWWorker::suicide</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a6c500b03f49fbab5a879dfec1f8c492e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::setup</definition>
+        <argsstring>(int argc, char *argv[], int *my_id, int *master_id)=0</argsstring>
+        <name>setup</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>my_id</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>master_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialization of the master process. This will be called one time only when the master starts up. <simplesect kind="return"><para>0 on success, -1 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="90" column="1"/>
+        <referencedby refid="classMWWorker_1acd0f3f0d8637352325f1f00919dfeb6f" compoundref="MWWorker_8C" startline="50" endline="66">MWWorker::go</referencedby>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a14c2e55899e741afad81df95f33afa5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::config</definition>
+        <argsstring>(int *nhosts, int *narches, MWWorkerID ***w)</argsstring>
+        <name>config</name>
+        <param>
+          <type>int *</type>
+          <declname>nhosts</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>narches</declname>
+        </param>
+        <param>
+          <type>MWWorkerID ***</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This returns the state of the &quot;virtual machine&quot; - aka the set of workers under the master&apos;s control. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nhosts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of hosts </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>narches</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of architechture classes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a pointer to an array of pointers. This should be NULL when called; <ref refid="classMWRMComm_1a14c2e55899e741afad81df95f33afa5d" kindref="member">config()</ref> will allocate the memory using new and return it to you. Don&apos;t forget to delete not only the elements in that array, but also the array itself. The array will have nhosts elements, and they will each represent a worker machine. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success, -1 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="105" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="105" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a0064a409542e4308c77eb598b161138e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::start_worker</definition>
+        <argsstring>(MWWorkerID *w)=0</argsstring>
+        <name>start_worker</name>
+        <param>
+          <type>MWWorkerID *</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Start a worker on a machine that has been given to you. This is really only important if the process of starting a worker is two-stage. For instance, in pvm, you first get a machine. THEN you have to spawn an executable on that machine. For something like MW-files, once you get a worker it already has the executable started on it. In that case this will basically be a no-op. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a MWWorkerID. This must point to allocated memory. It is filled with info like the machine name, id2, and the arch. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>id2 on success, -1 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="120" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a50088a80976b2aee031e987393bceeb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::init_beginning_workers</definition>
+        <argsstring>(int *nworkers, MWWorkerID ***workers)=0</argsstring>
+        <name>init_beginning_workers</name>
+        <param>
+          <type>int *</type>
+          <declname>nworkers</declname>
+        </param>
+        <param>
+          <type>MWWorkerID ***</type>
+          <declname>workers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This routine is used to start up multiple workers at the beginning of a run. It should only be called one time. It basically does a <ref refid="classMWRMComm_1a14c2e55899e741afad81df95f33afa5d" kindref="member">config()</ref> to find out what machines are available, and then starts a worker on each of them. You may want to check the implementations for details... <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nworkers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of workers at the start (returned!) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a pointer to an array of MWWorkerID pointers. The memory management for this is the same as it is for the <ref refid="classMWRMComm_1a14c2e55899e741afad81df95f33afa5d" kindref="member">config()</ref> call - it should be null when called and will point to allocated memory when it comes back. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success, -1 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="136" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a532c61bca2f954df18a46fb4f1578606" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::removeWorker</definition>
+        <argsstring>(MWWorkerID *w)=0</argsstring>
+        <name>removeWorker</name>
+        <param>
+          <type>MWWorkerID *</type>
+          <declname>w</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove a worker from the virtual machine. This call will delete w, so don&apos;t reference that memory again! <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>w</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The MWWorkerID of the machine to remove. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success, a negative number on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="143" column="1"/>
+        <referencedby refid="classMWDriver_1ae4c5921926e8780642d1b7dacf1a7016" compoundref="MWDriver_8C" startline="2178" endline="2205">MWDriver::delete_tasks_worse_than</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+        <referencedby refid="classMWDriver_1ab4ee1fc1cbc9f5e07e3083f499d29be0" compoundref="MWDriver_8C" startline="1157" endline="1182">MWDriver::handle_taskexit</referencedby>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>B. Checkpointing Functions</header>
+      <memberdef kind="function" id="classMWRMComm_1a497ab814d1bc00c8fa562e85c2fd6570" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::write_checkpoint</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>write_checkpoint</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write out internal state to a FILE * </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="150" column="1"/>
+        <referencedby refid="classMWDriver_1ad41bdc32bc2f56f7816810bc4d260db2" compoundref="MWDriver_8C" startline="2646" endline="2755">MWDriver::checkpoint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ac04df4ffaa419034cf0ee335cd932dcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::read_checkpoint</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>read_checkpoint</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read in restart information from a FILE * </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="154" column="1"/>
+        <referencedby refid="classMWDriver_1af6a5b937b85d5a6cb90961249006942c" compoundref="MWDriver_8C" startline="2758" endline="2906">MWDriver::restart_from_ckpt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1afeb6975c08febef60274b552090fdc95" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::read_RMstate</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>read_RMstate</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Some Low level specific read/write functions </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a7570e146ed6b1c42a20fa015ddc1b823" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::write_RMstate</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>write_RMstate</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="159" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a831a7994d307d075f877b4415cb65657" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::restart_beginning_workers</definition>
+        <argsstring>(int *num, MWWorkerID ***tempWorkers, MWmessages msg)=0</argsstring>
+        <name>restart_beginning_workers</name>
+        <param>
+          <type>int *</type>
+          <declname>num</declname>
+        </param>
+        <param>
+          <type>MWWorkerID ***</type>
+          <declname>tempWorkers</declname>
+        </param>
+        <param>
+          <type>MWmessages</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A function to restart the workers. This is called at restart from a ckpt file and it is meant to re-init all the workers. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="164" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>C. Executable Management Interface functions</header>
+      <memberdef kind="variable" id="classMWRMComm_1adc0160ae06e86f3a9287b20d0a2f50f4" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::exec_classes</definition>
+        <argsstring></argsstring>
+        <name>exec_classes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of exec classes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="223" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1a34760512eb56356d6581e18475f77050" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::num_arches</definition>
+        <argsstring></argsstring>
+        <name>num_arches</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of different arch classes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="226" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1a0e22f07e5fbc90f5fc746c4c1195067b" prot="protected" static="no" mutable="no">
+        <type>char **</type>
+        <definition>char** MWRMComm::arch_class_attributes</definition>
+        <argsstring></argsstring>
+        <name>arch_class_attributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The arch attributes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="229" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1acf783eaa2bac49d0cca1b403725d8f66" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::num_executables</definition>
+        <argsstring></argsstring>
+        <name>num_executables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The number of executables </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="232" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1aa81c7090bff5f936a6e0eeb5679a7ee7" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::tempnum_executables</definition>
+        <argsstring></argsstring>
+        <name>tempnum_executables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="233" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1af444e4e9104d9a9b7ee35e3e4d025bb6" prot="protected" static="no" mutable="no">
+        <type>struct <ref refid="structRMC__executable" kindref="compound">RMC_executable</ref> **</type>
+        <definition>struct RMC_executable** MWRMComm::worker_executables</definition>
+        <argsstring></argsstring>
+        <name>worker_executables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>An array containing the { full} pathnames of the executables. Element 0 is for arch &quot;0&quot;, element 1 is for arch &quot;1&quot;, etc. Usually read in get get_userinfo(). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="239" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1ad51b57f12bcd01fbecb78c0c060df60d" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MWRMComm::worker_checkpointing</definition>
+        <argsstring></argsstring>
+        <name>worker_checkpointing</name>
+        <briefdescription>
+<para>Would you like the workers to be checkpointed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="242" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1ac81fec5e34fee7d872fcdacf9ab3b01a" prot="protected" static="no" mutable="no">
+        <type>int *</type>
+        <definition>int* MWRMComm::MW_exec_class_num_workers</definition>
+        <argsstring></argsstring>
+        <name>MW_exec_class_num_workers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="245" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a78424915f8da7195a01008ae5977da32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_num_exec_classes</definition>
+        <argsstring>(int num)</argsstring>
+        <name>set_num_exec_classes</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the number of executable classes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="171" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ac74cbe518e434e9796eba40687a3ec6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWRMComm::get_num_exec_classes</definition>
+        <argsstring>()</argsstring>
+        <name>get_num_exec_classes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the above number </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="174" column="1"/>
+        <referencedby refid="classMWDriver_1ae4c5921926e8780642d1b7dacf1a7016" compoundref="MWDriver_8C" startline="2178" endline="2205">MWDriver::delete_tasks_worse_than</referencedby>
+        <referencedby refid="classMWDriver_1a08d81fbcaa68a8fb4ec11afcd81abc1b" compoundref="MWDriver_8C" startline="3505" endline="3510">MWDriver::get_workers_head</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a37e1550401acab038a3f1d94f8c50669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_num_arch_classes</definition>
+        <argsstring>(int n)</argsstring>
+        <name>set_num_arch_classes</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the number of arch classes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="177" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1acc1a551c808ef615fd02992f0ab9fffb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_arch_class_attributes</definition>
+        <argsstring>(int arch_class, const char *attr)</argsstring>
+        <name>set_arch_class_attributes</name>
+        <param>
+          <type>int</type>
+          <declname>arch_class</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>attr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set the arch attribute </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a13a4ea4e7279c556ad1608c0b250a33f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWRMComm::get_num_arch_classes</definition>
+        <argsstring>()</argsstring>
+        <name>get_num_arch_classes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return the number of arch classes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="183" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a874259ae975681f5bbac122c119c2067" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_num_executables</definition>
+        <argsstring>(int num)</argsstring>
+        <name>set_num_executables</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the number of executables </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="186" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ad55f08e4878d4e2c241538bba4711b28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWRMComm::get_num_executables</definition>
+        <argsstring>()</argsstring>
+        <name>get_num_executables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="188" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ad45f645fdb840975d25614217626532d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::add_executable</definition>
+        <argsstring>(int exec_class, int arch_class, char *exec_name, char *requirements)</argsstring>
+        <name>add_executable</name>
+        <param>
+          <type>int</type>
+          <declname>exec_class</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>arch_class</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>exec_name</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>requirements</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the name of the binary and the requirements string for an arch class. Technically, the requirements string is not needed for MWPvmRC - it is defined in the submit file. It <emphasis>is</emphasis> needed in the MWFileRC, however, for job submission. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>arch_class</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This specifies which arch class the above requirements will apply to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exec_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the worker executable for this arch class. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>requirements</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A string containing the &quot;requirements&quot; attribute of a given arch class of workers. This will be something that can be used in a submit file, like &quot;(arch == \&quot;INTEL" &amp;&amp; opsys == "SOLARIS26")" </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="204" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1aeb6d7df2a7d9c633539837aa5e1778d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::add_executable</definition>
+        <argsstring>(const char *exec_name, const char *requirements)</argsstring>
+        <name>add_executable</name>
+        <param>
+          <type>const char *</type>
+          <declname>exec_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>requirements</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="208" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a10818d71f30ad62b5d747e0b5ef07d68" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>char *</type>
+        <definition>virtual char* MWRMComm::process_executable_name</definition>
+        <argsstring>(char *exec_name, int ex_cl, int num_arc)</argsstring>
+        <name>process_executable_name</name>
+        <param>
+          <type>char *</type>
+          <declname>exec_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ex_cl</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_arc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If the RM software needs to &quot;process&quot; the executable name in some way, this is done here. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="213" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1abff2205c7cd05ba73701b5e813873e46" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWRMComm::set_worker_checkpointing</definition>
+        <argsstring>(bool wc)</argsstring>
+        <name>set_worker_checkpointing</name>
+        <param>
+          <type>bool</type>
+          <declname>wc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set whether or not you would like worker checkpointing (if the CommRM implementation has the capability) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="218" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>D. Host Management Members</header>
+      <memberdef kind="variable" id="classMWRMComm_1ada92e3d26d11d240b121b7452a5ac7f9" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::target_num_workers</definition>
+        <argsstring></argsstring>
+        <name>target_num_workers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The desired number of workers </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="284" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1ab61af84df9df94c41c9f3c428775b58a" prot="protected" static="no" mutable="no">
+        <type>int *</type>
+        <definition>int* MWRMComm::exec_class_target_num_workers</definition>
+        <argsstring></argsstring>
+        <name>exec_class_target_num_workers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The desired number of workers, exec_class wise </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="287" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1a6c742808ed04090144b1247933b2ff7e" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWRMComm::hostinc_</definition>
+        <argsstring></argsstring>
+        <name>hostinc_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The current </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="290" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a9723b0a13c493923e1282d7832b86b65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_target_num_workers</definition>
+        <argsstring>(int num_workers)</argsstring>
+        <name>set_target_num_workers</name>
+        <param>
+          <type>int</type>
+          <declname>num_workers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set a &quot;target&quot; number of workers across all arches. This is useful if you don&apos;t care how many you get of each arch... <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The target number of workers </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="257" column="1"/>
+        <referencedby refid="classMWDriver_1a08d81fbcaa68a8fb4ec11afcd81abc1b" compoundref="MWDriver_8C" startline="3505" endline="3510">MWDriver::get_workers_head</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ace352001b604de4cd829960414fcb09d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_target_num_workers</definition>
+        <argsstring>(int exec_class, int num_workers)</argsstring>
+        <name>set_target_num_workers</name>
+        <param>
+          <type>int</type>
+          <declname>exec_class</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>num_workers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="259" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ab662b2fc47855cd46d9b6a9ba2f552e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWRMComm::get_target_num_workers</definition>
+        <argsstring>(int exec_class=-1)</argsstring>
+        <name>get_target_num_workers</name>
+        <param>
+          <type>int</type>
+          <declname>exec_class</declname>
+          <defval>-1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1adcb46dfbabd51a0690d70e39a0396659" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::set_worker_increment</definition>
+        <argsstring>(int newinc)</argsstring>
+        <name>set_worker_increment</name>
+        <param>
+          <type>int</type>
+          <declname>newinc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The RMComm will requests this many workers at a time </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="265" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a89caf7a6465de613d392cf04a65430a1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MWRMComm::get_worker_increment</definition>
+        <argsstring>() const</argsstring>
+        <name>get_worker_increment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="267" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a4ded74716925e2213d6f898543491ce1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::hostaddlogic</definition>
+        <argsstring>(int *num_workers)=0</argsstring>
+        <name>hostaddlogic</name>
+        <param>
+          <type>int *</type>
+          <declname>num_workers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This will figure out if we need to ask for more hosts or remove hosts. It is called whenever a host is added or removed from the system, or <ref refid="classMWRMComm_1a9723b0a13c493923e1282d7832b86b65" kindref="member">set_target_num_workers()</ref> is called. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>num_workers</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to an array of length num_arches that contains the number of workers for each arch class. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If we have more workers than we need, we return a positive number as the &quot;excess&quot; that can be deleted. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="281" column="1"/>
+        <referencedby refid="classMWDriver_1ae4c5921926e8780642d1b7dacf1a7016" compoundref="MWDriver_8C" startline="2178" endline="2205">MWDriver::delete_tasks_worse_than</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>The Communication Routines</header>
+      <description><para>These message passing routines are very closely modeled on PVM&apos;s message passing facility. They are, however, pretty generic in that any message passing interface should be able to implement them. </para></description>
+      <memberdef kind="function" id="classMWRMComm_1a12c2add8bea8577d5d150c49c7d42e5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::initsend</definition>
+        <argsstring>(int encoding=0)=0</argsstring>
+        <name>initsend</name>
+        <param>
+          <type>int</type>
+          <declname>encoding</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialize a buffer for sending some data. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>encoding</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Defined by each application. 0 = default </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="308" column="1"/>
+        <referencedby refid="classMWDriver_1a08d81fbcaa68a8fb4ec11afcd81abc1b" compoundref="MWDriver_8C" startline="3505" endline="3510">MWDriver::get_workers_head</referencedby>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+        <referencedby refid="classMWDriver_1a62ee843c55a50415b8c96c552267bd48" compoundref="MWDriver_8C" startline="719" endline="727">MWDriver::stop_work</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1abfe166a1b1c70e35069fbc0f1beb250f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::send</definition>
+        <argsstring>(int to_whom, int msgtag)=0</argsstring>
+        <name>send</name>
+        <param>
+          <type>int</type>
+          <declname>to_whom</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>msgtag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Send the data that has been packed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>to_whom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An identifier for the recipient </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msgtag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A &apos;tag&apos; to identify that type of message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="312" column="1"/>
+        <referencedby refid="classMWDriver_1a08d81fbcaa68a8fb4ec11afcd81abc1b" compoundref="MWDriver_8C" startline="3505" endline="3510">MWDriver::get_workers_head</referencedby>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+        <referencedby refid="classMWDriver_1a62ee843c55a50415b8c96c552267bd48" compoundref="MWDriver_8C" startline="719" endline="727">MWDriver::stop_work</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">MWWorker::suicide</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::recv</definition>
+        <argsstring>(int from_whom, int msgtag)=0</argsstring>
+        <name>recv</name>
+        <param>
+          <type>int</type>
+          <declname>from_whom</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>msgtag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Receive some data that has been packed. Should make this more PVM-independent; will do this sometime. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>from_whom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>From a specific source; -1 is from all </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msgtag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>With a certain tag; -1 is all. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="318" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a96b1eb6dd9c1d3f25ae63ac375f7206c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::nrecv</definition>
+        <argsstring>(int from_whom, int msgtag)</argsstring>
+        <name>nrecv</name>
+        <param>
+          <type>int</type>
+          <declname>from_whom</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>msgtag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>non-blocking receive. This is the same as recv except it returns the NO_MESSAGE tag instead of blocking if there is no data in the buffer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="323" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="323" bodyend="323"/>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">MWWorker::suicide</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a7670401dc33950de354e41183dd392cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::bufinfo</definition>
+        <argsstring>(int buf_id, int *len, int *tag, int *from)=0</argsstring>
+        <name>bufinfo</name>
+        <param>
+          <type>int</type>
+          <declname>buf_id</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>tag</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>from</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Provide info on the message just received </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="326" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a5b42e0d33adfc513fca36f7cb30ee38d" compoundref="MWWorker_8C" startline="484" endline="489">MWWorker::suicide</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1acb947438d2447b15a0d621392802ff2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWRMComm::who</definition>
+        <argsstring>(int *wh)=0</argsstring>
+        <name>who</name>
+        <param>
+          <type>int *</type>
+          <declname>wh</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>For some system events like HOSTDELETE, TASKEXIT, etc, this will tell who was affected </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="330" column="1"/>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+        <referencedby refid="classMWDriver_1af6c437b207bd8d327ceb84c5ce0c4304" compoundref="MWDriver_8C" startline="1129" endline="1154">MWDriver::handle_hostdel</referencedby>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWDriver_1a91c21e0a4aba8ce4e03ebf7c3064f6b5" compoundref="MWDriver_8C" startline="1278" endline="1357">MWDriver::handle_hostsuspend</referencedby>
+        <referencedby refid="classMWDriver_1ab4ee1fc1cbc9f5e07e3083f499d29be0" compoundref="MWDriver_8C" startline="1157" endline="1182">MWDriver::handle_taskexit</referencedby>
+        <referencedby refid="classMWDriver_1a62ee843c55a50415b8c96c552267bd48" compoundref="MWDriver_8C" startline="719" endline="727">MWDriver::stop_work</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a8cc7e0fa6b024fe7441fca581b4edf83" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWRMComm::hostadd</definition>
+        <argsstring>()</argsstring>
+        <name>hostadd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Needed only for MW-Independent </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="333" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="333" bodyend="333"/>
+        <referencedby refid="classMWDriver_1a0dfb4201b9bce44ba2a59019f7fc2dd2" compoundref="MWDriver_8C" startline="3389" endline="3406">MWDriver::addSortedTasks</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Pack Functions</header>
+      <description><para>In the following <ref refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4" kindref="member">pack()</ref> functions, there are some common themes. First, each stuffs some data into a buffer to be sent. The nitem parameter is just a count of the number of items. The stride parameter specifies <emphasis>which</emphasis> items to pack. 1 implies all, 2 would be every 2nd item, 3 is every 3rd item, etc.</para><para>The return value is user defined. It should be standardized, but I&apos;ll do that later. </para></description>
+      <memberdef kind="function" id="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const char *bytes, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const char *</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Pack some bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="349" column="1"/>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a247f848fbef158e09d9fa01020c2e7ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const float *f, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const float *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>float </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="351" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a00262ce5d015b7ede73b7b68b9d9306e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const double *d, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const double *</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>double </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="353" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ae0da5373d13493779930df6121e78558" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const int *i, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const int *</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>int </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="355" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1acd1255e2b9c9af469c9d44c28b1cc530" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const unsigned int *ui, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const unsigned int *</type>
+          <declname>ui</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned int </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="357" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a67a843ece78582381c2f5bb43b1fecb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const short *sh, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const short *</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>short </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="359" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a1e0c5e96072b649676c5ee41637da973" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const unsigned short *ush, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const unsigned short *</type>
+          <declname>ush</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned short </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="361" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a11ab3f7099236acb71b32271a1b31cc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const long *l, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const long *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>long </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="363" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a60cf34f0d51540b7aac88b43eabdf6ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const unsigned long *ul, int nitem, int stride=1)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const unsigned long *</type>
+          <declname>ul</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned long </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="365" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a28ff1802b9abdf3b7e9d8d927ecc0308" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::pack</definition>
+        <argsstring>(const char *string)=0</argsstring>
+        <name>pack</name>
+        <param>
+          <type>const char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+<para>Pack a NULL-terminated string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="367" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Unpack Functions</header>
+      <description><para>These unpack functions unpack data packed with the <ref refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4" kindref="member">pack()</ref> functions. See the <ref refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4" kindref="member">pack()</ref> functions for more details. </para></description>
+      <memberdef kind="function" id="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(char *bytes, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>char *</type>
+          <declname>bytes</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Unpack some bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="380" column="1"/>
+        <referencedby refid="classMWDriver_1a7e9140329e1c6a2b4b7f1a0a9a365cab" compoundref="MWDriver_8C" startline="203" endline="246">MWDriver::go</referencedby>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a7e2abe0edd1daee09e8dedf33b6ad76d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(float *f, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>float *</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>float </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="382" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a477b4686600d40320ae1c39caed4aca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(double *d, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>double *</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>double </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="384" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a28fc7b564580ee8d1fb0307e36b7d4f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(int *i, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>int *</type>
+          <declname>i</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>int </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="386" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1aa8e6d63675e60f4323eba279906b98c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(unsigned int *ui, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>unsigned int *</type>
+          <declname>ui</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned int </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="388" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a95a4054e0b75b56b7318c3d6756a4a33" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(short *sh, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>short *</type>
+          <declname>sh</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>short </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="390" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a8778534aaef8a935bf43f7a3b5edcdc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(unsigned short *ush, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>unsigned short *</type>
+          <declname>ush</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned short </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="392" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a0c4b6e41adbef7bfb4c26e120dd2d3f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(long *l, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>long *</type>
+          <declname>l</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>long </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="394" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a789b8c27745d87118d1eb951518499ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(unsigned long *ul, int nitem, int stride=1)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>unsigned long *</type>
+          <declname>ul</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nitem</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>stride</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>unsigned long </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="396" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a277f159c464e1977f5fa5ef04f377f6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::unpack</definition>
+        <argsstring>(char *string)=0</argsstring>
+        <name>unpack</name>
+        <param>
+          <type>char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+<para>Unpack a NULL-terminated string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="398" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classMWRMComm_1ac3dcc3a36f06b163e83dc4661028cddd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class MWDriver</definition>
+        <argsstring></argsstring>
+        <name>MWDriver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="64" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMWRMComm_1ac0edce61ba0263a04a569df694397fe1" prot="protected" static="no" mutable="no">
+        <type>MWList&lt; void &gt; *</type>
+        <definition>MWList&lt;void&gt;* MWRMComm::recv_buf_list</definition>
+        <argsstring></argsstring>
+        <name>recv_buf_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>When investigating the master-side bottleneck problem, we realized that sometimes the master can&apos;t handle all the messages sent from the many masters and the RMComm layer. The messages are accumulated in the RMComm layer&apos;s buffer (especially in the case of using MW-CondorPvm), but the master can&apos;t see them, not to mention process them or delete useless messages. This makes the master unable to accormodate the chanegs in the environment, also makes most of the workers waiting for new tasks.</para><para>One way to deal with this situation is to pull all the messages in the underlying message passing layer and let the master buffer them by itself, to separate the message receiving and message processing steps.</para><para>Thus we will introduce a FIFO list of buf_id (list of *int), each of the buf_id points to a message buffer in PVM (and likewise in the other RMComms). The original message processing steps are: RMC-&gt;<ref refid="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8" kindref="member">recv()</ref> RMC-&gt;<ref refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd" kindref="member">bufinfo()</ref> RMC-&gt;<ref refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f" kindref="member">unpack()</ref>, RMC-&gt;<ref refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f" kindref="member">unpack()</ref> And now the process will be the same, but implementation is different: RMC-&gt;recv_all() pull all messages out (in a non-blocking way) and put each message&apos;s buf_id into the FIFO list. RMC-&gt;<ref refid="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8" kindref="member">recv()</ref> blocking recv RMC-&gt;<ref refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd" kindref="member">bufinfo()</ref> examine the buf_info of the buffer with given buf_id RMC-&gt;setrbuf() will be used to switch the active receive buffer RMC-&gt;freebuf() will be used to free useless receive buffer RMC-&gt;<ref refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f" kindref="member">unpack()</ref></para><para>All recv will via the buffer_list now! </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="440" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1a859f4795dc121dcf92e5cd62b4447fe3" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MWRMComm::bytes_packed_</definition>
+        <argsstring></argsstring>
+        <name>bytes_packed_</name>
+        <briefdescription>
+<para>Keeps the number of bytes packed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="443" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWRMComm_1a0af7c21bc9a76df3135ed4d638bbb514" prot="protected" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MWRMComm::bytes_unpacked_</definition>
+        <argsstring></argsstring>
+        <name>bytes_unpacked_</name>
+        <briefdescription>
+<para>Holds the number of bytes unpacked. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="446" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMWRMComm_1a94ada3d2aa96190bf5444dfc64dd7147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MWRMComm::MWRMComm</definition>
+        <argsstring>()</argsstring>
+        <name>MWRMComm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor. Sets data to -1&apos;s. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a88c434d97ad8a782d22497719d2ebc64" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual MWRMComm::~MWRMComm</definition>
+        <argsstring>()</argsstring>
+        <name>~MWRMComm</name>
+        <briefdescription>
+<para>Destructor... </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a2eb445f774968a712a8f966dc1e09f40" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double MWRMComm::get_bytes_packed</definition>
+        <argsstring>() const</argsstring>
+        <name>get_bytes_packed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="404" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="404" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1aa3573b54682780279675f833417cc16d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double MWRMComm::get_bytes_unpacked</definition>
+        <argsstring>() const</argsstring>
+        <name>get_bytes_unpacked</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="407" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="407" bodyend="407"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1a9032f22c8dfd857af4a26fa69f19e024" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::recv_all</definition>
+        <argsstring>(int from_whom, int msgtag)=0</argsstring>
+        <name>recv_all</name>
+        <param>
+          <type>int</type>
+          <declname>from_whom</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>msgtag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="450" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ad802e30a8f9304241cd60d39bdceae73" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::setrbuf</definition>
+        <argsstring>(int bid)=0</argsstring>
+        <name>setrbuf</name>
+        <param>
+          <type>int</type>
+          <declname>bid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="452" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ad0019f50d9f820af6160e4c19055f803" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::freebuf</definition>
+        <argsstring>(int bid)=0</argsstring>
+        <name>freebuf</name>
+        <param>
+          <type>int</type>
+          <declname>bid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="454" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1afe97af8616485b9e8aca183fbca3417b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MWRMComm::next_buf</definition>
+        <argsstring>()=0</argsstring>
+        <name>next_buf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="456" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWRMComm_1ad8cbe06f00312db9397a04394b931130" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>MWList&lt; void &gt; *</type>
+        <definition>virtual MWList&lt;void&gt;* MWRMComm::recv_buffers</definition>
+        <argsstring>()=0</argsstring>
+        <name>recv_buffers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="458" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMWRMComm_1ab2cd1dfb21069d2ae199a27ff3cdd0ae" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWRMComm::verify_file_exists</definition>
+        <argsstring>(const char *)</argsstring>
+        <name>verify_file_exists</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="460" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>MWRMComm</label>
+        <link refid="classMWRMComm"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>worker_executables</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>RMC_executable</label>
+        <link refid="structRMC__executable"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/RMComm/MWRMComm.h" line="62" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="62" bodyend="461"/>
+    <listofallmembers>
+      <member refid="classMWRMComm_1ad45f645fdb840975d25614217626532d" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>add_executable</name></member>
+      <member refid="classMWRMComm_1aeb6d7df2a7d9c633539837aa5e1778d8" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>add_executable</name></member>
+      <member refid="classMWRMComm_1a0e22f07e5fbc90f5fc746c4c1195067b" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>arch_class_attributes</name></member>
+      <member refid="classMWRMComm_1a7670401dc33950de354e41183dd392cd" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>bufinfo</name></member>
+      <member refid="classMWRMComm_1a859f4795dc121dcf92e5cd62b4447fe3" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>bytes_packed_</name></member>
+      <member refid="classMWRMComm_1a0af7c21bc9a76df3135ed4d638bbb514" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>bytes_unpacked_</name></member>
+      <member refid="classMWRMComm_1a14c2e55899e741afad81df95f33afa5d" prot="public" virt="virtual"><scope>MWRMComm</scope><name>config</name></member>
+      <member refid="classMWRMComm_1ab61af84df9df94c41c9f3c428775b58a" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>exec_class_target_num_workers</name></member>
+      <member refid="classMWRMComm_1adc0160ae06e86f3a9287b20d0a2f50f4" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>exec_classes</name></member>
+      <member refid="classMWRMComm_1ab4ce8dae654516f77d20fc912da3e188" prot="public" virt="virtual"><scope>MWRMComm</scope><name>exit</name></member>
+      <member refid="classMWRMComm_1ad0019f50d9f820af6160e4c19055f803" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>freebuf</name></member>
+      <member refid="classMWRMComm_1a2eb445f774968a712a8f966dc1e09f40" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_bytes_packed</name></member>
+      <member refid="classMWRMComm_1aa3573b54682780279675f833417cc16d" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_bytes_unpacked</name></member>
+      <member refid="classMWRMComm_1a13a4ea4e7279c556ad1608c0b250a33f" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_num_arch_classes</name></member>
+      <member refid="classMWRMComm_1ac74cbe518e434e9796eba40687a3ec6b" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_num_exec_classes</name></member>
+      <member refid="classMWRMComm_1ad55f08e4878d4e2c241538bba4711b28" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_num_executables</name></member>
+      <member refid="classMWRMComm_1ab662b2fc47855cd46d9b6a9ba2f552e8" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_target_num_workers</name></member>
+      <member refid="classMWRMComm_1a89caf7a6465de613d392cf04a65430a1" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>get_worker_increment</name></member>
+      <member refid="classMWRMComm_1a8cc7e0fa6b024fe7441fca581b4edf83" prot="public" virt="virtual"><scope>MWRMComm</scope><name>hostadd</name></member>
+      <member refid="classMWRMComm_1a4ded74716925e2213d6f898543491ce1" prot="protected" virt="pure-virtual"><scope>MWRMComm</scope><name>hostaddlogic</name></member>
+      <member refid="classMWRMComm_1a6c742808ed04090144b1247933b2ff7e" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>hostinc_</name></member>
+      <member refid="classMWRMComm_1a50088a80976b2aee031e987393bceeb2" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>init_beginning_workers</name></member>
+      <member refid="classMWRMComm_1a12c2add8bea8577d5d150c49c7d42e5d" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>initsend</name></member>
+      <member refid="classMWRMComm_1ac81fec5e34fee7d872fcdacf9ab3b01a" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>MW_exec_class_num_workers</name></member>
+      <member refid="classMWRMComm_1ac3dcc3a36f06b163e83dc4661028cddd" prot="private" virt="non-virtual"><scope>MWRMComm</scope><name>MWDriver</name></member>
+      <member refid="classMWRMComm_1a94ada3d2aa96190bf5444dfc64dd7147" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>MWRMComm</name></member>
+      <member refid="classMWRMComm_1afe97af8616485b9e8aca183fbca3417b" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>next_buf</name></member>
+      <member refid="classMWRMComm_1a96b1eb6dd9c1d3f25ae63ac375f7206c" prot="public" virt="virtual"><scope>MWRMComm</scope><name>nrecv</name></member>
+      <member refid="classMWRMComm_1a34760512eb56356d6581e18475f77050" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>num_arches</name></member>
+      <member refid="classMWRMComm_1acf783eaa2bac49d0cca1b403725d8f66" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>num_executables</name></member>
+      <member refid="classMWRMComm_1a611ac04479ee1c3731cf459427d18fb4" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a247f848fbef158e09d9fa01020c2e7ae" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a00262ce5d015b7ede73b7b68b9d9306e" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1ae0da5373d13493779930df6121e78558" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1acd1255e2b9c9af469c9d44c28b1cc530" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a67a843ece78582381c2f5bb43b1fecb1" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a1e0c5e96072b649676c5ee41637da973" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a11ab3f7099236acb71b32271a1b31cc8" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a60cf34f0d51540b7aac88b43eabdf6ef" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a28ff1802b9abdf3b7e9d8d927ecc0308" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>pack</name></member>
+      <member refid="classMWRMComm_1a10818d71f30ad62b5d747e0b5ef07d68" prot="public" virt="virtual"><scope>MWRMComm</scope><name>process_executable_name</name></member>
+      <member refid="classMWRMComm_1ac04df4ffaa419034cf0ee335cd932dcd" prot="public" virt="virtual"><scope>MWRMComm</scope><name>read_checkpoint</name></member>
+      <member refid="classMWRMComm_1afeb6975c08febef60274b552090fdc95" prot="public" virt="virtual"><scope>MWRMComm</scope><name>read_RMstate</name></member>
+      <member refid="classMWRMComm_1a9f10630a68baee310e48d0df33fb2dd8" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>recv</name></member>
+      <member refid="classMWRMComm_1a9032f22c8dfd857af4a26fa69f19e024" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>recv_all</name></member>
+      <member refid="classMWRMComm_1ac0edce61ba0263a04a569df694397fe1" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>recv_buf_list</name></member>
+      <member refid="classMWRMComm_1ad8cbe06f00312db9397a04394b931130" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>recv_buffers</name></member>
+      <member refid="classMWRMComm_1a532c61bca2f954df18a46fb4f1578606" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>removeWorker</name></member>
+      <member refid="classMWRMComm_1a831a7994d307d075f877b4415cb65657" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>restart_beginning_workers</name></member>
+      <member refid="classMWRMComm_1abfe166a1b1c70e35069fbc0f1beb250f" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>send</name></member>
+      <member refid="classMWRMComm_1acc1a551c808ef615fd02992f0ab9fffb" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_arch_class_attributes</name></member>
+      <member refid="classMWRMComm_1a37e1550401acab038a3f1d94f8c50669" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_num_arch_classes</name></member>
+      <member refid="classMWRMComm_1a78424915f8da7195a01008ae5977da32" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_num_exec_classes</name></member>
+      <member refid="classMWRMComm_1a874259ae975681f5bbac122c119c2067" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_num_executables</name></member>
+      <member refid="classMWRMComm_1a9723b0a13c493923e1282d7832b86b65" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_target_num_workers</name></member>
+      <member refid="classMWRMComm_1ace352001b604de4cd829960414fcb09d" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_target_num_workers</name></member>
+      <member refid="classMWRMComm_1abff2205c7cd05ba73701b5e813873e46" prot="public" virt="virtual"><scope>MWRMComm</scope><name>set_worker_checkpointing</name></member>
+      <member refid="classMWRMComm_1adcb46dfbabd51a0690d70e39a0396659" prot="public" virt="non-virtual"><scope>MWRMComm</scope><name>set_worker_increment</name></member>
+      <member refid="classMWRMComm_1ad802e30a8f9304241cd60d39bdceae73" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>setrbuf</name></member>
+      <member refid="classMWRMComm_1a6c500b03f49fbab5a879dfec1f8c492e" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>setup</name></member>
+      <member refid="classMWRMComm_1a0064a409542e4308c77eb598b161138e" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>start_worker</name></member>
+      <member refid="classMWRMComm_1ada92e3d26d11d240b121b7452a5ac7f9" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>target_num_workers</name></member>
+      <member refid="classMWRMComm_1aa81c7090bff5f936a6e0eeb5679a7ee7" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>tempnum_executables</name></member>
+      <member refid="classMWRMComm_1af5fe22ee99ecbb178dad85b6474fe61f" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a7e2abe0edd1daee09e8dedf33b6ad76d" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a477b4686600d40320ae1c39caed4aca1" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a28fc7b564580ee8d1fb0307e36b7d4f8" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1aa8e6d63675e60f4323eba279906b98c1" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a95a4054e0b75b56b7318c3d6756a4a33" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a8778534aaef8a935bf43f7a3b5edcdc5" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a0c4b6e41adbef7bfb4c26e120dd2d3f0" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a789b8c27745d87118d1eb951518499ac" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1a277f159c464e1977f5fa5ef04f377f6c" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>unpack</name></member>
+      <member refid="classMWRMComm_1ab2cd1dfb21069d2ae199a27ff3cdd0ae" prot="private" virt="non-virtual"><scope>MWRMComm</scope><name>verify_file_exists</name></member>
+      <member refid="classMWRMComm_1acb947438d2447b15a0d621392802ff2e" prot="public" virt="pure-virtual"><scope>MWRMComm</scope><name>who</name></member>
+      <member refid="classMWRMComm_1ad51b57f12bcd01fbecb78c0c060df60d" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>worker_checkpointing</name></member>
+      <member refid="classMWRMComm_1af444e4e9104d9a9b7ee35e3e4d025bb6" prot="protected" virt="non-virtual"><scope>MWRMComm</scope><name>worker_executables</name></member>
+      <member refid="classMWRMComm_1a497ab814d1bc00c8fa562e85c2fd6570" prot="public" virt="virtual"><scope>MWRMComm</scope><name>write_checkpoint</name></member>
+      <member refid="classMWRMComm_1a7570e146ed6b1c42a20fa015ddc1b823" prot="public" virt="virtual"><scope>MWRMComm</scope><name>write_RMstate</name></member>
+      <member refid="classMWRMComm_1a88c434d97ad8a782d22497719d2ebc64" prot="public" virt="virtual"><scope>MWRMComm</scope><name>~MWRMComm</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

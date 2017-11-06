@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="MWprintf_8h" kind="file" language="C++">
+    <compoundname>MWprintf.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includedby refid="MW_8h" local="yes">MW.h</includedby>
+    <incdepgraph>
+      <node id="60">
+        <label>MWprintf.h</label>
+        <link refid="MWprintf_8h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="65">
+        <label>MWDriver.h</label>
+        <link refid="MWDriver_8h_source"/>
+      </node>
+      <node id="64">
+        <label>MWTask.h</label>
+        <link refid="MWTask_8h_source"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>MWprintf.h</label>
+        <link refid="MWprintf_8h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>MW.h</label>
+        <link refid="MW_8h_source"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h_source"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>MWPrintf</header>
+      <description><para>This functions control the amount of printed information in the <ref refid="classMWDriver" kindref="compound">MWDriver</ref>. This is controlled through &quot;levels&quot;, where a level of 0 is the most important and 99 is the least important. You can set the debug level to only print levels n and below.</para><para>Yes, this <emphasis>is</emphasis> a global function. However, everyone needs to use it, and making it a static member of <ref refid="classMWDriver" kindref="compound">MWDriver</ref> would mean that you&apos;d have to type MWDriver::MWprintf(), which would get downright annoying.</para><para>Other suggestions would be welcome.</para><para>Here&apos;s a proposed layout of how the numbers should work: {itemize}  10 : Big errors, major events  20 : Statistics at the end, user results  30 : User-defined results, info, etc  40 : Hosts up/down, other minor events  50 : Checkpointing information  60 : Sending/Receiving work  70 : Misc messges...  80 : Pointers!  90 : Even more pointers, debugging info, etc {itemize}</para><para>Remember, you&apos;ve got 9 levels in between each of these, so feel free to be creative.... </para></description>
+      <memberdef kind="function" id="MWprintf_8h_1af8fc05ca9809578627deb1a99bd91122" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWprintf</definition>
+        <argsstring>(int level, char *fmt,...)</argsstring>
+        <name>MWprintf</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A regular printf, with debugging level. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWprintf.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="MWprintf_8h_1addb54120cc9e0c841155b2e10ba4d9b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_MWprintf_level</definition>
+        <argsstring>()</argsstring>
+        <name>get_MWprintf_level</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the debug level for the MWprintf function. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWprintf.h" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="MWprintf_8h_1a37a124e24800e0d6f372739a74ac2c59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int set_MWprintf_level</definition>
+        <argsstring>(int level)</argsstring>
+        <name>set_MWprintf_level</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set the debug level for the MWprintf function. The default upon startup is 50. <simplesect kind="return"><para>The old level </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWprintf.h" line="76" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="MWprintf_8h_1ae8702b0bbe68d478f9bd131293beacef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FILE *</type>
+        <definition>FILE* Open</definition>
+        <argsstring>(char *, char *)</argsstring>
+        <name>Open</name>
+        <param>
+          <type>char *</type>
+        </param>
+        <param>
+          <type>char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWprintf.h" line="79" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="MWprintf_8h_1ada332a09bd682f0f71c14a75ee8c1b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Close</definition>
+        <argsstring>(FILE *)</argsstring>
+        <name>Close</name>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWprintf.h" line="80" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MWprintf.h"/>
+  </compounddef>
+</doxygen>

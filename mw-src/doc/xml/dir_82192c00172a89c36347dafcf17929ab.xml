@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_82192c00172a89c36347dafcf17929ab" kind="dir">
+    <compoundname>RMComm</compoundname>
+    <innerfile refid="MWRMComm_8h">MWRMComm.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/RMComm/"/>
+  </compounddef>
+</doxygen>

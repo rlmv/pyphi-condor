@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="no"?>
+<!-- $Id: usersguide.xml,v 1.4 2005/02/17 14:51:29 linderot Exp $ -->
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+                    "docbook/docbookx.dtd"
+                    [
+
+<!ENTITY mw "MW">
+<!-- ??? Use a fancy font or something for MW?-->
+
+<!ENTITY preface SYSTEM "preface.xml">
+<!ENTITY gettingstarted SYSTEM "gettingstarted.xml">
+<!ENTITY advancedusage SYSTEM "advancedusage.xml">
+<!ENTITY examples SYSTEM "examples.xml">
+<!ENTITY api SYSTEM "api.xml">
+]>
+
+<book>
+  <title>
+    User's Guide to &mw
+  </title>
+  <bookinfo>
+    <subtitle>
+      A guide to using &mw
+    </subtitle>
+    <corpauthor>
+      The &mw; team
+    </corpauthor>
+    <pubdate>2005</pubdate>
+    <copyright>
+      <year>2005</year>
+    </copyright>
+  </bookinfo>
+
+  <!-- PREFACE -->
+  &preface;
+
+  <!-- GETTING STARTED-->
+  &gettingstarted;
+
+  <!-- ADVANCED USAGE-->
+  &advancedusage;
+
+  <!-- ADVANCED EXAMPLES-->
+  &examples;
+
+  <!-- API-->
+  &api;
+
+</book>

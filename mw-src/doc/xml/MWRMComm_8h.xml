@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="MWRMComm_8h" kind="file" language="C++">
+    <compoundname>MWRMComm.h</compoundname>
+    <includes local="no">MWWorkerID.h</includes>
+    <includes local="yes">MWList.h</includes>
+    <includedby refid="MWTask_8h" local="no">MWTask.h</includedby>
+    <includedby refid="MWDriver_8h" local="no">MWDriver.h</includedby>
+    <includedby refid="MWWorker_8C" local="yes">MWWorker.C</includedby>
+    <incdepgraph>
+      <node id="69">
+        <label>MWList.h</label>
+      </node>
+      <node id="67">
+        <label>MWRMComm.h</label>
+        <link refid="MWRMComm_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>MWWorkerID.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="72">
+        <label>MWDriver.h</label>
+        <link refid="MWDriver_8h_source"/>
+      </node>
+      <node id="71">
+        <label>MWTask.h</label>
+        <link refid="MWTask_8h_source"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>MWRMComm.h</label>
+        <link refid="MWRMComm_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h_source"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structRMC__executable" prot="public">RMC_executable</innerclass>
+    <innerclass refid="classMWRMComm" prot="public">MWRMComm</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425" prot="public" static="no">
+        <name>MWRMCommErrors</name>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a2104982a986d6fc34b78631d77e52b45" prot="public">
+          <name>WORKER_TIMEOUT</name>
+          <initializer>= -50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425ad5c95e0142ac3bdbe650ad4b4989b696" prot="public">
+          <name>UNABLE_TO_WAKE</name>
+          <initializer>= -49</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425aecd5f00e39c7e94923016f58805f6d9b" prot="public">
+          <name>CANNOT_OPEN_INPUT_FILE</name>
+          <initializer>= -48</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a726ed2304afaf723b058c43a402456a8" prot="public">
+          <name>SCANF_ERROR_ON_INPUT_FILE</name>
+          <initializer>= -47</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a0ff7f46c0225d24ead667343f5a52214" prot="public">
+          <name>MESSAGE_SEQUENCE_ERROR</name>
+          <initializer>= -46</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425ac4fe50da7017062cccc0dc212620b0b6" prot="public">
+          <name>UNKNOWN_DATA_TYPE</name>
+          <initializer>= -45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a877ad6d8abf3a9369f02c7f55f83d90d" prot="public">
+          <name>WAITFILE_PROTOCOL_ERROR</name>
+          <initializer>= -44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a944d306a38672ce950c9f095d12f81a0" prot="public">
+          <name>FAIL_MASTER_SEND</name>
+          <initializer>= -43</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a44fc473b41ac2708a77f89f7725a9dda" prot="public">
+          <name>CHECKSUM_ERROR_EXIT</name>
+          <initializer>= -42</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425afd783e97d92382805c87eac47b6f208a" prot="public">
+          <name>UNKNOWN_COMMAND</name>
+          <initializer>= -41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425ad7dd68fc6465b7b93ea0144349e7af4b" prot="public">
+          <name>INIT_REPLY_FAILURE</name>
+          <initializer>= -40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="MWRMComm_8h_1a2d71bf89b4fb6ba6df364f7d184d1425a5ec4ad4a2594027398241dde36825a2c" prot="public">
+          <name>UNPACK_FAILURE</name>
+          <initializer>= -39</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This class is an abstract layer over a Resource Management (RM) and Communication (Comm) layer. Hence the RMComm name. It is designed to abstract away the differences between various systems.</para><para>The member functions in this class fall into two categories: Resource Management and Message Passing (Communication). The &quot;master&quot; in a master-worker application will use both; the worker will only use the communication facilities. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/RMComm/MWRMComm.h" line="38" column="1" bodyfile="src/RMComm/MWRMComm.h" bodystart="38" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/RMComm/MWRMComm.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,31 @@
+# Now we're in the scheduler universe
+
+universe = Scheduler
+
+# The name of our executable
+
+Executable     = masternQueens_socket
+
+# Assume a max image size of 16 Megabytes.
+
+Image_Size     = 4 Meg
++MemoryRequirements = 4
+
+# This goes into stdin for the master.
+
+Input   = in_master.socket
+
+# Set the output of this job to go to out_master
+
+Output  = out_master.socket
+
+# Set the stderr of this job to go to out_worker.  It is named 
+# out_worker because the output of the workers is directed to stderr
+
+Error   = out_worker.socket
+
+# Keep a log in case of problems.
+
+Log = work.log
+
+Queue

@@ -1,0 +1,221 @@
+\hypertarget{classMWWorker}{}\section{M\+W\+Worker Class Reference}
+\label{classMWWorker}\index{M\+W\+Worker@{M\+W\+Worker}}
+
+
+{\ttfamily \#include $<$M\+W\+Worker.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWWorker_a206f250e302ff46e6da8298140268710}\label{classMWWorker_a206f250e302ff46e6da8298140268710}} 
+\hyperlink{classMWWorker_a206f250e302ff46e6da8298140268710}{M\+W\+Worker} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWWorker_a5162af053c4ee7e0e01f680d6792ffa1}\label{classMWWorker_a5162af053c4ee7e0e01f680d6792ffa1}} 
+virtual \hyperlink{classMWWorker_a5162af053c4ee7e0e01f680d6792ffa1}{$\sim$\+M\+W\+Worker} ()
+\begin{DoxyCompactList}\small\item\em Default Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWWorker_acd0f3f0d8637352325f1f00919dfeb6f}\label{classMWWorker_acd0f3f0d8637352325f1f00919dfeb6f}} 
+void \hyperlink{classMWWorker_acd0f3f0d8637352325f1f00919dfeb6f}{go} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Giddyap! \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWWorker_aebb56958c01c2cdc0457348c9784b4c2}\label{classMWWorker_aebb56958c01c2cdc0457348c9784b4c2}} 
+M\+W\+Return {\bfseries do\+\_\+benchmark\+\_\+cmd} ()
+\item 
+\mbox{\Hypertarget{classMWWorker_ab36420a16258463f33625a482c7eda1c}\label{classMWWorker_ab36420a16258463f33625a482c7eda1c}} 
+M\+W\+Return {\bfseries worker\+\_\+mainloop\+\_\+oneshot} ()
+\item 
+\mbox{\Hypertarget{classMWWorker_abbf8a1d6f324842dc59cc2518b2b91d1}\label{classMWWorker_abbf8a1d6f324842dc59cc2518b2b91d1}} 
+int {\bfseries send\+\_\+update\+\_\+message} ()
+\item 
+\mbox{\Hypertarget{classMWWorker_a9aa6c3bf91fc664fae932e4b8e669b45}\label{classMWWorker_a9aa6c3bf91fc664fae932e4b8e669b45}} 
+void {\bfseries check\+\_\+update\+\_\+message} ()
+\item 
+\mbox{\Hypertarget{classMWWorker_a5c88f62b7cb0269ec2e9cf25a0fb23b0}\label{classMWWorker_a5c88f62b7cb0269ec2e9cf25a0fb23b0}} 
+virtual void {\bfseries unpack\+\_\+update} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWWorker_a87f6c0b746b3bb065600a37a024bb27d}\label{classMWWorker_a87f6c0b746b3bb065600a37a024bb27d}} 
+int {\bfseries workerid}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWWorker_ae5af340f99b0562ba20114c183d444f6}\label{classMWWorker_ae5af340f99b0562ba20114c183d444f6}} 
+static \hyperlink{classMWRMComm}{M\+W\+R\+M\+Comm} $\ast$ \hyperlink{classMWWorker_ae5af340f99b0562ba20114c183d444f6}{R\+MC}
+\begin{DoxyCompactList}\small\item\em Our RM / Comm class. Used here only for communication. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classMWWorker_a8a71e471b6376a829ea9ec716f723ae8}{pack\+\_\+worker\+\_\+initinfo} ()
+\item 
+virtual M\+W\+Return \hyperlink{classMWWorker_a3643c48f110d3f26e4d9aef00569d767}{unpack\+\_\+init\+\_\+data} ()=0
+\item 
+virtual void \hyperlink{classMWWorker_aa831917347c8f33026a75a5b8df94406}{execute\+\_\+task} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$)=0
+\item 
+virtual double \hyperlink{classMWWorker_ad25d07ada482a0db02baa4ff1d8023e9}{benchmark} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$t)
+\item 
+virtual void \hyperlink{classMWWorker_a2c5ef75df666407d7268f51a86143eb6}{unpack\+\_\+driver\+\_\+task\+\_\+data} (void)
+\item 
+M\+W\+Return \hyperlink{classMWWorker_a332479873153501e8ecb38cb682cdcd2}{greet\+\_\+master} ()
+\item 
+void \hyperlink{classMWWorker_a47f88c7a7c254d215174b77ab14bf5f3}{worker\+\_\+mainloop} ()
+\item 
+\mbox{\Hypertarget{classMWWorker_a5b42e0d33adfc513fca36f7cb30ee38d}\label{classMWWorker_a5b42e0d33adfc513fca36f7cb30ee38d}} 
+void \hyperlink{classMWWorker_a5b42e0d33adfc513fca36f7cb30ee38d}{suicide} ()
+\begin{DoxyCompactList}\small\item\em Die!!!!!! \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWWorker_a7511ee3da13dac338c4d0d97a589937b}\label{classMWWorker_a7511ee3da13dac338c4d0d97a589937b}} 
+int \hyperlink{classMWWorker_a7511ee3da13dac338c4d0d97a589937b}{master}
+\begin{DoxyCompactList}\small\item\em The task ID of the master -\/ used for sending messages. \end{DoxyCompactList}\item 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ \hyperlink{classMWWorker_acbd928ad8c2d7a66b9077d5127408bed}{working\+Task}
+\item 
+\mbox{\Hypertarget{classMWWorker_a881f8e6d0dfb3c21f49dad7ff50e64f1}\label{classMWWorker_a881f8e6d0dfb3c21f49dad7ff50e64f1}} 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ {\bfseries control\+Task}
+\item 
+\mbox{\Hypertarget{classMWWorker_a483214a078c164ece7b4b545761b48a1}\label{classMWWorker_a483214a078c164ece7b4b545761b48a1}} 
+char \hyperlink{classMWWorker_a483214a078c164ece7b4b545761b48a1}{mach\+\_\+name} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em The name of the machine the worker is running on. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWWorker_a1a4ee2d03564b36547585e068f0c1bad}\label{classMWWorker_a1a4ee2d03564b36547585e068f0c1bad}} 
+char \hyperlink{classMWWorker_a1a4ee2d03564b36547585e068f0c1bad}{master\+\_\+mach\+\_\+name} \mbox{[}64\mbox{]}
+\begin{DoxyCompactList}\small\item\em The name of the master machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is the worker class that performs the tasks in the opportunistic condor environment. It is an oppressed worker class in that in simply executes the tasks given to it and reports the results back to the master. \{ \+:-\/)\}
+
+Capitalist stooges who wish to create an application must derive a class from this class, and implement the following two methods
+
+\{itemize\}  \hyperlink{classMWWorker_a3643c48f110d3f26e4d9aef00569d767}{unpack\+\_\+init\+\_\+data()}  \hyperlink{classMWWorker_aa831917347c8f33026a75a5b8df94406}{execute\+\_\+task()} \{itemize\}
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classMWDriver}{M\+W\+Driver} 
+
+\hyperlink{classMWWorker}{M\+W\+Worker} 
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+Mike Yoder, modified by Jeff Linderoth and Jean-\/\+Pierre Goux 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMWWorker_ad25d07ada482a0db02baa4ff1d8023e9}\label{classMWWorker_ad25d07ada482a0db02baa4ff1d8023e9}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!benchmark@{benchmark}}
+\index{benchmark@{benchmark}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{benchmark()}{benchmark()}}
+{\footnotesize\ttfamily double M\+W\+Worker\+::benchmark (\begin{DoxyParamCaption}\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+This function performs the action that happens once the worker receives a subtask. Subtask id starts at 0 and ends at n-\/1 subtasks.
+
+Deprecated -\/ changing subtask model for container of tasks model The number of subtasks per worker is defined here. If this function is not implemented, then data streaming/subtasks is turned off and Master-\/\+Worker executes normally.
+
+Deprecated -\/ changing subtask model for container of tasks model\+Run a benchmark, given an M\+W\+T\+A\+SK. The default implementation is to call \{verbatim\} execute\+\_\+task(t) \{verbatim\} and return 1.\+0/(Task Time) as a benchmark of how fast the machine is 
+
+References execute\+\_\+task().
+
+
+
+Referenced by greet\+\_\+master(), and pack\+\_\+worker\+\_\+initinfo().
+
+\mbox{\Hypertarget{classMWWorker_aa831917347c8f33026a75a5b8df94406}\label{classMWWorker_aa831917347c8f33026a75a5b8df94406}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!execute\+\_\+task@{execute\+\_\+task}}
+\index{execute\+\_\+task@{execute\+\_\+task}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{execute\+\_\+task()}{execute\_task()}}
+{\footnotesize\ttfamily virtual void M\+W\+Worker\+::execute\+\_\+task (\begin{DoxyParamCaption}\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This function performs the actions that happen once the Worker finds out there is a task to do. You will need to cast the \hyperlink{classMWTask}{M\+W\+Task} $\ast$ to a pointer of the Task type derived for your application. For example
+
+\{verbatim\} Task\+\_\+\+Fib $\ast$dt = dynamic\+\_\+cast$<$\+Task\+\_\+\+Fib $\ast$$>$ ( t ); assert( dt ); \{verbatim\} 
+
+Referenced by benchmark(), pack\+\_\+worker\+\_\+initinfo(), and worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWWorker_a332479873153501e8ecb38cb682cdcd2}\label{classMWWorker_a332479873153501e8ecb38cb682cdcd2}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!greet\+\_\+master@{greet\+\_\+master}}
+\index{greet\+\_\+master@{greet\+\_\+master}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{greet\+\_\+master()}{greet\_master()}}
+{\footnotesize\ttfamily M\+W\+Return M\+W\+Worker\+::greet\+\_\+master (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+This is run before the \hyperlink{classMWWorker_a47f88c7a7c254d215174b77ab14bf5f3}{worker\+\_\+mainloop()}. It prints a message that the worker has been spawned, sends the master an I\+N\+IT message, and awaits a reply from the master, upon which it calls \hyperlink{classMWWorker_a3643c48f110d3f26e4d9aef00569d767}{unpack\+\_\+init\+\_\+data()}. 
+
+References benchmark(), M\+W\+R\+M\+Comm\+::bufinfo(), M\+W\+R\+M\+Comm\+::exit(), M\+W\+R\+M\+Comm\+::initsend(), mach\+\_\+name, master, master\+\_\+mach\+\_\+name, M\+W\+R\+M\+Comm\+::pack(), pack\+\_\+worker\+\_\+initinfo(), M\+W\+R\+M\+Comm\+::recv(), R\+MC, M\+W\+R\+M\+Comm\+::send(), M\+W\+R\+M\+Comm\+::unpack(), unpack\+\_\+init\+\_\+data(), M\+W\+Task\+::unpack\+\_\+work(), and working\+Task.
+
+
+
+Referenced by go(), unpack\+\_\+driver\+\_\+task\+\_\+data(), and worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWWorker_a8a71e471b6376a829ea9ec716f723ae8}\label{classMWWorker_a8a71e471b6376a829ea9ec716f723ae8}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!pack\+\_\+worker\+\_\+initinfo@{pack\+\_\+worker\+\_\+initinfo}}
+\index{pack\+\_\+worker\+\_\+initinfo@{pack\+\_\+worker\+\_\+initinfo}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{pack\+\_\+worker\+\_\+initinfo()}{pack\_worker\_initinfo()}}
+{\footnotesize\ttfamily virtual void M\+W\+Worker\+::pack\+\_\+worker\+\_\+initinfo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Here we might in the future pack some useful information about the specific machine on which we\textquotesingle{}re running. Right now, all workers are equal, and we pass only the hostname.
+
+There must be a \char`\"{}matching\char`\"{} unpack\+\_\+worker\+\_\+initinfo() in the \hyperlink{classMWDriver}{M\+W\+Driver} class. 
+
+References benchmark(), execute\+\_\+task(), and unpack\+\_\+init\+\_\+data().
+
+
+
+Referenced by greet\+\_\+master().
+
+\mbox{\Hypertarget{classMWWorker_a2c5ef75df666407d7268f51a86143eb6}\label{classMWWorker_a2c5ef75df666407d7268f51a86143eb6}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!unpack\+\_\+driver\+\_\+task\+\_\+data@{unpack\+\_\+driver\+\_\+task\+\_\+data}}
+\index{unpack\+\_\+driver\+\_\+task\+\_\+data@{unpack\+\_\+driver\+\_\+task\+\_\+data}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{unpack\+\_\+driver\+\_\+task\+\_\+data()}{unpack\_driver\_task\_data()}}
+{\footnotesize\ttfamily virtual void M\+W\+Worker\+::unpack\+\_\+driver\+\_\+task\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+If you have some driver data that you would like to use on the worker in order to execute the task, you should unpack it here. 
+
+References greet\+\_\+master(), suicide(), and worker\+\_\+mainloop().
+
+
+
+Referenced by worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWWorker_a3643c48f110d3f26e4d9aef00569d767}\label{classMWWorker_a3643c48f110d3f26e4d9aef00569d767}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!unpack\+\_\+init\+\_\+data@{unpack\+\_\+init\+\_\+data}}
+\index{unpack\+\_\+init\+\_\+data@{unpack\+\_\+init\+\_\+data}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{unpack\+\_\+init\+\_\+data()}{unpack\_init\_data()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Worker\+::unpack\+\_\+init\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This unpacks the initial data that is sent to the worker once the master knows that he has started.
+
+There must be a \char`\"{}matching\char`\"{} pack\+\_\+worker\+\_\+init\+\_\+data() in the \hyperlink{classMWDriver}{M\+W\+Driver} class derived for your application. 
+
+Referenced by greet\+\_\+master(), pack\+\_\+worker\+\_\+initinfo(), and worker\+\_\+mainloop().
+
+\mbox{\Hypertarget{classMWWorker_a47f88c7a7c254d215174b77ab14bf5f3}\label{classMWWorker_a47f88c7a7c254d215174b77ab14bf5f3}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!worker\+\_\+mainloop@{worker\+\_\+mainloop}}
+\index{worker\+\_\+mainloop@{worker\+\_\+mainloop}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{worker\+\_\+mainloop()}{worker\_mainloop()}}
+{\footnotesize\ttfamily void M\+W\+Worker\+::worker\+\_\+mainloop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+This sits in a loop in which it asks for work from the master and does the work. Maybe we should name this class Grad\+Student. \{ \+:-\/)\} 
+
+References M\+W\+R\+M\+Comm\+::bufinfo(), execute\+\_\+task(), M\+W\+R\+M\+Comm\+::exit(), greet\+\_\+master(), M\+W\+R\+M\+Comm\+::initsend(), mach\+\_\+name, master, M\+W\+Task\+::number, M\+W\+R\+M\+Comm\+::pack(), M\+W\+Task\+::pack\+\_\+results(), M\+W\+R\+M\+Comm\+::recv(), R\+MC, M\+W\+R\+M\+Comm\+::send(), suicide(), M\+W\+Task\+::task\+Type, M\+W\+R\+M\+Comm\+::unpack(), unpack\+\_\+driver\+\_\+task\+\_\+data(), unpack\+\_\+init\+\_\+data(), M\+W\+Task\+::unpack\+\_\+work(), and working\+Task.
+
+
+
+Referenced by go(), and unpack\+\_\+driver\+\_\+task\+\_\+data().
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classMWWorker_acbd928ad8c2d7a66b9077d5127408bed}\label{classMWWorker_acbd928ad8c2d7a66b9077d5127408bed}} 
+\index{M\+W\+Worker@{M\+W\+Worker}!working\+Task@{working\+Task}}
+\index{working\+Task@{working\+Task}!M\+W\+Worker@{M\+W\+Worker}}
+\subsubsection{\texorpdfstring{working\+Task}{workingTask}}
+{\footnotesize\ttfamily \hyperlink{classMWTask}{M\+W\+Task}$\ast$ M\+W\+Worker\+::working\+Task\hspace{0.3cm}{\ttfamily [protected]}}
+
+The task instance that a worker will use for packing/unpacking information from the master 
+
+Referenced by go(), greet\+\_\+master(), M\+W\+Worker(), and worker\+\_\+mainloop().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+M\+W\+Worker.\+h\item 
+M\+W\+Worker.\+C\end{DoxyCompactItemize}

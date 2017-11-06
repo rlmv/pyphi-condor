@@ -1,0 +1,872 @@
+\hypertarget{classMWDriver}{}\section{M\+W\+Driver Class Reference}
+\label{classMWDriver}\index{M\+W\+Driver@{M\+W\+Driver}}
+
+
+{\ttfamily \#include $<$M\+W\+Driver.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWDriver_a5e0110a01075a9dfd3e93053b22f9ef0}\label{classMWDriver_a5e0110a01075a9dfd3e93053b22f9ef0}} 
+\hyperlink{classMWDriver_a5e0110a01075a9dfd3e93053b22f9ef0}{M\+W\+Driver} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+virtual \hyperlink{classMWDriver_a05b1dac7d50ff571c480ff386e6fcb30}{$\sim$\+M\+W\+Driver} ()
+\item 
+void \hyperlink{classMWDriver_a7e9140329e1c6a2b4b7f1a0a9a365cab}{go} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{classMWDriver_a4d3d2d8a2fac34f02c0573fabb29f1cf}{go} ()
+\item 
+virtual void \hyperlink{classMWDriver_a147074c64c2bf0883077a28432816947}{printresults} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_aca4f177690775ecc72820c67a88e66f7}\label{classMWDriver_aca4f177690775ecc72820c67a88e66f7}} 
+void {\bfseries reassign\+Suspended\+Task} (M\+W\+List$<$ \hyperlink{classMWTask}{M\+W\+Task} $>$ $\ast$running, M\+W\+Worker\+ID $\ast$w)
+\item 
+\mbox{\Hypertarget{classMWDriver_a667ad4ad0017cd362835e7a89b43f061}\label{classMWDriver_a667ad4ad0017cd362835e7a89b43f061}} 
+void {\bfseries reassign\+Idle\+Task} (M\+W\+List$<$ M\+W\+Worker\+ID $>$ $\ast$workers, M\+W\+Worker\+ID $\ast$w)
+\item 
+\mbox{\Hypertarget{classMWDriver_aa7209348f0f9682935e191af9eb834b7}\label{classMWDriver_aa7209348f0f9682935e191af9eb834b7}} 
+int {\bfseries match\+Task} (void $\ast$arg1, void $\ast$arg2)
+\item 
+\mbox{\Hypertarget{classMWDriver_ae1a927f51c31e6f31998965770b06c31}\label{classMWDriver_ae1a927f51c31e6f31998965770b06c31}} 
+M\+W\+Worker\+ID $\ast$ {\bfseries numberworker} (void $\ast$arg1, void $\ast$arg2)
+\item 
+\mbox{\Hypertarget{classMWDriver_afc9ed3676db0cc2ac5f5941beb15f1da}\label{classMWDriver_afc9ed3676db0cc2ac5f5941beb15f1da}} 
+void {\bfseries prepare\+\_\+update} (int mode)
+\item 
+\mbox{\Hypertarget{classMWDriver_a8ac25d9fc7e9505bc14490d317c7560d}\label{classMWDriver_a8ac25d9fc7e9505bc14490d317c7560d}} 
+virtual void {\bfseries pack\+\_\+update} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_a3a101f4b453675e7408ad9f3869a9804}\label{classMWDriver_a3a101f4b453675e7408ad9f3869a9804}} 
+int {\bfseries send\+\_\+update\+\_\+message} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_ae13919ea92ecde1abc954db7ad0935d2}\label{classMWDriver_ae13919ea92ecde1abc954db7ad0935d2}} 
+int {\bfseries send\+\_\+update\+\_\+message\+\_\+to} (int worker)
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ C. Worker Policy Management}\par
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classMWDriver_a97b4b046a3793d45e28bd1b2fddbd8c1}{set\+\_\+suspension\+\_\+policy} (M\+W\+Suspension\+Policy)
+\item 
+\mbox{\Hypertarget{classMWDriver_a390d85849e7f510369c3b81ec4312de7}\label{classMWDriver_a390d85849e7f510369c3b81ec4312de7}} 
+int \hyperlink{classMWDriver_a390d85849e7f510369c3b81ec4312de7}{set\+\_\+machine\+\_\+ordering\+\_\+policy} (M\+W\+Machine\+Ordering\+Policy)
+\begin{DoxyCompactList}\small\item\em Sets the machine ordering policy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ D. Event Handling Methods}\par
+{\em In the case that the user wants to take specific actions when notified of processors going away, these methods may be reimplemented. Care must be taken when reimplementing these, or else things may get messed up.
+
+Probably a better solution in the long run is to provide users hooks into these functions or something.
+
+Basic default functionality that updates the known status of our virtual machine is provided. }\begin{DoxyCompactItemize}
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_a73290f6fab539708112ec28a9e49b563}{handle\+\_\+benchmark} (M\+W\+Worker\+ID $\ast$w)
+\item 
+virtual void \hyperlink{classMWDriver_af6c437b207bd8d327ceb84c5ce0c4304}{handle\+\_\+hostdel} ()
+\item 
+virtual void \hyperlink{classMWDriver_a91c21e0a4aba8ce4e03ebf7c3064f6b5}{handle\+\_\+hostsuspend} ()
+\item 
+virtual void \hyperlink{classMWDriver_a0e1ef56017457e099e5947e81dd5d761}{handle\+\_\+hostresume} ()
+\item 
+virtual void \hyperlink{classMWDriver_ab4ee1fc1cbc9f5e07e3083f499d29be0}{handle\+\_\+taskexit} ()
+\item 
+virtual void \hyperlink{classMWDriver_a7b1d0f044688941bd9a0e502b48c4676}{handle\+\_\+checksum} ()
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Benchmarking}\par
+{\em We now have a user-\/defined benchmarking phase. The user can \char`\"{}register\char`\"{} a task that is sent to each worker upon startup. This way, the user knows which machines are fastest, and MW can perform can automatic \char`\"{}normalization\char`\"{} of the equivalent C\+PU time. }\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classMWDriver_ad0a6b24ff90e2d2ae1495062fb480f24}{register\+\_\+benchmark\+\_\+task} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$t)
+\item 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ \hyperlink{classMWDriver_a77e388c0446e7c42a8c6d0ee544a29b6}{get\+\_\+benchmark\+\_\+task} ()
+\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classMWRMComm}{M\+W\+R\+M\+Comm} $\ast$ \hyperlink{classMWDriver_a3063439d04c8048868d6c4d5c51c6778}{R\+MC}
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{Indent}\textbf{ A. Pure Virtual Methods}\par
+{\em These are the methods from the \hyperlink{classMWDriver}{M\+W\+Driver} class that a user \{ must\} reimplement in order to have to create an application. }\begin{DoxyCompactItemize}
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_acf0edc86b06b46968114c8bb770791b2}{get\+\_\+userinfo} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})=0
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_a618bdbf6e481a903455e068ba37ba0fa}{setup\+\_\+initial\+\_\+tasks} (int $\ast$n, \hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$$\ast$task)=0
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}{act\+\_\+on\+\_\+completed\+\_\+task} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$)=0
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_a8199945d5f7c89bde67962da6d0c7ffe}{act\+\_\+on\+\_\+starting\+\_\+worker} (M\+W\+Worker\+ID $\ast$w)
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_a6a142fda8b58806b1769558afd17c85c}{pack\+\_\+worker\+\_\+init\+\_\+data} (void)=0
+\item 
+virtual void \hyperlink{classMWDriver_aaddea2ee086b0683b5d80ecb0438df91}{unpack\+\_\+worker\+\_\+initinfo} (M\+W\+Worker\+ID $\ast$w)
+\item 
+virtual void \hyperlink{classMWDriver_af6856e6de5bd17575e809e8e24140844}{pack\+\_\+driver\+\_\+task\+\_\+data} (void)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Data streaming/subtasks}\par
+{\em These are the methods that must be implemented to enable data streaming/ subtasks.
+\begin{DoxyItemize}
+\item \hyperlink{classMWDriver_aeb92065d166911049bec838253554555}{act\+\_\+on\+\_\+completed\+\_\+subtask()}
+\item M\+W\+Worker\+::execute\+\_\+subtask
+\item M\+W\+Worker\+::set\+\_\+num\+\_\+subtask
+\item \hyperlink{classMWTask_a1a1b24e608337f787966b5d91f04f7de}{M\+W\+Task\+::pack\+\_\+subresults}
+\item \hyperlink{classMWTask_ae6fe9fd144486e79c19a1087da1fd7ab}{M\+W\+Task\+::unpack\+\_\+subresults}
+\end{DoxyItemize}
+
+A subtask is identified by a \hyperlink{classMWTask}{M\+W\+Task} and a subtask id. The subtask id starts at 0 and ends at n-\/1 subtasks.
+
+When subtasks are enabled, the Master sends the task to the Worker as usual. But instead of calling execute\+\_\+task once, execute\+\_\+subtask is called once per subtask id (starting at 0). At the end of each call, the result will be returned to the Master. After all subtasks have completed, the Master is notified that the Task has completed. }\begin{DoxyCompactItemize}
+\item 
+virtual M\+W\+Return \hyperlink{classMWDriver_aeb92065d166911049bec838253554555}{act\+\_\+on\+\_\+completed\+\_\+subtask} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$)
+\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWDriver_a7f5e4f492b6cae4d6ac5f83e48b79300}\label{classMWDriver_a7f5e4f492b6cae4d6ac5f83e48b79300}} 
+class {\bfseries M\+W\+Task}
+\end{DoxyCompactItemize}
+\subsection*{B. Task List Management}
+\label{_amgrp38670e45ec2f524a92bf9b971b068861}%
+These functions are to manage the list of Tasks. MW provides default useful functionality for managing the list of tasks. \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWDriver_abe90c9016afecc9bf9b68d4b9f3ba3b7}\label{classMWDriver_abe90c9016afecc9bf9b68d4b9f3ba3b7}} 
+void \hyperlink{classMWDriver_abe90c9016afecc9bf9b68d4b9f3ba3b7}{set\+\_\+task\+\_\+key\+\_\+function} (M\+W\+Key($\ast$)(\hyperlink{classMWTask}{M\+W\+Task} $\ast$))
+\begin{DoxyCompactList}\small\item\em Sets the function that \hyperlink{classMWDriver}{M\+W\+Driver} users to get the \char`\"{}key\char`\"{} for a task. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_ae31fcd35f6e798994a2419db39f9f743}\label{classMWDriver_ae31fcd35f6e798994a2419db39f9f743}} 
+int \hyperlink{classMWDriver_ae31fcd35f6e798994a2419db39f9f743}{set\+\_\+task\+\_\+add\+\_\+mode} (M\+W\+Task\+Addition\+Mode)
+\begin{DoxyCompactList}\small\item\em Set the mode you wish for task addition. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a5d413e43dbd55fdc211f0aebdd51ac47}\label{classMWDriver_a5d413e43dbd55fdc211f0aebdd51ac47}} 
+int \hyperlink{classMWDriver_a5d413e43dbd55fdc211f0aebdd51ac47}{set\+\_\+task\+\_\+retrieve\+\_\+mode} (M\+W\+Task\+Retrieval\+Mode)
+\begin{DoxyCompactList}\small\item\em Set the mode you wish for task retrieval. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a69e6f72bc04a6c68046a41bc4292bf64}\label{classMWDriver_a69e6f72bc04a6c68046a41bc4292bf64}} 
+int \hyperlink{classMWDriver_a69e6f72bc04a6c68046a41bc4292bf64}{sort\+\_\+task\+\_\+list} (void)
+\begin{DoxyCompactList}\small\item\em This sorts the task list by the key that is set. \end{DoxyCompactList}\item 
+int \hyperlink{classMWDriver_ae4c5921926e8780642d1b7dacf1a7016}{delete\+\_\+tasks\+\_\+worse\+\_\+than} (M\+W\+Key)
+\item 
+\mbox{\Hypertarget{classMWDriver_a91e7f38f78eba72bd69103a25730f9a9}\label{classMWDriver_a91e7f38f78eba72bd69103a25730f9a9}} 
+int \hyperlink{classMWDriver_a91e7f38f78eba72bd69103a25730f9a9}{get\+\_\+number\+\_\+tasks} ()
+\begin{DoxyCompactList}\small\item\em returns the number of tasks on the todo list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a54e42db5bff6f63d6a0dc4886a293a2e}\label{classMWDriver_a54e42db5bff6f63d6a0dc4886a293a2e}} 
+int {\bfseries get\+Num\+Workers} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_a71ca10beb1bce49579a44a657ed1f7a8}\label{classMWDriver_a71ca10beb1bce49579a44a657ed1f7a8}} 
+int \hyperlink{classMWDriver_a71ca10beb1bce49579a44a657ed1f7a8}{get\+\_\+number\+\_\+running\+\_\+tasks} ()
+\begin{DoxyCompactList}\small\item\em returns the number of running tasks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a8d2aea2804ff2f999ea206a3ee0f096a}\label{classMWDriver_a8d2aea2804ff2f999ea206a3ee0f096a}} 
+int \hyperlink{classMWDriver_a8d2aea2804ff2f999ea206a3ee0f096a}{print\+\_\+task\+\_\+keys} (void)
+\begin{DoxyCompactList}\small\item\em (Mostly for debugging) -- Prints the task keys in the todo list \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a49177e47b2d394aff1bc952e98bb7e19}\label{classMWDriver_a49177e47b2d394aff1bc952e98bb7e19}} 
+void \hyperlink{classMWDriver_a49177e47b2d394aff1bc952e98bb7e19}{work\+Classes\+\_\+set} (int num)
+\begin{DoxyCompactList}\small\item\em Set number of workclasses. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_af239d1566ec6f0657891a027399d1217}\label{classMWDriver_af239d1566ec6f0657891a027399d1217}} 
+int \hyperlink{classMWDriver_af239d1566ec6f0657891a027399d1217}{work\+Classes\+\_\+get} ()
+\begin{DoxyCompactList}\small\item\em Get the number of workclasses. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a62ee843c55a50415b8c96c552267bd48}\label{classMWDriver_a62ee843c55a50415b8c96c552267bd48}} 
+int \hyperlink{classMWDriver_a62ee843c55a50415b8c96c552267bd48}{stop\+\_\+work} ()
+\begin{DoxyCompactList}\small\item\em Stop the worker working on this task container and send it a new task container. This should only be called in \hyperlink{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}{act\+\_\+on\+\_\+completed\+\_\+task(\+M\+W\+Task$\ast$)} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a31d60231d425b490ebca37dae8ffd47a}\label{classMWDriver_a31d60231d425b490ebca37dae8ffd47a}} 
+int \hyperlink{classMWDriver_a31d60231d425b490ebca37dae8ffd47a}{work\+Classes\+\_\+getworkers} (int num)
+\begin{DoxyCompactList}\small\item\em get number of workers in the specified work class \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a0cbd67b86b21fa4676884107bdd48fce}\label{classMWDriver_a0cbd67b86b21fa4676884107bdd48fce}} 
+int \hyperlink{classMWDriver_a0cbd67b86b21fa4676884107bdd48fce}{work\+Classes\+\_\+gettasks} (int num)
+\begin{DoxyCompactList}\small\item\em get number of tasks in the specified work class \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a9dc5f80c5069e9bddcfee2ad9e5e32e4}\label{classMWDriver_a9dc5f80c5069e9bddcfee2ad9e5e32e4}} 
+int \hyperlink{classMWDriver_a9dc5f80c5069e9bddcfee2ad9e5e32e4}{refresh\+Workers} (int i, M\+W\+R\+E\+F\+R\+E\+S\+H\+\_\+\+T\+Y\+PE)
+\begin{DoxyCompactList}\small\item\em Pack new init data for all workers in group i. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_aa044c3810502c18efcb32dc77a66a138}\label{classMWDriver_aa044c3810502c18efcb32dc77a66a138}} 
+void \hyperlink{classMWDriver_aa044c3810502c18efcb32dc77a66a138}{add\+Task} (\hyperlink{classMWTask}{M\+W\+Task} $\ast$)
+\begin{DoxyCompactList}\small\item\em Add a task to the list. \end{DoxyCompactList}\item 
+void \hyperlink{classMWDriver_a8b8a9ff2699780ce52ae600b658c9e4f}{add\+Tasks} (int, \hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$)
+\item 
+void \hyperlink{classMWDriver_a0dfb4201b9bce44ba2a59019f7fc2dd2}{add\+Sorted\+Tasks} (int n, \hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$add\+\_\+tasks)
+\end{DoxyCompactItemize}
+\subsection*{. task timeout policy.}
+\label{_amgrp7940828ce8508c8dd1b9ee869fcde339}%
+MW provides a mechanism for performing tasks on workers that are potentially \char`\"{}lost\char`\"{}. If the R\+M\+Comm fails to notify MW of a worker going away in a timely fashion, the state of the computing platform and MW\textquotesingle{}s vision of its state may become out of synch. In order to make sure that all tasks are done in a timely fashion, the user may set a time limit after which a task running on a \char`\"{}lost\char`\"{} worker may be rescheduled. \begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classMWDriver_ad41f96ba14ccc7712be09c0374eae9c9}{set\+\_\+worker\+\_\+timeout\+\_\+limit} (double timeout\+\_\+limit, int timeout\+\_\+frequency)
+\end{DoxyCompactItemize}
+\subsection*{E. Checkpoint Handling Functions}
+\label{_amgrp591991dcf907ef1843a851b7742dde4d}%
+These are logical checkpoint handling functions. They are virtual, and are {\itshape entirely} application-\/specific. In them, the user must save the \char`\"{}state\char`\"{} of the application to permanent storage (disk). To do this, you need to\+:
+
+\{itemize\}  Implement the methods \hyperlink{classMWDriver_ab3a42409894c40f6992f01b433174588}{write\+\_\+master\+\_\+state()} and \hyperlink{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}{read\+\_\+master\+\_\+state()} in your derived \hyperlink{classMWDriver}{M\+W\+Driver} app.  Implement the methods write\+\_\+ckpt\+\_\+info() and read\+\_\+ckpt\+\_\+info() in your derived \hyperlink{classMWTask}{M\+W\+Task} class. \{itemize\}
+
+Then \hyperlink{classMWDriver}{M\+W\+Driver} does the rest for you. When \hyperlink{classMWDriver_ad41bdc32bc2f56f7816810bc4d260db2}{checkpoint()} is called (see below) it opens up a known filename for writing. It passes the file pointer of that file to \hyperlink{classMWDriver_ab3a42409894c40f6992f01b433174588}{write\+\_\+master\+\_\+state()}, which dumps the \char`\"{}state\char`\"{} of the master to that fp. Here \char`\"{}sate\char`\"{} includes all the variables, info, etc of Y\+O\+UR C\+L\+A\+SS T\+H\+AT W\+AS D\+E\+R\+I\+V\+ED F\+R\+OM M\+W\+D\+R\+I\+V\+ER. All state in M\+W\+Driver.\+C is taken care of (there\textquotesingle{}s not much). Next, checkpoint will walk down the running queue and the todo queue and call each member\textquotesingle{}s write\+\_\+ckpt\+\_\+info().
+
+Upon restart, \hyperlink{classMWDriver}{M\+W\+Driver} will detect the presence of the checkpoint file and restart from it. It calls \hyperlink{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}{read\+\_\+master\+\_\+state()}, which is the inverse of \hyperlink{classMWDriver_ab3a42409894c40f6992f01b433174588}{write\+\_\+master\+\_\+state()}. Then, for each task in the checkpoint file, it creates a new \hyperlink{classMWTask}{M\+W\+Task}, calls read\+\_\+ckpt\+\_\+info() on it, and adds it to the todo queue.
+
+We start from there and proceed as normal.
+
+One can set the \char`\"{}frequency\char`\"{} that checkpoint files will be written (using \hyperlink{classMWDriver_aa34fc54dfba3806db87c297c8b39244a}{set\+\_\+checkpoint\+\_\+frequency()}). The default frequency is zero -\/ no checkpointing. When the frequency is set to n, every nth time that act\+\_\+on\+\_\+completed\+\_\+task gets called, we checkpoint immediately afterwards. If your application involves \char`\"{}work steps\char`\"{}, you probably will want to leave the frequency at zero and call checkpoint yourself at the end of a work step. \begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classMWDriver_a033da9ddab14c10d0c174ee778234221}{M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM}
+\item 
+\mbox{\Hypertarget{classMWDriver_a8b7f11eb5034f28a30e51889e0a005b9}\label{classMWDriver_a8b7f11eb5034f28a30e51889e0a005b9}} 
+int {\bfseries N\+U\+M\+\_\+\+I\+N\+\_\+\+M\+E\+M\+\_\+\+LO}
+\item 
+\mbox{\Hypertarget{classMWDriver_aa3a1e82a5a6cb3cd9a7d3103f0d2f00e}\label{classMWDriver_aa3a1e82a5a6cb3cd9a7d3103f0d2f00e}} 
+int {\bfseries N\+U\+M\+\_\+\+I\+N\+\_\+\+M\+E\+M\+\_\+\+HI}
+\item 
+\mbox{\Hypertarget{classMWDriver_af1534851c44c7bddddac325f7ab490e8}\label{classMWDriver_af1534851c44c7bddddac325f7ab490e8}} 
+int {\bfseries M\+A\+X\+\_\+\+I\+N\+\_\+\+M\+EM}
+\item 
+void \hyperlink{classMWDriver_ad41bdc32bc2f56f7816810bc4d260db2}{checkpoint} ()
+\item 
+void \hyperlink{classMWDriver_af6a5b937b85d5a6cb90961249006942c}{restart\+\_\+from\+\_\+ckpt} ()
+\item 
+int \hyperlink{classMWDriver_aa34fc54dfba3806db87c297c8b39244a}{set\+\_\+checkpoint\+\_\+frequency} (int freq)
+\item 
+int \hyperlink{classMWDriver_a7f803ede53bb0d797bce81d56a33cdf9}{set\+\_\+checkpoint\+\_\+time} (int secs)
+\item 
+virtual void \hyperlink{classMWDriver_ab3a42409894c40f6992f01b433174588}{write\+\_\+master\+\_\+state} (F\+I\+LE $\ast$fp)
+\item 
+virtual void \hyperlink{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}{read\+\_\+master\+\_\+state} (F\+I\+LE $\ast$fp)
+\item 
+bool \hyperlink{classMWDriver_afa05516157b292a420ba6770fd2f493c}{swap\+\_\+out\+\_\+todo\+\_\+tasks} (int num\+\_\+in\+\_\+mem=2048, int max\+\_\+in\+\_\+mem=204800, double max\+\_\+key=D\+B\+L\+\_\+\+M\+AX)
+\item 
+bool \hyperlink{classMWDriver_aaa70ab2dd6087ef2415824f770747f8f}{swap\+\_\+in\+\_\+todo\+\_\+tasks} (int min\+\_\+in\+\_\+mem=256, int num\+\_\+in\+\_\+mem=25600)
+\item 
+bool \hyperlink{classMWDriver_a184d950e15be4aa0ecb22d7eaea622fe}{is\+\_\+\+T\+O\+D\+O\+\_\+empty} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_a394381ef1a29bd1300184793e0e8c5da}\label{classMWDriver_a394381ef1a29bd1300184793e0e8c5da}} 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ {\bfseries read\+\_\+mem\+\_\+task} (M\+W\+List$<$ \hyperlink{classMWTask}{M\+W\+Task} $>$ $\ast$tasks)
+\item 
+\mbox{\Hypertarget{classMWDriver_ade316a0388ef55bf25048ed484b66a05}\label{classMWDriver_ade316a0388ef55bf25048ed484b66a05}} 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ {\bfseries read\+\_\+file\+\_\+task} (F\+I\+LE $\ast$f)
+\item 
+\mbox{\Hypertarget{classMWDriver_a9791a018c5711fd6590af5f29d49877f}\label{classMWDriver_a9791a018c5711fd6590af5f29d49877f}} 
+void {\bfseries write\+\_\+task} (F\+I\+LE $\ast$f, \hyperlink{classMWTask}{M\+W\+Task} $\ast$t)
+\item 
+virtual \hyperlink{classMWTask}{M\+W\+Task} $\ast$ \hyperlink{classMWDriver_a7d37eab370800bcc1fed37bff6c92643}{gimme\+\_\+a\+\_\+task} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Internal Task List Routines}
+\label{_amgrp9019d3d58b7b19d8d54671bc7d140680}%
+These methods and data are responsible for managing the list of tasks to be done \begin{DoxyCompactItemize}
+\item 
+M\+W\+Key($\ast$ \hyperlink{classMWDriver_a1d359e2a84216713f63d93ff343c68b2}{task\+\_\+key} )(\hyperlink{classMWTask}{M\+W\+Task} $\ast$)
+\item 
+\hyperlink{classMWTask}{M\+W\+Task} $\ast$ \hyperlink{classMWDriver_aded3f8d1e5aa80a2492387533195d0aa}{get\+\_\+todo\+\_\+head} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_a5de7c64341a08fd5badd62451c0c24dd}\label{classMWDriver_a5de7c64341a08fd5badd62451c0c24dd}} 
+void {\bfseries give\+\_\+work} (M\+W\+Worker\+ID $\ast$w, \hyperlink{classMWTask}{M\+W\+Task} $\ast$t)
+\end{DoxyCompactItemize}
+\subsection*{Worker management methods}
+\label{_amgrp80808ba8658e68b726aab8345b141562}%
+These methods act on the list of workers (or specifically) ID\textquotesingle{}s of workers, that the driver knows about. \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMWDriver_a7cd3d2d9ba6a9e0e89511b6114a18632}\label{classMWDriver_a7cd3d2d9ba6a9e0e89511b6114a18632}} 
+void \hyperlink{classMWDriver_a7cd3d2d9ba6a9e0e89511b6114a18632}{print\+Workers} ()
+\begin{DoxyCompactList}\small\item\em Prints the available workers. \end{DoxyCompactList}\item 
+M\+W\+Worker\+ID $\ast$ \hyperlink{classMWDriver_a08d81fbcaa68a8fb4ec11afcd81abc1b}{get\+\_\+workers\+\_\+head} ()
+\item 
+\mbox{\Hypertarget{classMWDriver_ada183d37afd5f06bf96c3f716ca90075}\label{classMWDriver_ada183d37afd5f06bf96c3f716ca90075}} 
+int \hyperlink{classMWDriver_ada183d37afd5f06bf96c3f716ca90075}{num\+Workers} ()
+\begin{DoxyCompactList}\small\item\em Counts the existing workers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a4930b0cd40ef0940732ba0b5057c7f15}\label{classMWDriver_a4930b0cd40ef0940732ba0b5057c7f15}} 
+int \hyperlink{classMWDriver_a4930b0cd40ef0940732ba0b5057c7f15}{num\+Workers} (int arch)
+\begin{DoxyCompactList}\small\item\em Counts the number of workers in the given arch class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a1b0cd5e8c9a5e7561886fb1b7a48a7d1}\label{classMWDriver_a1b0cd5e8c9a5e7561886fb1b7a48a7d1}} 
+int \hyperlink{classMWDriver_a1b0cd5e8c9a5e7561886fb1b7a48a7d1}{num\+Workers\+In\+State} (int This\+State)
+\begin{DoxyCompactList}\small\item\em Counts the number of workers in the given state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_add3bc92ab03d051502e69ca03de4928f}\label{classMWDriver_add3bc92ab03d051502e69ca03de4928f}} 
+M\+W\+Key \hyperlink{classMWDriver_add3bc92ab03d051502e69ca03de4928f}{return\+\_\+best\+\_\+todo\+\_\+keyval} (void)
+\begin{DoxyCompactList}\small\item\em Returns the value (only) of the best key in the Todo list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMWDriver_a0579cc034d3c83ea68ab456d222b8b79}\label{classMWDriver_a0579cc034d3c83ea68ab456d222b8b79}} 
+M\+W\+Key \hyperlink{classMWDriver_a0579cc034d3c83ea68ab456d222b8b79}{return\+\_\+best\+\_\+running\+\_\+keyval} (void)
+\begin{DoxyCompactList}\small\item\em Returns the best value (only) of the best key in the Running list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class is responsible for managing an application in an opportunistic environment. The goal is to be completely fault -\/ tolerant, dealing with all possiblities of host (worker) problems. To do this, the \hyperlink{classMWDriver}{M\+W\+Driver} class manages a set of tasks and a set of workers. It monitors messages about hosts coming up and going down, and assigns tasks appropriately. \begin{DoxyVerb}This class is built upon some sort of resource management and 
+message passing lower layer.  Previously, it was built directly 
+on top of Condor - PVM, but the interface to that has been 
+abstracted away so that it can use any facility that provides 
+for resource management and message passing.  See the abstract
+MWRMComm class for details of this lower layer.  When interfacing
+with this level, you'll have use the RMC object that's a static
+member of the MWDriver, MWTask, and MWWorker class.  
+\end{DoxyVerb}
+
+
+To implement an application, a user must derive a class from this base class and implement the following methods\+:
+
+
+\begin{DoxyItemize}
+\item \hyperlink{classMWDriver_acf0edc86b06b46968114c8bb770791b2}{get\+\_\+userinfo()}
+\item \hyperlink{classMWDriver_a618bdbf6e481a903455e068ba37ba0fa}{setup\+\_\+initial\+\_\+tasks()}
+\item \hyperlink{classMWDriver_a6a142fda8b58806b1769558afd17c85c}{pack\+\_\+worker\+\_\+init\+\_\+data()}
+\item \hyperlink{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}{act\+\_\+on\+\_\+completed\+\_\+task()}
+\end{DoxyItemize}
+
+\begin{DoxyVerb}For a higher level of control regarding distribution of tasks to workers, 
+tasks and workers may be enrolled to workclasses/groups by calling the
+following methods:
+
+- MWWorkerID::addGroup()
+- MWWorkerID::deleteGroup()
+- MWTask::addGroup()
+- MWTask::deleteGroup()
+
+These methods can be called by an application using workclasses:
+
+- workClasses_set()  (Required)
+- workClasses_get()
+- workClasses_gettasks()
+- workClasses_getworkers()
+
+To enroll workers in workclasses, there are two options:
+- act_on_starting_worker() can be implemented to enroll workers to 
+workclasses based on MWWorkerID info at the start of execution
+- pack_worker_init_data() can be implemented to enroll workers. When used 
+in conjunction with refreshWorkers(), can change workclass of workers in the        middle of execution.    
+\end{DoxyVerb}
+
+
+Similar application dependent methods must be implemented for the \char`\"{}\+Task\char`\"{} of work to be done and the \char`\"{}\+Worker\char`\"{} who performs the tasks.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classMWTask}{M\+W\+Task} 
+
+\hyperlink{classMWWorker}{M\+W\+Worker} 
+
+\hyperlink{classMWRMComm}{M\+W\+R\+M\+Comm} 
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+Mike Yoder, Jeff Linderoth, Jean-\/\+Pierre Goux, Sanjeev Kulkarni 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMWDriver_a05b1dac7d50ff571c480ff386e6fcb30}\label{classMWDriver_a05b1dac7d50ff571c480ff386e6fcb30}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!````~M\+W\+Driver@{$\sim$\+M\+W\+Driver}}
+\index{````~M\+W\+Driver@{$\sim$\+M\+W\+Driver}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{$\sim$\+M\+W\+Driver()}{~MWDriver()}}
+{\footnotesize\ttfamily M\+W\+Driver\+::$\sim$\+M\+W\+Driver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Destructor -\/ walks through lists of tasks \& workers and deletes them. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMWDriver_aeb92065d166911049bec838253554555}\label{classMWDriver_aeb92065d166911049bec838253554555}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!act\+\_\+on\+\_\+completed\+\_\+subtask@{act\+\_\+on\+\_\+completed\+\_\+subtask}}
+\index{act\+\_\+on\+\_\+completed\+\_\+subtask@{act\+\_\+on\+\_\+completed\+\_\+subtask}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{act\+\_\+on\+\_\+completed\+\_\+subtask()}{act\_on\_completed\_subtask()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Driver\+::act\+\_\+on\+\_\+completed\+\_\+subtask (\begin{DoxyParamCaption}\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+This function performs an action that happens once the Driver receives notification of a completed subtask. 
+
+References add\+Sorted\+Tasks(), add\+Task(), add\+Tasks(), checkpoint(), delete\+\_\+tasks\+\_\+worse\+\_\+than(), get\+\_\+number\+\_\+running\+\_\+tasks(), get\+\_\+number\+\_\+tasks(), handle\+\_\+benchmark(), handle\+\_\+checksum(), handle\+\_\+hostdel(), handle\+\_\+hostresume(), handle\+\_\+hostsuspend(), handle\+\_\+taskexit(), print\+\_\+task\+\_\+keys(), refresh\+Workers(), restart\+\_\+from\+\_\+ckpt(), set\+\_\+checkpoint\+\_\+frequency(), set\+\_\+checkpoint\+\_\+time(), set\+\_\+machine\+\_\+ordering\+\_\+policy(), set\+\_\+suspension\+\_\+policy(), set\+\_\+task\+\_\+add\+\_\+mode(), set\+\_\+task\+\_\+key\+\_\+function(), set\+\_\+task\+\_\+retrieve\+\_\+mode(), set\+\_\+worker\+\_\+timeout\+\_\+limit(), sort\+\_\+task\+\_\+list(), stop\+\_\+work(), work\+Classes\+\_\+get(), work\+Classes\+\_\+gettasks(), work\+Classes\+\_\+getworkers(), and work\+Classes\+\_\+set().
+
+
+
+Referenced by go().
+
+\mbox{\Hypertarget{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}\label{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!act\+\_\+on\+\_\+completed\+\_\+task@{act\+\_\+on\+\_\+completed\+\_\+task}}
+\index{act\+\_\+on\+\_\+completed\+\_\+task@{act\+\_\+on\+\_\+completed\+\_\+task}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{act\+\_\+on\+\_\+completed\+\_\+task()}{act\_on\_completed\_task()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Driver\+::act\+\_\+on\+\_\+completed\+\_\+task (\begin{DoxyParamCaption}\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This function performs actions that happen once the Driver receives notification of a completed task. You will need to cast the \hyperlink{classMWTask}{M\+W\+Task} $\ast$ to a pointer of the Task type derived for your application. For example \begin{DoxyVerb}            \begin{verbatim}
+            My_Task *dt = dynamic_cast<My_Task *> ( t );
+            assert( dt );     
+            \end{verbatim}\end{DoxyVerb}
+ 
+
+Referenced by handle\+\_\+hostresume().
+
+\mbox{\Hypertarget{classMWDriver_a8199945d5f7c89bde67962da6d0c7ffe}\label{classMWDriver_a8199945d5f7c89bde67962da6d0c7ffe}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!act\+\_\+on\+\_\+starting\+\_\+worker@{act\+\_\+on\+\_\+starting\+\_\+worker}}
+\index{act\+\_\+on\+\_\+starting\+\_\+worker@{act\+\_\+on\+\_\+starting\+\_\+worker}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{act\+\_\+on\+\_\+starting\+\_\+worker()}{act\_on\_starting\_worker()}}
+{\footnotesize\ttfamily M\+W\+Return M\+W\+Driver\+::act\+\_\+on\+\_\+starting\+\_\+worker (\begin{DoxyParamCaption}\item[{M\+W\+Worker\+ID $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+This is called once the Worker is done with the Task\+Container.
+\begin{DoxyItemize}
+\item Put the logic for this in \hyperlink{classMWDriver}{M\+W\+Driver} This function should be implemented by the application to assign the work\+Class number to the worker if it is doing intelligent work scheduling. 
+\end{DoxyItemize}
+
+Referenced by delete\+\_\+tasks\+\_\+worse\+\_\+than().
+
+\mbox{\Hypertarget{classMWDriver_a0dfb4201b9bce44ba2a59019f7fc2dd2}\label{classMWDriver_a0dfb4201b9bce44ba2a59019f7fc2dd2}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!add\+Sorted\+Tasks@{add\+Sorted\+Tasks}}
+\index{add\+Sorted\+Tasks@{add\+Sorted\+Tasks}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{add\+Sorted\+Tasks()}{addSortedTasks()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::add\+Sorted\+Tasks (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$}]{add\+\_\+tasks }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+This will add a list of tasks that are sorted by key. Efficiency can be greatly improved by using this function 
+
+References M\+W\+Task\+::add\+Group(), M\+W\+R\+M\+Comm\+::exit(), M\+W\+Worker\+::go(), M\+W\+R\+M\+Comm\+::hostadd(), M\+W\+Task\+::number, R\+MC, and task\+\_\+key.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_a8b8a9ff2699780ce52ae600b658c9e4f}\label{classMWDriver_a8b8a9ff2699780ce52ae600b658c9e4f}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!add\+Tasks@{add\+Tasks}}
+\index{add\+Tasks@{add\+Tasks}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{add\+Tasks()}{addTasks()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::add\+Tasks (\begin{DoxyParamCaption}\item[{int}]{n,  }\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$}]{add\+\_\+tasks }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Add a bunch of tasks to the list. You do this by making an array of pointers to M\+W\+Tasks and giving that array to this function. The \hyperlink{classMWDriver}{M\+W\+Driver} will take over memory management for the M\+W\+Tasks, but not for the array of pointers, so don\textquotesingle{}t forget to delete \mbox{[}\mbox{]} it! 
+
+References M\+W\+Task\+::add\+Group(), M\+W\+R\+M\+Comm\+::exit(), M\+W\+Task\+::number, and R\+MC.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_ad41bdc32bc2f56f7816810bc4d260db2}\label{classMWDriver_ad41bdc32bc2f56f7816810bc4d260db2}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!checkpoint@{checkpoint}}
+\index{checkpoint@{checkpoint}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{checkpoint()}{checkpoint()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::checkpoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function writes the current state of the job to disk. See the section header to see how it does this. \begin{DoxySeeAlso}{See also}
+\hyperlink{classMWTask}{M\+W\+Task} 
+\end{DoxySeeAlso}
+
+
+References R\+MC, M\+W\+Task\+::task\+Type, M\+W\+R\+M\+Comm\+::write\+\_\+checkpoint(), M\+W\+Task\+::write\+\_\+ckpt\+\_\+info(), and write\+\_\+master\+\_\+state().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), handle\+\_\+hostresume(), restart\+\_\+from\+\_\+ckpt(), swap\+\_\+in\+\_\+todo\+\_\+tasks(), and swap\+\_\+out\+\_\+todo\+\_\+tasks().
+
+\mbox{\Hypertarget{classMWDriver_ae4c5921926e8780642d1b7dacf1a7016}\label{classMWDriver_ae4c5921926e8780642d1b7dacf1a7016}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!delete\+\_\+tasks\+\_\+worse\+\_\+than@{delete\+\_\+tasks\+\_\+worse\+\_\+than}}
+\index{delete\+\_\+tasks\+\_\+worse\+\_\+than@{delete\+\_\+tasks\+\_\+worse\+\_\+than}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{delete\+\_\+tasks\+\_\+worse\+\_\+than()}{delete\_tasks\_worse\_than()}}
+{\footnotesize\ttfamily int M\+W\+Driver\+::delete\+\_\+tasks\+\_\+worse\+\_\+than (\begin{DoxyParamCaption}\item[{M\+W\+Key}]{key }\end{DoxyParamCaption})}
+
+This deletes all tasks in the task list with a key worse than the one specified 
+
+References act\+\_\+on\+\_\+starting\+\_\+worker(), M\+W\+R\+M\+Comm\+::get\+\_\+num\+\_\+exec\+\_\+classes(), M\+W\+R\+M\+Comm\+::hostaddlogic(), M\+W\+Task\+::number, num\+Workers(), M\+W\+Task\+::printself(), M\+W\+R\+M\+Comm\+::remove\+Worker(), R\+MC, and task\+\_\+key.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_a77e388c0446e7c42a8c6d0ee544a29b6}\label{classMWDriver_a77e388c0446e7c42a8c6d0ee544a29b6}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!get\+\_\+benchmark\+\_\+task@{get\+\_\+benchmark\+\_\+task}}
+\index{get\+\_\+benchmark\+\_\+task@{get\+\_\+benchmark\+\_\+task}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{get\+\_\+benchmark\+\_\+task()}{get\_benchmark\_task()}}
+{\footnotesize\ttfamily \hyperlink{classMWTask}{M\+W\+Task}$\ast$ M\+W\+Driver\+::get\+\_\+benchmark\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+get the benchmark task 
+
+Referenced by handle\+\_\+checksum(), and refresh\+Workers().
+
+\mbox{\Hypertarget{classMWDriver_aded3f8d1e5aa80a2492387533195d0aa}\label{classMWDriver_aded3f8d1e5aa80a2492387533195d0aa}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!get\+\_\+todo\+\_\+head@{get\+\_\+todo\+\_\+head}}
+\index{get\+\_\+todo\+\_\+head@{get\+\_\+todo\+\_\+head}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{get\+\_\+todo\+\_\+head()}{get\_todo\_head()}}
+{\footnotesize\ttfamily \hyperlink{classMWTask}{M\+W\+Task} $\ast$ M\+W\+Driver\+::get\+\_\+todo\+\_\+head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This is Jeff\textquotesingle{}s nasty addition so that he can get access to the tasks on the master \mbox{\Hypertarget{classMWDriver_acf0edc86b06b46968114c8bb770791b2}\label{classMWDriver_acf0edc86b06b46968114c8bb770791b2}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!get\+\_\+userinfo@{get\+\_\+userinfo}}
+\index{get\+\_\+userinfo@{get\+\_\+userinfo}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{get\+\_\+userinfo()}{get\_userinfo()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Driver\+::get\+\_\+userinfo (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This function is called to read in all information specific to a user\textquotesingle{}s application and do any initialization on this information. 
+
+Referenced by go().
+
+\mbox{\Hypertarget{classMWDriver_a08d81fbcaa68a8fb4ec11afcd81abc1b}\label{classMWDriver_a08d81fbcaa68a8fb4ec11afcd81abc1b}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!get\+\_\+workers\+\_\+head@{get\+\_\+workers\+\_\+head}}
+\index{get\+\_\+workers\+\_\+head@{get\+\_\+workers\+\_\+head}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{get\+\_\+workers\+\_\+head()}{get\_workers\_head()}}
+{\footnotesize\ttfamily M\+W\+Worker\+ID $\ast$ M\+W\+Driver\+::get\+\_\+workers\+\_\+head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Another terrible addition so that Jeff can print out the worker list in his own format 
+
+References M\+W\+R\+M\+Comm\+::get\+\_\+num\+\_\+exec\+\_\+classes(), get\+\_\+number\+\_\+running\+\_\+tasks(), get\+\_\+number\+\_\+tasks(), M\+W\+R\+M\+Comm\+::initsend(), num\+Workers\+In\+State(), R\+MC, M\+W\+R\+M\+Comm\+::send(), and M\+W\+R\+M\+Comm\+::set\+\_\+target\+\_\+num\+\_\+workers().
+
+\mbox{\Hypertarget{classMWDriver_a7d37eab370800bcc1fed37bff6c92643}\label{classMWDriver_a7d37eab370800bcc1fed37bff6c92643}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!gimme\+\_\+a\+\_\+task@{gimme\+\_\+a\+\_\+task}}
+\index{gimme\+\_\+a\+\_\+task@{gimme\+\_\+a\+\_\+task}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{gimme\+\_\+a\+\_\+task()}{gimme\_a\_task()}}
+{\footnotesize\ttfamily virtual \hyperlink{classMWTask}{M\+W\+Task}$\ast$ M\+W\+Driver\+::gimme\+\_\+a\+\_\+task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+It\textquotesingle{}s really annoying that the user has to do this, but they do. The thing is, we have to make a new task of the user\textquotesingle{}s derived type when we read in the checkpoint file.
+
+If your application coredumps when trying to restart from a checkpoint, it might be becasue you haven\textquotesingle{}t implemented this function.
+
+\{verbatim\} M\+W\+Task$\ast$ \hyperlink{classMWDriver_a7d37eab370800bcc1fed37bff6c92643}{gimme\+\_\+a\+\_\+task()} \{ return new $<$your derived=\char`\"{}\char`\"{} task=\char`\"{}\char`\"{} class$>$=\char`\"{}\char`\"{}$>$; \} \{verbatim\} 
+
+Referenced by read\+\_\+master\+\_\+state(), restart\+\_\+from\+\_\+ckpt(), and swap\+\_\+in\+\_\+todo\+\_\+tasks().
+
+\mbox{\Hypertarget{classMWDriver_a7e9140329e1c6a2b4b7f1a0a9a365cab}\label{classMWDriver_a7e9140329e1c6a2b4b7f1a0a9a365cab}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!go@{go}}
+\index{go@{go}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{go()}{go()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::go (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+This method runs the entire fault-\/tolerant application in the condor environment. What is {\itshape really} does is call setup\+\_\+master(), then master(), then \hyperlink{classMWDriver_a147074c64c2bf0883077a28432816947}{printresults()}, and then ends. See the other functions for details. 
+
+References act\+\_\+on\+\_\+completed\+\_\+subtask(), add\+Tasks(), M\+W\+R\+M\+Comm\+::bufinfo(), M\+W\+R\+M\+Comm\+::exit(), get\+\_\+userinfo(), handle\+\_\+benchmark(), handle\+\_\+checksum(), handle\+\_\+hostdel(), handle\+\_\+hostresume(), handle\+\_\+hostsuspend(), handle\+\_\+taskexit(), M\+W\+R\+M\+Comm\+::init\+\_\+beginning\+\_\+workers(), M\+W\+R\+M\+Comm\+::initsend(), is\+\_\+\+T\+O\+D\+O\+\_\+empty(), printresults(), print\+Workers(), M\+W\+R\+M\+Comm\+::recv(), M\+W\+R\+M\+Comm\+::restart\+\_\+beginning\+\_\+workers(), restart\+\_\+from\+\_\+ckpt(), R\+MC, M\+W\+R\+M\+Comm\+::send(), M\+W\+R\+M\+Comm\+::setup(), setup\+\_\+initial\+\_\+tasks(), M\+W\+R\+M\+Comm\+::start\+\_\+worker(), M\+W\+R\+M\+Comm\+::unpack(), and work\+Classes\+\_\+set().
+
+\mbox{\Hypertarget{classMWDriver_a4d3d2d8a2fac34f02c0573fabb29f1cf}\label{classMWDriver_a4d3d2d8a2fac34f02c0573fabb29f1cf}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!go@{go}}
+\index{go@{go}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{go()}{go()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::go (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This version of go simply calls go(0, N\+U\+L\+L). 
+
+References go(), and printresults().
+
+
+
+Referenced by go().
+
+\mbox{\Hypertarget{classMWDriver_a73290f6fab539708112ec28a9e49b563}\label{classMWDriver_a73290f6fab539708112ec28a9e49b563}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+benchmark@{handle\+\_\+benchmark}}
+\index{handle\+\_\+benchmark@{handle\+\_\+benchmark}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+benchmark()}{handle\_benchmark()}}
+{\footnotesize\ttfamily M\+W\+Return M\+W\+Driver\+::handle\+\_\+benchmark (\begin{DoxyParamCaption}\item[{M\+W\+Worker\+ID $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Here, we get back the benchmarking results, which tell us something about the worker we\textquotesingle{}ve got. Also, we could get some sort of error back from the worker at this stage, in which case we remove it. 
+
+References M\+W\+R\+M\+Comm\+::initsend(), M\+W\+Task\+::number, M\+W\+R\+M\+Comm\+::pack(), pack\+\_\+driver\+\_\+task\+\_\+data(), M\+W\+Task\+::pack\+\_\+work(), M\+W\+R\+M\+Comm\+::remove\+Worker(), R\+MC, M\+W\+R\+M\+Comm\+::send(), M\+W\+Task\+::task\+Type, M\+W\+R\+M\+Comm\+::unpack(), and M\+W\+Task\+::worker.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_a7b1d0f044688941bd9a0e502b48c4676}\label{classMWDriver_a7b1d0f044688941bd9a0e502b48c4676}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+checksum@{handle\+\_\+checksum}}
+\index{handle\+\_\+checksum@{handle\+\_\+checksum}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+checksum()}{handle\_checksum()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::handle\+\_\+checksum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Routine to handle when the communication layer says that a checksum error happened. If the underlying Communitor gives a reliably reliable communication then this messge need not be generated. But for some Communicators like M\+W-\/\+File we may need some thing like this. 
+
+References get\+\_\+benchmark\+\_\+task(), M\+W\+R\+M\+Comm\+::initsend(), M\+W\+R\+M\+Comm\+::pack(), M\+W\+Task\+::pack\+\_\+work(), pack\+\_\+worker\+\_\+init\+\_\+data(), M\+W\+R\+M\+Comm\+::remove\+Worker(), R\+MC, M\+W\+R\+M\+Comm\+::send(), and M\+W\+R\+M\+Comm\+::who().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_af6c437b207bd8d327ceb84c5ce0c4304}\label{classMWDriver_af6c437b207bd8d327ceb84c5ce0c4304}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+hostdel@{handle\+\_\+hostdel}}
+\index{handle\+\_\+hostdel@{handle\+\_\+hostdel}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+hostdel()}{handle\_hostdel()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::handle\+\_\+hostdel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+This is what gets called when a host goes away. We figure out who died, remove that worker from our records, remove its task from the running queue (if it was running one) and put that task back on the todo list. 
+
+References R\+MC, and M\+W\+R\+M\+Comm\+::who().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_a0e1ef56017457e099e5947e81dd5d761}\label{classMWDriver_a0e1ef56017457e099e5947e81dd5d761}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+hostresume@{handle\+\_\+hostresume}}
+\index{handle\+\_\+hostresume@{handle\+\_\+hostresume}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+hostresume()}{handle\_hostresume()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::handle\+\_\+hostresume (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Here\textquotesingle{}s where you go when a host gets resumed. Usually, you do nothing...but it\textquotesingle{}s nice to know... 
+
+References act\+\_\+on\+\_\+completed\+\_\+task(), checkpoint(), M\+W\+Task\+::cpu\+\_\+time, M\+W\+Task\+::delete\+Group(), M\+W\+Task\+::number, R\+MC, task\+\_\+key, M\+W\+Task\+::task\+Type, M\+W\+R\+M\+Comm\+::unpack(), M\+W\+Task\+::unpack\+\_\+results(), M\+W\+R\+M\+Comm\+::who(), M\+W\+Task\+::worker, and M\+W\+Task\+::working\+\_\+time.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_a91c21e0a4aba8ce4e03ebf7c3064f6b5}\label{classMWDriver_a91c21e0a4aba8ce4e03ebf7c3064f6b5}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+hostsuspend@{handle\+\_\+hostsuspend}}
+\index{handle\+\_\+hostsuspend@{handle\+\_\+hostsuspend}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+hostsuspend()}{handle\_hostsuspend()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::handle\+\_\+hostsuspend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Implements a suspension policy. Currently either D\+E\+F\+A\+U\+LT or R\+E\+A\+S\+S\+I\+GN, depending on how suspension\+Policy is set. 
+
+References M\+W\+Task\+::number, R\+MC, and M\+W\+R\+M\+Comm\+::who().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_ab4ee1fc1cbc9f5e07e3083f499d29be0}\label{classMWDriver_ab4ee1fc1cbc9f5e07e3083f499d29be0}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!handle\+\_\+taskexit@{handle\+\_\+taskexit}}
+\index{handle\+\_\+taskexit@{handle\+\_\+taskexit}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{handle\+\_\+taskexit()}{handle\_taskexit()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::handle\+\_\+taskexit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+We do basically the same thing as \hyperlink{classMWDriver_af6c437b207bd8d327ceb84c5ce0c4304}{handle\+\_\+hostdel()}. One might \{{\itshape think\}} that we could restart something on that host; in practice, however -- especially with the Condor-\/\+P\+VM R\+M\+Comm implementation -- it means that the host has gone down, too. We put that host\textquotesingle{}s task back on the todo list. 
+
+References M\+W\+R\+M\+Comm\+::remove\+Worker(), R\+MC, and M\+W\+R\+M\+Comm\+::who().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_a184d950e15be4aa0ecb22d7eaea622fe}\label{classMWDriver_a184d950e15be4aa0ecb22d7eaea622fe}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!is\+\_\+\+T\+O\+D\+O\+\_\+empty@{is\+\_\+\+T\+O\+D\+O\+\_\+empty}}
+\index{is\+\_\+\+T\+O\+D\+O\+\_\+empty@{is\+\_\+\+T\+O\+D\+O\+\_\+empty}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{is\+\_\+\+T\+O\+D\+O\+\_\+empty()}{is\_TODO\_empty()}}
+{\footnotesize\ttfamily bool M\+W\+Driver\+::is\+\_\+\+T\+O\+D\+O\+\_\+empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+See whether we still have T\+O\+DO tasks 
+
+Referenced by go(), and read\+\_\+master\+\_\+state().
+
+\mbox{\Hypertarget{classMWDriver_af6856e6de5bd17575e809e8e24140844}\label{classMWDriver_af6856e6de5bd17575e809e8e24140844}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!pack\+\_\+driver\+\_\+task\+\_\+data@{pack\+\_\+driver\+\_\+task\+\_\+data}}
+\index{pack\+\_\+driver\+\_\+task\+\_\+data@{pack\+\_\+driver\+\_\+task\+\_\+data}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{pack\+\_\+driver\+\_\+task\+\_\+data()}{pack\_driver\_task\_data()}}
+{\footnotesize\ttfamily virtual void M\+W\+Driver\+::pack\+\_\+driver\+\_\+task\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+OK, This one is not pure virtual either, but if you have some \char`\"{}driver\char`\"{} data that is conceptually part of the task and you wish not to replicate the data in each task, you can pack it in a message buffer by implementing this function. If you do this, you must implement a matching unpack\+\_\+worker\+\_\+task\+\_\+data() function. 
+
+Referenced by handle\+\_\+benchmark().
+
+\mbox{\Hypertarget{classMWDriver_a6a142fda8b58806b1769558afd17c85c}\label{classMWDriver_a6a142fda8b58806b1769558afd17c85c}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!pack\+\_\+worker\+\_\+init\+\_\+data@{pack\+\_\+worker\+\_\+init\+\_\+data}}
+\index{pack\+\_\+worker\+\_\+init\+\_\+data@{pack\+\_\+worker\+\_\+init\+\_\+data}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{pack\+\_\+worker\+\_\+init\+\_\+data()}{pack\_worker\_init\_data()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Driver\+::pack\+\_\+worker\+\_\+init\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+A common theme of Master-\/\+Worker applications is that there is a base amount of \char`\"{}initial\char`\"{} data defining the problem, and then just incremental data defining \char`\"{}\+Tasks\char`\"{} to be done by the Workers.
+
+This one packs all the user\textquotesingle{}s initial data. It is unpacked int the worker class, in unpack\+\_\+init\+\_\+data(). 
+
+Referenced by handle\+\_\+checksum(), and refresh\+Workers().
+
+\mbox{\Hypertarget{classMWDriver_a147074c64c2bf0883077a28432816947}\label{classMWDriver_a147074c64c2bf0883077a28432816947}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!printresults@{printresults}}
+\index{printresults@{printresults}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{printresults()}{printresults()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::printresults (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Prints the Results. Applications may re-\/implement this to print their application specific results. It is meant to be over-\/ridden. 
+
+References R\+MC.
+
+
+
+Referenced by go().
+
+\mbox{\Hypertarget{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}\label{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!read\+\_\+master\+\_\+state@{read\+\_\+master\+\_\+state}}
+\index{read\+\_\+master\+\_\+state@{read\+\_\+master\+\_\+state}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{read\+\_\+master\+\_\+state()}{read\_master\_state()}}
+{\footnotesize\ttfamily virtual void M\+W\+Driver\+::read\+\_\+master\+\_\+state (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Here, you read in the \textquotesingle{}state\textquotesingle{} of the driver from fp. Note that this is the reverse of \hyperlink{classMWDriver_ab3a42409894c40f6992f01b433174588}{write\+\_\+master\+\_\+state()}. 
+\begin{DoxyParams}{Parameters}
+{\em fp} & A file pointer that has been opened for reading. \\
+\hline
+\end{DoxyParams}
+
+
+References gimme\+\_\+a\+\_\+task(), is\+\_\+\+T\+O\+D\+O\+\_\+empty(), M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM, swap\+\_\+in\+\_\+todo\+\_\+tasks(), and swap\+\_\+out\+\_\+todo\+\_\+tasks().
+
+
+
+Referenced by restart\+\_\+from\+\_\+ckpt().
+
+\mbox{\Hypertarget{classMWDriver_ad0a6b24ff90e2d2ae1495062fb480f24}\label{classMWDriver_ad0a6b24ff90e2d2ae1495062fb480f24}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!register\+\_\+benchmark\+\_\+task@{register\+\_\+benchmark\+\_\+task}}
+\index{register\+\_\+benchmark\+\_\+task@{register\+\_\+benchmark\+\_\+task}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{register\+\_\+benchmark\+\_\+task()}{register\_benchmark\_task()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::register\+\_\+benchmark\+\_\+task (\begin{DoxyParamCaption}\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+register the task that will be used for benchmarking. \mbox{\Hypertarget{classMWDriver_af6a5b937b85d5a6cb90961249006942c}\label{classMWDriver_af6a5b937b85d5a6cb90961249006942c}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!restart\+\_\+from\+\_\+ckpt@{restart\+\_\+from\+\_\+ckpt}}
+\index{restart\+\_\+from\+\_\+ckpt@{restart\+\_\+from\+\_\+ckpt}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{restart\+\_\+from\+\_\+ckpt()}{restart\_from\_ckpt()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::restart\+\_\+from\+\_\+ckpt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function does the inverse of checkpoint. It opens the checkpoint file, calls \hyperlink{classMWDriver_ab575d8dec66c8edadc165ebc6ea4e5a9}{read\+\_\+master\+\_\+state()}, then, for each task class in the file, creates a \hyperlink{classMWTask}{M\+W\+Task}, calls read\+\_\+ckpt\+\_\+info on it, and adds that class to the todo list. 
+
+References checkpoint(), gimme\+\_\+a\+\_\+task(), M\+W\+Task\+::number, print\+\_\+task\+\_\+keys(), M\+W\+Task\+::printself(), M\+W\+R\+M\+Comm\+::read\+\_\+checkpoint(), M\+W\+Task\+::read\+\_\+ckpt\+\_\+info(), read\+\_\+master\+\_\+state(), R\+MC, set\+\_\+task\+\_\+add\+\_\+mode(), sort\+\_\+task\+\_\+list(), swap\+\_\+out\+\_\+todo\+\_\+tasks(), task\+\_\+key, and M\+W\+Task\+::write\+\_\+ckpt\+\_\+info().
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask(), and go().
+
+\mbox{\Hypertarget{classMWDriver_aa34fc54dfba3806db87c297c8b39244a}\label{classMWDriver_aa34fc54dfba3806db87c297c8b39244a}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!set\+\_\+checkpoint\+\_\+frequency@{set\+\_\+checkpoint\+\_\+frequency}}
+\index{set\+\_\+checkpoint\+\_\+frequency@{set\+\_\+checkpoint\+\_\+frequency}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{set\+\_\+checkpoint\+\_\+frequency()}{set\_checkpoint\_frequency()}}
+{\footnotesize\ttfamily int M\+W\+Driver\+::set\+\_\+checkpoint\+\_\+frequency (\begin{DoxyParamCaption}\item[{int}]{freq }\end{DoxyParamCaption})}
+
+This function sets the frequency with with checkpoints are done. It returns the former frequency value. The default frequency is zero (no checkpoints). If the frequency is n, then a checkpoint will occur after the nth call to \hyperlink{classMWDriver_a920118e3f49ab81db5047d9ecdbcea2b}{act\+\_\+on\+\_\+completed\+\_\+task()}. A good place to set this is in \hyperlink{classMWDriver_acf0edc86b06b46968114c8bb770791b2}{get\+\_\+userinfo()}. 
+\begin{DoxyParams}{Parameters}
+{\em freq} & The frequency to set checkpoints to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The former frequency value. 
+\end{DoxyReturn}
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_a7f803ede53bb0d797bce81d56a33cdf9}\label{classMWDriver_a7f803ede53bb0d797bce81d56a33cdf9}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!set\+\_\+checkpoint\+\_\+time@{set\+\_\+checkpoint\+\_\+time}}
+\index{set\+\_\+checkpoint\+\_\+time@{set\+\_\+checkpoint\+\_\+time}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{set\+\_\+checkpoint\+\_\+time()}{set\_checkpoint\_time()}}
+{\footnotesize\ttfamily int M\+W\+Driver\+::set\+\_\+checkpoint\+\_\+time (\begin{DoxyParamCaption}\item[{int}]{secs }\end{DoxyParamCaption})}
+
+Set a time-\/based frequency for checkpoints. The time units are in seconds. A value of 0 \char`\"{}turns off\char`\"{} time-\/based checkpointing. Time-\/based checkpointing cannot be \char`\"{}turned 
+on\char`\"{} unless the checkpoint\+\_\+frequency is set to 0. A good place to do this is in \hyperlink{classMWDriver_acf0edc86b06b46968114c8bb770791b2}{get\+\_\+userinfo()}. 
+\begin{DoxyParams}{Parameters}
+{\em secs} & Checkpoint every \char`\"{}secs\char`\"{} seconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The former time frequency value. 
+\end{DoxyReturn}
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_a97b4b046a3793d45e28bd1b2fddbd8c1}\label{classMWDriver_a97b4b046a3793d45e28bd1b2fddbd8c1}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!set\+\_\+suspension\+\_\+policy@{set\+\_\+suspension\+\_\+policy}}
+\index{set\+\_\+suspension\+\_\+policy@{set\+\_\+suspension\+\_\+policy}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{set\+\_\+suspension\+\_\+policy()}{set\_suspension\_policy()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::set\+\_\+suspension\+\_\+policy (\begin{DoxyParamCaption}\item[{M\+W\+Suspension\+Policy}]{policy }\end{DoxyParamCaption})}
+
+Set the policy to use when suspending. Currently this can be either D\+E\+F\+A\+U\+LT or R\+E\+A\+S\+S\+I\+GN 
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_ad41f96ba14ccc7712be09c0374eae9c9}\label{classMWDriver_ad41f96ba14ccc7712be09c0374eae9c9}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!set\+\_\+worker\+\_\+timeout\+\_\+limit@{set\+\_\+worker\+\_\+timeout\+\_\+limit}}
+\index{set\+\_\+worker\+\_\+timeout\+\_\+limit@{set\+\_\+worker\+\_\+timeout\+\_\+limit}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{set\+\_\+worker\+\_\+timeout\+\_\+limit()}{set\_worker\_timeout\_limit()}}
+{\footnotesize\ttfamily void M\+W\+Driver\+::set\+\_\+worker\+\_\+timeout\+\_\+limit (\begin{DoxyParamCaption}\item[{double}]{timeout\+\_\+limit,  }\item[{int}]{timeout\+\_\+frequency }\end{DoxyParamCaption})}
+
+Sets the timeout\+\_\+limit and turn worker\+\_\+timeout to 1 
+
+References M\+W\+Task\+::number, and M\+W\+Task\+::task\+Type.
+
+
+
+Referenced by act\+\_\+on\+\_\+completed\+\_\+subtask().
+
+\mbox{\Hypertarget{classMWDriver_a618bdbf6e481a903455e068ba37ba0fa}\label{classMWDriver_a618bdbf6e481a903455e068ba37ba0fa}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!setup\+\_\+initial\+\_\+tasks@{setup\+\_\+initial\+\_\+tasks}}
+\index{setup\+\_\+initial\+\_\+tasks@{setup\+\_\+initial\+\_\+tasks}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{setup\+\_\+initial\+\_\+tasks()}{setup\_initial\_tasks()}}
+{\footnotesize\ttfamily virtual M\+W\+Return M\+W\+Driver\+::setup\+\_\+initial\+\_\+tasks (\begin{DoxyParamCaption}\item[{int $\ast$}]{n,  }\item[{\hyperlink{classMWTask}{M\+W\+Task} $\ast$$\ast$$\ast$}]{task }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+This function must return a number n $>$ 0 of pointers to Tasks to \char`\"{}jump start\char`\"{} the application.
+
+The M\+W\+Tasks pointed to should be of the task type derived for your application 
+
+Referenced by go().
+
+\mbox{\Hypertarget{classMWDriver_aaa70ab2dd6087ef2415824f770747f8f}\label{classMWDriver_aaa70ab2dd6087ef2415824f770747f8f}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!swap\+\_\+in\+\_\+todo\+\_\+tasks@{swap\+\_\+in\+\_\+todo\+\_\+tasks}}
+\index{swap\+\_\+in\+\_\+todo\+\_\+tasks@{swap\+\_\+in\+\_\+todo\+\_\+tasks}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{swap\+\_\+in\+\_\+todo\+\_\+tasks()}{swap\_in\_todo\_tasks()}}
+{\footnotesize\ttfamily bool M\+W\+Driver\+::swap\+\_\+in\+\_\+todo\+\_\+tasks (\begin{DoxyParamCaption}\item[{int}]{min\+\_\+in\+\_\+mem = {\ttfamily 256},  }\item[{int}]{num\+\_\+in\+\_\+mem = {\ttfamily 25600} }\end{DoxyParamCaption})}
+
+When swapping in, we first read first num\+\_\+in\+\_\+mem (or all tasks if not so many tasks in swap file) tasks from the swap file, create tasks and append to a newly created list. Then we sorted insert the existing tasks in memory into the new list. When done, switch the list and file.
+
+If the old T\+O\+DO list is not too small ($>$num\+\_\+in\+\_\+mem), won\textquotesingle{}t swap in. Return value indicates whether the swapping is successful or not. 
+
+References checkpoint(), gimme\+\_\+a\+\_\+task(), and task\+\_\+key.
+
+
+
+Referenced by read\+\_\+master\+\_\+state().
+
+\mbox{\Hypertarget{classMWDriver_afa05516157b292a420ba6770fd2f493c}\label{classMWDriver_afa05516157b292a420ba6770fd2f493c}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!swap\+\_\+out\+\_\+todo\+\_\+tasks@{swap\+\_\+out\+\_\+todo\+\_\+tasks}}
+\index{swap\+\_\+out\+\_\+todo\+\_\+tasks@{swap\+\_\+out\+\_\+todo\+\_\+tasks}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{swap\+\_\+out\+\_\+todo\+\_\+tasks()}{swap\_out\_todo\_tasks()}}
+{\footnotesize\ttfamily bool M\+W\+Driver\+::swap\+\_\+out\+\_\+todo\+\_\+tasks (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+in\+\_\+mem = {\ttfamily 2048},  }\item[{int}]{max\+\_\+in\+\_\+mem = {\ttfamily 204800},  }\item[{double}]{max\+\_\+key = {\ttfamily DBL\+\_\+MAX} }\end{DoxyParamCaption})}
+
+T\+O\+DO Tasks Swapping 
+
+References checkpoint(), and task\+\_\+key.
+
+
+
+Referenced by read\+\_\+master\+\_\+state(), and restart\+\_\+from\+\_\+ckpt().
+
+\mbox{\Hypertarget{classMWDriver_aaddea2ee086b0683b5d80ecb0438df91}\label{classMWDriver_aaddea2ee086b0683b5d80ecb0438df91}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!unpack\+\_\+worker\+\_\+initinfo@{unpack\+\_\+worker\+\_\+initinfo}}
+\index{unpack\+\_\+worker\+\_\+initinfo@{unpack\+\_\+worker\+\_\+initinfo}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{unpack\+\_\+worker\+\_\+initinfo()}{unpack\_worker\_initinfo()}}
+{\footnotesize\ttfamily virtual void M\+W\+Driver\+::unpack\+\_\+worker\+\_\+initinfo (\begin{DoxyParamCaption}\item[{M\+W\+Worker\+ID $\ast$}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+This one unpacks the \char`\"{}initial\char`\"{} information sent to the driver once the worker initializes.
+
+Potential \char`\"{}initial\char`\"{} information that might be useful is... \{itemize\}  Information on the worker characteristics etc...  Information on the bandwith between \hyperlink{classMWDriver}{M\+W\+Driver} and worker \{itemize\}
+
+These sorts of things could be useful in building some scheduling intelligence into the driver. 
+
+Referenced by refresh\+Workers().
+
+\mbox{\Hypertarget{classMWDriver_ab3a42409894c40f6992f01b433174588}\label{classMWDriver_ab3a42409894c40f6992f01b433174588}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!write\+\_\+master\+\_\+state@{write\+\_\+master\+\_\+state}}
+\index{write\+\_\+master\+\_\+state@{write\+\_\+master\+\_\+state}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{write\+\_\+master\+\_\+state()}{write\_master\_state()}}
+{\footnotesize\ttfamily virtual void M\+W\+Driver\+::write\+\_\+master\+\_\+state (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Here you write out all \textquotesingle{}state\textquotesingle{} of the driver to fp. 
+\begin{DoxyParams}{Parameters}
+{\em fp} & A file pointer that has been opened for writing. \\
+\hline
+\end{DoxyParams}
+
+
+Referenced by checkpoint().
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classMWDriver_a033da9ddab14c10d0c174ee778234221}\label{classMWDriver_a033da9ddab14c10d0c174ee778234221}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM@{M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM}}
+\index{M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM@{M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM}{MIN\_IN\_MEM}}
+{\footnotesize\ttfamily int M\+W\+Driver\+::\+M\+I\+N\+\_\+\+I\+N\+\_\+\+M\+EM}
+
+Swap the unused part of the (sorted and indexed) T\+O\+DO list onto disk (file name\+: T\+O\+D\+O\+\_\+tasks.\+id), so that the T\+O\+DO tasks with smaller key values are kept in memory, and others are kept in a file. When there are too many tasks in memory, we swap most of them out; when there are too few tasks in memory, we swap in more. The MW application will be done only when all T\+O\+DO tasks are done. When checkpointing, it only saves T\+O\+DO tasks in memory, and the pointers (the file name) to the swap file.
+
+To help swapping in tasks, we will record the number of tasks swapped in at the beginning of the file, and skip then when read to swap file. The num\+\_\+to\+\_\+skip is initially set to 0.
+
+The swap file for T\+O\+DO tasks is fully-\/sorted, and looks like\+:
+
+num\+\_\+to\+\_\+skip trash\+\_\+task1 trash\+\_\+task2 ... ... task1 task2 ... ... task\mbox{[}num\+\_\+tasks\mbox{]}When swapping out, we walk through the sorted T\+O\+DO list, keep the first num\+\_\+in\+\_\+mem tasks in memory (copy into a newly created list). For the rest of the list, merge it in order with existing tasks in the file T\+O\+D\+O\+\_\+tasks, and write them into a newly created swap file. Tasks in swap file whose key values are larger than max\+\_\+key are removed. When done, delete the old T\+O\+DO list and swap file, switch to the new ones.
+
+If the old T\+O\+DO list is not too large ($<$max\+\_\+in\+\_\+mem), won\textquotesingle{}t swap out. Return value indicates whether the swapping is successful or not. 
+
+Referenced by M\+W\+Driver(), and read\+\_\+master\+\_\+state().
+
+\mbox{\Hypertarget{classMWDriver_a3063439d04c8048868d6c4d5c51c6778}\label{classMWDriver_a3063439d04c8048868d6c4d5c51c6778}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!R\+MC@{R\+MC}}
+\index{R\+MC@{R\+MC}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{R\+MC}{RMC}}
+{\footnotesize\ttfamily \hyperlink{classMWRMComm}{M\+W\+R\+M\+Comm}$\ast$ M\+W\+Driver\+::\+R\+MC\hspace{0.3cm}{\ttfamily [static]}}
+
+A static instance of our Resource Management / Communication class. It\textquotesingle{}s a member of this class because that way derived classes can use it easily; it\textquotesingle{}s static because there should only be one instance E\+V\+ER. The instance of R\+MC in the \hyperlink{classMWTask}{M\+W\+Task} class is actually a pointer to this one... 
+
+Referenced by add\+Sorted\+Tasks(), add\+Tasks(), checkpoint(), delete\+\_\+tasks\+\_\+worse\+\_\+than(), get\+\_\+workers\+\_\+head(), go(), handle\+\_\+benchmark(), handle\+\_\+checksum(), handle\+\_\+hostdel(), handle\+\_\+hostresume(), handle\+\_\+hostsuspend(), handle\+\_\+taskexit(), printresults(), refresh\+Workers(), restart\+\_\+from\+\_\+ckpt(), and stop\+\_\+work().
+
+\mbox{\Hypertarget{classMWDriver_a1d359e2a84216713f63d93ff343c68b2}\label{classMWDriver_a1d359e2a84216713f63d93ff343c68b2}} 
+\index{M\+W\+Driver@{M\+W\+Driver}!task\+\_\+key@{task\+\_\+key}}
+\index{task\+\_\+key@{task\+\_\+key}!M\+W\+Driver@{M\+W\+Driver}}
+\subsubsection{\texorpdfstring{task\+\_\+key}{task\_key}}
+{\footnotesize\ttfamily M\+W\+Key($\ast$ M\+W\+Driver\+::task\+\_\+key) (\hyperlink{classMWTask}{M\+W\+Task} $\ast$)\hspace{0.3cm}{\ttfamily [protected]}}
+
+A pointer to a (user written) function that takes an \hyperlink{classMWTask}{M\+W\+Task} and returns the \char`\"{}key\char`\"{} for this task. The user is allowed to change the \char`\"{}key\char`\"{} by simply changing the function 
+
+Referenced by add\+Sorted\+Tasks(), delete\+\_\+tasks\+\_\+worse\+\_\+than(), handle\+\_\+hostresume(), M\+W\+Driver(), print\+\_\+task\+\_\+keys(), restart\+\_\+from\+\_\+ckpt(), return\+\_\+best\+\_\+running\+\_\+keyval(), return\+\_\+best\+\_\+todo\+\_\+keyval(), set\+\_\+task\+\_\+key\+\_\+function(), set\+\_\+task\+\_\+retrieve\+\_\+mode(), sort\+\_\+task\+\_\+list(), swap\+\_\+in\+\_\+todo\+\_\+tasks(), and swap\+\_\+out\+\_\+todo\+\_\+tasks().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+M\+W\+Driver.\+h\item 
+M\+W\+Driver.\+C\end{DoxyCompactItemize}

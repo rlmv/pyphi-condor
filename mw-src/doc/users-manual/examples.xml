@@ -1,0 +1,354 @@
+<!-- $Id: examples.xml,v 1.4 2006/07/10 17:45:42 linderot Exp $ -->
+
+  <chapter id="examples">
+    <title>
+      Advanced Examples Using &mw;
+    </title>
+
+    <sect1 id="secknapsackexample">
+      <title>Branch-and-Bound: Solving <literal>0-1</literal> Knapsack Problem</title>
+      <para>
+	In the <literal>0-1</literal> knapsack problem, there is a set of 
+	<literal>N = {1, ... , n}</literal> items each with weight
+	<literal>a<subscript>i</subscript></literal> and profit
+	<literal>c<subscript>i</subscript></literal>,  a knapsack capacity 
+	<literal>b</literal>, and the objective is to fill the knapsack as 
+	profitably as possible. This can be formulated as the following mathematical 
+	program:
+	<mediaobject>
+	  <imageobject>
+	    <imagedata format="TEX" fileref="figures/knapsack.tex"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata format="PNG" fileref="figures/knapsack.png"/>
+	  </imageobject>
+	</mediaobject>
+      </para>
+
+      <para>
+	The knapsack problem is known to be NP-Hard, so it is unlikely that a
+	"good" (polynomial time) algorithm exists for its solution.  However,
+	an efficient and popular way to solve this problem is through a
+	procedure known as <emphasis>branch-and-bound</emphasis>.
+      </para>  
+
+    <sect2>
+      <title>Branch-and-Bound</title>
+      <para>
+        Without loss of generality, we assume that the items are sorted in
+	decreasing order of profit to weight ratio
+	<literal>c<subscript>i</subscript>/a<subscript>i</subscript></literal>. 
+	Branch-and-bound computes lower and upper bounds in the following fashion.  
+	The lower bound in the branch-and-bound algorithm is computed by greedily 
+	inserting items while the knapsack capacity is not exceeded. The upper bound 
+	in the algorithm is obtained by additionally inserting the fractional
+	part of the last item that exceeds the knapsack capacity in order
+	to fill the knapsack exactly.  Note that in the solution there is at most one
+	fractional item, which we denote as <literal>f</literal>.  Therefore, 
+	the solution to the LP relaxation of the original knapsack problem is
+	<literal>x<subscript>i</subscript> = 1</literal> for 
+	<literal> i = 1, ... , f-1</literal>,
+	<mediaobject>
+	  <imageobject>
+	    <imagedata format="TEX" fileref="figures/knap_frac_item.tex"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata format="PNG" fileref="figures/knap_frac_item.png"/>
+	  </imageobject>
+	</mediaobject>      
+	and <literal>x<subscript>i</subscript> = 0</literal> for 
+	<literal>i = f+1, ... , n</literal>. The lower bound on the optimal solution 
+	value <literal>z<subscript>L</subscript></literal> is given by
+	<mediaobject>
+	  <imageobject>
+	    <imagedata format="TEX" fileref="figures/knap_lb.tex"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata format="PNG" fileref="figures/knap_lb.png"/>
+	  </imageobject>
+	</mediaobject>
+	and the upper bound on the optimal solution value 
+	<literal>z<subscript>U</subscript></literal> is given by
+	<mediaobject>
+	  <imageobject>
+	    <imagedata format="TEX" fileref="figures/knap_ub.tex"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata format="PNG" fileref="figures/knap_ub.png"/>
+	  </imageobject>
+	</mediaobject>
+	If all items fit into the knapsack <literal>(f = n)</literal>,
+	then the lower and upper bound are
+	<mediaobject>
+	  <imageobject>
+	    <imagedata format="TEX" fileref="figures/knap_lbub.tex"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata format="PNG" fileref="figures/knap_lbub.png"/>
+	  </imageobject>
+	</mediaobject>
+      </para>
+   </sect2>
+   
+ 
+   <sect2>	
+      <title>Task Management</title>
+      
+      <para>	
+	For <classname>MWKnap</classname> we use a dynamic way to manage 
+	the task list through <emphasis>task keys</emphasis>.  Each (derived) 
+	<classname>MWTask</classname> may be assigned a key value
+	through the method <code>MWDriver::set_task_key_function
+	(MWKey(*)(MWTask *) key_func)</code>,
+	where <literal>key_func</literal> is the address of a 
+	function that takes a pointer to a <classname>MWTask</classname> and 
+	returns the <classname>MWKey</classname> of the task, which is typed to 
+	be a double. The <literal>task_key</literal> may be changed dynamically 
+	during the course of the computation by using this method.  The task list 
+	can be sorted through the method  <code>MWDriver::sort_task_list()
+	</code>, and once sorted, tasks can be added and retrieved from the 
+	sorted list by task key value.  In &mw;, the task list is sorted from 
+	smallest key value to largest key value. 
+      </para>	
+
+      <para>
+        One final method that can be of particular importance to branch-and-bound 
+	applications is a call that can delete all tasks in the task list whose 
+	key values are larger than a specified value:
+	<code>MWDriver::delete_tasks_worse_than( MWKey )</code>.    
+	<xref linkend="extaskkey"/> demonstrates the implementation of the &mw; 
+	task key features.
+
+	<example id="extaskkey"><title>The implementation of 
+	<literal>task_key</literal> in <classname>KnapMaster</classname></title>
+	  <programlisting>
+	  MWKey upper_bound(MWTask *t)
+	  {
+	    KnapTask *kt = dynamic_cast< KnapTask * > (t);
+	    assert(kt);
+	    return ((MWKey) (kt->getInputNode().getUpperBound()));
+	  }
+
+	  MWKey neg_upper_bound(MWTask *t)
+	  {
+	    return (-upper_bound(t));
+	  }
+
+	  MWKey depth(MWTask *t)
+	  {
+	    KnapTask *kt = dynamic_cast< KnapTask * > (t);
+	    assert(kt);
+	    return ((MWKey) (kt->getInputNode().getDepth()));
+	  }
+
+	  MWKey neg_depth(MWTask *t)
+	  {
+	    return (-depth(t));
+	  }
+          
+	  void
+	  KnapMaster::setMasterNodeOrder(NodeHeap::Type type, bool sort_it)
+	  {
+	    masterNodeOrder_ = type;
+	    switch(type) {
+	    case NodeHeap::VALUE:
+	      set_task_key_function(neg_upper_bound);
+	      break;
+	    case NodeHeap::WORST:
+	      set_task_key_function(upper_bound);
+	      break;
+	    case NodeHeap::DEPTH:
+	      set_task_key_function(neg_depth);
+	      break;  
+	    default:
+	      assert(0);
+	    }
+
+	    if(sort_it) sort_task_list();
+	  }
+	  </programlisting>
+	  </example>
+      </para>
+
+      <para>
+	The ability to dynamically alter the task key during the course of the
+	search is important for some branch-and-bound computations.  For
+	example, many branch-and-bound algorithms search the tree in a
+	best-first manner.  For large branch-and-bound trees, this can
+	lead to the number of active nodes becoming very large, exhausting
+	the available memory on the master processor.  Instead, by dynamically
+	altering the task list ordering, the user can adopt an approach where
+	the nodes are searched best-first until the number of tasks at the
+	master exceeds a ``high-water'' level <literal>h</literal>, and then 
+	the task list is reordered so that the tasks with the worst bound are 
+	searched.  The task list can be kept in this order until its size of becomes 
+	smaller than a ``low-water'' level <literal>l</literal>, at which time 
+	the list can be reordered in a best-first fashion.
+      </para>
+    </sect2>
+
+    <sect2>
+      <title>&mw; Implementation</title>
+        
+      <variablelist>
+      <varlistentry>
+      <term><code>MWTask</code></term>
+	<listitem><para>
+	  We wish to parallelize a generic branch-and-bound algorithm for solving 
+	  <literal>0-1</literal> within the master-worker framework
+	  by making the base unit of work a limited subtree.  Thus, in our
+	  parallel implementation the algorithm becomes a {\em task},
+	  with the exception that the grain size is controlled by specifying the
+	  maximum CPU time or maximum number of nodes that a worker is allowed to
+	  evaluate before reporting back to the master.  In &mw;, there are two
+	  portions of a task, the work portion and the result portion.  For our
+	  solver <classname>MWKnap</classname>, a <classname>KnapTask</classname> 
+	  class is derived from the base <classname>MWTask</classname>, and the 
+	  work portion of the <classname>KnapTask</classname> consists of a
+	  single input node.  The result portion consists of an improved
+	  solution (if one is found), and a list containing the nodes of the input
+	  subtree that are not able to be evaluated before reaching the task's
+	  node or time limit.  
+        </para></listitem>   	
+      </varlistentry>     
+	
+      <varlistentry>
+      <term><code>MWWorker</code></term>
+	<listitem><para>
+	  In &mw;, the (pure virtual) 
+	  <code>MWWorker::execute_task(MWTask *task)</code>
+	  method is entirely in the user's control.  Therefore, when implementing
+	  the branch-and-bound algorithm for which the task is to evaluate a
+	  subtree, the user is responsible for writing code to manage the heap of
+	  unevaluated subtree nodes. For <classname>MWKnap</classname>, we implement 
+	  a heap structure using C++ Standard Template Library to maintain the set 
+	  of active nodes.  The heap can be ordered by either node depth or node
+	  upper bound, so we can quantify the effect of different worker node
+	  selection techniques on overall parallel efficiency.
+        </para></listitem>   	
+      </varlistentry>     
+	
+      <varlistentry>
+      <term><code>MWDriver</code></term>
+	<listitem><para>
+	  In <classname>MWKnap</classname>, a <classname>KnapMaster</classname> 
+	  class is derived from the base <classname>MWDriver</classname> class. 
+	  The <code>MWDriver::act_on_completed_task(MWTask *t)}</code> 
+	  method is implemented to handle the results passing back from the
+	  workers which include updating the improved solution value, removing 
+	  nodes in the master pool that have their upper bounds less than the 
+	  current best solution value and adding new tasks. 
+        </para></listitem>   	
+      </varlistentry>     
+      </variablelist>     
+    </sect2>    
+
+    <sect2>
+      <title>Parallel Efficiency</title>
+      <para>
+        In order to use the computational resources with maximum efficiency, 
+	the parallelization strategy of the branch-and-bound tree search 
+	has been carefully designed. Issue such as the proper ordering of the
+	task list and the selection of the grain size are carefully considered 
+	in order to minimize communication overhead and contention at the 
+	master process without introducing large parallel search anomalies.
+      </para>      
+
+    <sect3>
+      <title>Contention</title>
+      <para>
+        Since the master-worker paradigm is inherently not scalable.  That
+	is, for configurations consisting of a large number of workers, the
+	master processor may be overwhelmed in dealing with requests from the
+	workers and <emphasis>contention</emphasis> may occur.  Many parallel
+	branch-and-bound methods have a more loosely coupled form of
+	coordinated control that allows for more scalability.  It is our goal
+	in this example to show the limits to which branch-and-bound algorithms
+	can be scaled using the master-worker paradigm, with a well-engineered
+	version of the algorithm running on a computational grid.
+      </para>
+
+      <para>
+        The lack of scalability of the master-worker paradigm comes from the
+	bottleneck of a single master process serving many worker requests.
+	The contention problem can be quite serious in a grid computing
+	environment, as our goal is to have hundreds or thousands of workers
+	served by a single master.  To ease the contention problem, it
+	is useful to think of the master-worker paradigm as a simple G/G/1
+	queueing model.  There are two ways to increase the efficiency of
+	the model:
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Decrease the arrival rate.  This can be accomplished by
+	      increasing the <emphasis>grain size</emphasis> of the computation.  
+	      In the context of branch-and-bound, the grain size can be increased 
+	      by making the base unit of work in the parallel branch-and-bound 
+	      algorithm a <emphasis>subtree</emphasis>, not a single node.  
+	      The grain size can be limited by giving an upper bound on the CPU 
+	      time (or number of nodes) spent evaluating the subtree.
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>
+	      Increase the service rate.  This can be accomplished by searching
+	      the subtrees in a depth-first manner.  Searching the subtrees
+	      depth-first minimizes the number of nodes that will be left unexplored
+	      if the evaluation limit on the subtree is reached.  This has two
+	      positive effects for increasing the service rate of the master
+	      processor.  First, the size of the messages passed to the master is
+	      reduced, and second, the size of the list of unexplored nodes on the
+	      master is kept small.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+      </para>
+    </sect3>
+    
+    <sect3>
+      <title>Clean-up</title>
+      <para>
+        The unit of work in our parallel branch-and-bound algorithm is a
+	time or node limited subtree in order to ease contention effects at the
+	master.  However, a subtle point as regards to this strategy is that
+	even though we may wish a worker to evaluate a subtree for &gamma;
+	seconds, it may take significantly less than &gamma; seconds to
+	completely evaluate and fathom the subtree.  Somehow, we would like to
+	ensure that if a node enters the master's task queue, then it is
+	likely that it will require the full time &gamma; (or close to the
+	full time &gamma; to evaluate. This is accomplished with a second (or
+	clean-up) phase in every task.  The goal of the clean-up phase is to
+	fathom nodes that are unlikely to lead to full-length tasks.  Nodes
+	deeper in the branch-and-bound tree are likely to lead to short tasks,
+	so in the clean-up phase, the focus is on evaluating these nodes.
+      </para>
+    </sect3>  
+    
+    <sect3>
+      <title>Ramp-up and Ramp-down</title>
+      <para>
+        Contention is not the only issue that may cause a lack of efficiency
+	of a parallel branch-and-bound algorithm.  Ramp-up and
+	ramp-down, referring to the times at the beginning and the end of the
+	computation when there are more processors available than active
+	nodes of the search tree, can also reduce efficiency.  A simple and
+	effective way to deal with these issues is to exploit the fact that
+	the grain size of the branch-and-bound algorithm can be dynamically
+	altered.  If the number of tasks in the master's list is less than
+	&alpha;, the maximum task time is set to a small number of seconds
+	&beta;.  Note that this strategy works to improve the efficiency in
+	both the ramp-up and ramp-down phases.
+      </para>
+    </sect3>  
+    
+    </sect2>  
+
+    </sect1>
+
+  </chapter>
+<!--
+Local variables:
+mode: xml
+sgml-parent-document:("usersguide.xml" "part")
+End:
+-->

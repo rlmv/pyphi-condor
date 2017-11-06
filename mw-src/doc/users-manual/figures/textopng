@@ -1,0 +1,44 @@
+#!/bin/bash
+# $Id: textopng,v 1.1 2005/06/17 16:24:08 linderot Exp $
+
+# Fancy gs/netpbm magic to make (transparent) png files
+#  from tex source.  (Until there is a decent MathML, then
+#  this is what we do.
+#
+# Stolen/modified from  Naoya Tozuka---Sep 21 1997
+# by Stefan Schmieta 2001-04-10 and by
+# by Jeff Linderoth 2005-02-17
+
+
+CLIPTEMP=cliptemp
+
+echo '\documentclass{article}' > /tmp/$CLIPTEMP.tex
+echo '\usepackage{amsmath}\pagestyle{empty}'  >> /tmp/$CLIPTEMP.tex
+echo '\begin{document}'  >> /tmp/$CLIPTEMP.tex
+cat $1.tex  >> /tmp/$CLIPTEMP.tex
+echo '\end{document}'  >> /tmp/$CLIPTEMP.tex
+
+pushd . > /dev/null
+cd /tmp
+
+echo "tex --> dvi"
+echo "----"
+latex $CLIPTEMP.tex
+echo "----"
+
+echo "dvi --> ps"
+dvips -D120 -n1 $CLIPTEMP.dvi -o 2> $CLIPTEMP.log2
+
+echo "ps  --> pnm"
+echo quit | gs -dNOPAUSE -q -sDEVICE=pnm -r120 -sOutputFile=$CLIPTEMP.pnm $CLIPTEMP.ps -
+
+popd > /dev/null
+printf "pnm --> (cropped)"
+pnmcrop /tmp/$CLIPTEMP.pnm 2>> /tmp/$CLIPTEMP.log2 \
+        | pnmtopng -transparent white > $1.png 2>> /tmp/$CLIPTEMP.log2
+
+cat /tmp/$CLIPTEMP.log /tmp/$CLIPTEMP.log2 > $1.log
+
+rm /tmp/$CLIPTEMP.* -f
+
+pngtopnm $1.png | pnmfile | awk '{ printf(" --> png(%d x %d)\n", $4,$6) }'

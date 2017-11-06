@@ -1,0 +1,6 @@
+1
+workermatmul_condorpvm ((OPSYS=="LINUX")&&(ARCH=="INTEL"))
+150
+200
+150
+

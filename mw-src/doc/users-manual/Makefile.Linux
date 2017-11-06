@@ -1,0 +1,70 @@
+# $Id: Makefile.Linux,v 1.10 2005/12/12 17:17:08 wasu Exp $
+# 
+# docbook Makefile
+
+JADE=jade
+# Put in your XML location
+XML_DECLARATION=/usr/share/sgml/declaration/xml.dcl
+
+MAINFILE=usersguide.pdf
+
+FILES=	usersguide.xml\
+	advancedusage.xml\
+	api.xml\
+	examples.xml\
+	gettingstarted.xml\
+	preface.xml
+
+FIGURES= figures/avgb.tex\
+	figures/avgnaw.tex\
+	figures/avgnsw.tex\
+	figures/avgpw.tex\
+	figures/equivb.tex\
+	figures/equivpp.tex\
+	figures/equivrt.tex\
+	figures/knapsack.tex\
+	figures/knap_frac_item.tex\
+	figures/knap_lb.tex\
+	figures/knap_ub.tex\
+	figures/knap_lbub.tex\
+	figures/maxb.tex\
+	figures/minb.tex\
+	figures/opp.tex\
+	figures/sumc.tex\
+	figures/sums.tex\
+	figures/sumu.tex
+
+
+all: usersguide.pdf usersguide.html
+
+usersguide.pdf: usersguide.tex
+
+.SUFFIXES:.sgml .xml .tex .dvi .ps .pdf .html
+
+usersguide.tex: $(FILES) $(FIGURES) usersguide.dsl
+	$(JADE) -t tex -V tex-backend -d usersguide.dsl -o $@ $(XML_DECLARATION) $<
+
+usersguide.rtf: $(FILES) $(FIGURES) usersguide.dsl
+	$(JADE) -t rtf -d $*.dsl -o $@ $(XML_DECLARATION) $<
+
+usersguide.html: $(FILES) $(FIGURES) usersguide.dsl
+	make -C figures png
+	$(JADE) -t sgml -i html -d $*.dsl\#html -V nochunks $(XML_DECLARATION) $< > $@
+
+%.dvi: %.tex
+	jadetex $<
+
+# Need three runs to get x-refs right.
+%.pdf: %.tex
+	pdfjadetex $< 
+	pdfjadetex $< 
+	pdfjadetex $< 
+
+%.ps: %.tex
+	jadetex $<
+	dvips $*.dvi -o $@
+
+clean:
+	-rm -f $(MAINFILE) $(MAINFILE:.pdf=.dvi) $(MAINFILE:.pdf=.html) $(MAINFILE:.pdf=.rtf)\
+		$(MAINFILE:.pdf=.ps) $(MAINFILE:.pdf=.tex)
+	-rm -f *.log *.out *~ *.aux

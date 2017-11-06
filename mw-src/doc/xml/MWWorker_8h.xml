@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="MWWorker_8h" kind="file" language="C++">
+    <compoundname>MWWorker.h</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="MWTask_8h" local="yes">MWTask.h</includes>
+    <includedby refid="MWDriver_8h" local="yes">MWDriver.h</includedby>
+    <includedby refid="MWDriver_8C" local="yes">MWDriver.C</includedby>
+    <includedby refid="MWWorker_8C" local="yes">MWWorker.C</includedby>
+    <incdepgraph>
+      <node id="132">
+        <label>float.h</label>
+      </node>
+      <node id="125">
+        <label>stdlib.h</label>
+      </node>
+      <node id="136">
+        <label>MWList.h</label>
+      </node>
+      <node id="127">
+        <label>MWTask.h</label>
+        <link refid="MWTask_8h_source"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>limits.h</label>
+      </node>
+      <node id="135">
+        <label>MWRMComm.h</label>
+        <link refid="MWRMComm_8h_source"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>MWprintf.h</label>
+        <link refid="MWprintf_8h_source"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>string.h</label>
+      </node>
+      <node id="133">
+        <label>MWWorkerID.h</label>
+      </node>
+      <node id="134">
+        <label>MWGroup.h</label>
+      </node>
+      <node id="128">
+        <label>MW.h</label>
+        <link refid="MW_8h_source"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h"/>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="138">
+        <label>MWDriver.h</label>
+        <link refid="MWDriver_8h_source"/>
+      </node>
+      <node id="137">
+        <label>MWWorker.h</label>
+        <link refid="MWWorker_8h"/>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classMWWorker" prot="public">MWWorker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/MWWorker.h"/>
+  </compounddef>
+</doxygen>

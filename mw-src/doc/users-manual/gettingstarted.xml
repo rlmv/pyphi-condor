@@ -1,0 +1,852 @@
+<chapter id="chapgettingstarted">
+  <title>
+    A Quick-start guide to &mw;
+  </title>
+
+  <para>This chapter explains how to get started using &mw;.
+    It describes:
+    <itemizedlist>
+      <listitem>
+	<para>&mw theory of operation</para>
+      </listitem>
+      <listitem>
+        <para>Selecting an RMComm implementation</para>
+      </listitem>
+      <listitem>
+	<para>Verify &mw prerequisites</para>
+      </listitem>
+      <listitem>
+	<para>Download &mw;</para>
+      </listitem>
+      <listitem>
+	<para>Configure &mw;</para>
+      </listitem>
+      <listitem>
+	<para>Run a &mw application in independent mode</para>
+      </listitem>
+      <listitem>
+	<para>Run the same application in parallel under Condor</para>
+      </listitem>
+      <listitem>
+	<para>Build your own application from a skeleton</para>
+      </listitem>
+
+    </itemizedlist>
+  </para>
+
+<sect1>
+<title>&mw Theory of operation</title>
+<para>
+
+&mw; is conceptually simple.  You break up a large computation into a
+number of idempotent tasks, to be executed in parallel.  The tasks
+cannot communicate with each other directly, rather, they are given
+arguments by a single Driver process, and report their results back to
+the Driver when the task finishes.  Each task runs within a shared
+context, set up once, allowing efficient sharing for large initial
+data sets.  This style of computing is often called master-worker.  In
+some ways, if normal Condor jobs are analogous to processes in a
+single operating system, these tasks are analogous to threads.  The
+&mw; framework code works with Condor to find machine resources for
+these tasks, handle communication between the nodes, to re-assign
+tasks if their current machine fails, and generally manage the large
+parallel computation.  &mw; provides hooks for you to save the state
+of the driver, so that if the driver, or its machine crashes, the
+computation can make progress upon driver restart.  </para>
+
+<para>
+The &mw framework is a C++ library.  To use it, you must subclass
+three major classes: MWTask, MWDriver, and MWWorker.  As the names
+imply, the MWTask represents the basic unit of work with inputs and
+outputs to be marshaled to each distributed node.  Your subclass of
+MWWorker provides the context for the task to run in.  The &mw
+framework finds machines to run your MWWorker on, and passes MWTasks
+for it to run.  Your MWDriver subclass manages the whole process -- it
+is responsible for creating tasks, initially, statically, or also
+dynamically, in response to results from earlier tasks.  It also
+collates the results of the various MWTasks, and decides when the
+computation is complete.  Section XXX describes the interface you use
+to these classes in detail.  &mw; provides a simple data marshaling
+interface independent of specific network implementation.  This allows
+you to send data between the master and the workers without worrying
+about the specific communication implementation in use.  And, you can
+change the communication paths without changing any of your user code.
+</para>
+
+<para>
+
+</para>
+
+</sect1>
+<sect1 id="secrmcomm">
+  <title>Choosing an RMComm implementation</title>
+  
+  <para>
+    &mw; can run with one of several RMComm (Resource Management and Communication) implementations.
+    This layer implements communication between the master and the workers, and the management of
+    the worker machine resources -- e.g. allocation of CPUs, handling loss of a worker's CPU, etc.
+    You should choose the RMComm implementation that works best for your system.  The choices are:
+    Independent, CondorPvm, Files, Files with Chirp, and Socket.
+  </para>
+
+  <sect2><title>The Independent RMComm</title>
+  <para>
+
+    The Independent RMComm is different from the rest.  It is used for
+    debugging user's &mw; code.  Independent RMComm runs the master
+    and the worker in a single executable in a single process on one
+    machine.  You should almost always start out with this
+    implementation, as it is trivial to debug with a debugger, run
+    profiling and memory checking tools, etc.  Once your code is known
+    to work in independent mode, you can select one of the other
+    RMComm implementations to run in parallel on your distributed
+    cluster.
+
+  </para>
+
+  <para>
+
+    To build your application in independent mode, you must first
+    recompile all your &mw; C++ code with the
+    <command>-DINDEPENDENT</command> flag.  Then, link all of the
+    resultant object files with all of the libraries in the &mw
+    <filename class="directory">lib/</filename> which end in _indp.a.
+    The Makefiles in the <filename class="directory">example</filename>
+    directories show you exactly how to do this.  You can then run
+    this executable like any other.
+    
+  </para>
+
+  </sect2>
+
+  <sect2><title>The CondorPVM RMComm</title>
+  <para>
+
+  CondorPVM is a good default RMComm to choose.  However, not all
+  Condor platforms support CondorPVM.  To check if your Condor
+  installation supports CondorPVM run the command
+  <command>condor_status -l</command>, and check look for the
+  <command>StarterAbilityList</command> in the ClassAd for your
+  machines.  It should look something like:
+
+  <code>
+StarterAbilityList = "HasFileTransfer,HasCheckpointing,HasPVM"
+  </code>
+
+  .  If the <command>HasPVM</command> attribute is listed, then
+  CondorPVM is supported.  If it isn't, you must chose another RMComm
+  implementation.  CondorPVM supports relatively good communication
+  performance, and, with user-level checkpointing, is robust in the
+  face of master crashes. CondorPVM works a little differently than
+  the other RMComm layers, in that the one user-written submit file
+  runs in the PVM universe, and allocates all the machines.  The first
+  machine allocated becomes the master, the others, workers.  In the
+  other RMComm implementations, the user-written submit file runs in
+  the scheduler universe on the submit machine, and it is the master.
+  This distinction is important to remember when submitting to run on
+ multiple architectures.  (See <xref linkend="secmultiarch"/>).
+  This master the explicitly runs <command>condor_submit</command> and
+  <command>condor_rm</command> to allocate and free worker machines.  
+  </para>
+
+  <para>
+  To use the CondorPVM RMComm, compile your user &mw; classes without
+  any special flags.  You must then create a master executable and and
+  worker executable.  Your master executable should be linked with the
+  versions of the &mw; libraries in the <filename
+  class="directory">lib/</filename> directory that end in
+  condorpvmmaster.a, and your worker executable linked with those that
+  end in condorpvmworker.a.  To run your application, you must submit 
+  the master into the Condor pvm universe.  That is, you must create
+  a condor submit file, and run <command>condor_submit</command>, passing
+  your submit file as an argument.
+  </para>
+  </sect2>
+
+  <sect2><title>The Sockets RMComm</title>
+  <para>
+
+  The Socket RMComm offers the lowest latency communication between
+  the master and the workers.  If your application is bound by network
+  latency, that is, you have a large number of short-lived tasks, the
+  Socket implementation may be the best choice.  The Socket
+  implementation runs in the vanilla condor universe, so every Condor
+  platform should be able to run it.  However, the implementation
+  assumes that the worker can initiate a TCP connection on a well
+  known port (8997) to the master.  If there is a firewall between the
+  workers and the master, you will either need to open up this port in
+  the firewall, or chose another RMComm implementation.  If need be,
+  it is easy enough to change this hard-coded value in the source
+  code to another value, which might be more friendly to your firewall.
+  As the Socket RMComm uses one socket for each worker to talk to the master,
+  this may lead to a scalability problem on the master side, if your
+  OS is not configured to support a large number of file descriptors
+  per process.
+
+  </para>
+
+  <para>
+  To use the socket RMComm, compile your user &mw; classes without
+  any special flags.  You must then create a master executable and and
+  worker executable.  Your master executable should be linked with the
+  versions of the &mw; libraries in the <filename
+  class="directory">lib/</filename> directory that end in
+  socketmaster.a, and your worker executable linked with those that
+  end in socketworker.a.  The socket master is a condor scheduler
+  universe job.  This means that it runs directly on the submit host.
+  The socket master then explicitly launches the worker executables
+  into the condor pool by running the condor_submit command itself, passing
+  it a submit file it has created.  Again, the example applications
+  show sample submit files.  Sometimes, for debugging purposes, it
+  is easier to manually launch the socket master executable outside
+  of condor.  Because it is a scheduler universe job, there is nothing
+  special that needs to be done -- it can simply be run from the shell,
+  or a debugger, or within a profiling tool.
+  </para>
+
+  </sect2>
+
+  <sect2><title>The Files RMComm</title> <para> The MWFiles RMComm
+  implementation is the most robust, but offers the slowest
+  communication.  To communicate, it uses one of two remote-i/o
+  methods provided by Condor.  For resource management, it parses the
+  Condor userlog files. MWFiles relies on the Condor standard
+  universe, which is not available on all Condor platforms.  In
+  particular, it not available on so-called "clipped" Condor ports.
+  Also, running in the standard universe introduces some restrictions
+  on system calls the worker program can use.  Most notably, the
+  worker cannot fork, or make long-lived socket connections.  The
+  condor manual has the full list of restrictions when running in the
+  vanilla universe.  However, because the usual condor communication
+  mechanisms are used, all the condor communication benefits apply to
+  the communication between master and worker.  So, if Condor is
+  configured to use encryption, authentication, or firewall-traversal,
+  MW-Files gets this all, too.  This is not the case for any of the
+  other RMComm implementations.  Also, the Files implementation is
+  more robust than others.  Because the workers are loosely-coupled, 
+  via files, to the worker, if the master crashes, the workers may be
+  able to continue their computations, write them to the filesystem, and
+  wait for the master to restart.  In Sockets, or pvm, if the master
+  dies, the workers quickly die too.
+  </para>
+
+  <para>
+  To use the Files RMComm, compile your user &mw; classes without any
+  special flags.  You must then create a master executable and and
+  worker executable.  Your master executable should be linked with the
+  versions of the &mw; libraries in the <filename
+  class="directory">lib/</filename> directory that end in
+  filemaster.a, and your worker executable linked with those that end
+  in fileworker.a.  The file master is a condor scheduler universe
+  job, just like the socket master is.  As before, the example
+  applications show sample submit files.
+  </para>
+  </sect2>
+
+  <sect2><title>The Static-MPI RMComm</title> 
+  <para> 
+
+  The Static-MPI RMComm is for users that would like to run an
+  MW-enabled code in an MPI environment.  The MPI (v1.0) specification
+  did not allow for dynamic addition or removal of processors in the
+  course of a computation, so the running environment in this case is
+  static. 
+
+  </para>
+  </sect2>
+
+  </sect1>
+
+  <sect1>
+    <title>
+	   Verify &mw Prerequisites
+    </title>
+    <para>
+
+      Before getting started with &mw;, you should have Condor installed,
+      and have some basic understanding of how it works:  how to submit 
+      jobs, monitor the queue and manage jobs.  You do not need root. The 
+      <ulink url="http://www.cs.wisc.edu/condor">Condor</ulink> web page 
+      is the definitive resource for this.  You will also need a basic
+      understanding of writing and compiling C++ applications on Unix systems.    
+
+    </para>
+  </sect1>
+
+  <sect1>
+  <title>
+  Download &mw; </title>
+
+  <para>
+
+  The latest release of &mw; exists at
+  <ulink url="http://www.cs.wisc.edu/condor/mw">&mw; web site.</ulink>
+  &mw is packaged at a ".tgz" file, so you can unpack it with the
+  shell command <command>tar xvzf mw-version.tgz</command>.  This will
+  create a number of directories under the main directory 
+  <filename class="directory">mw/</filename>
+
+  </para>
+
+  <para>
+
+  <variablelist>
+    <varlistentry>
+      <term><filename class="directory">src/</filename></term>
+        <listitem>
+	   <para>The code consisting of the main
+	    API code.  The base classes you need to extend live here
+	    (and other classes as well). There are a number of 
+	    subdirectories here too.</para>
+	</listitem>  
+    </varlistentry>
+
+    <varlistentry>
+      <term><filename class="directory">doc/</filename></term>
+        <listitem>
+	   <para>The documentation directory.</para>
+	</listitem>  
+    </varlistentry>
+
+    <varlistentry>
+	<term><filename class="directory">examples/</filename></term>
+      <listitem>
+	<para>
+	Example &mw; applications.
+	</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+	<term><filename class="directory">examples/newskel</filename></term>
+      <listitem>
+	<para>
+           A perl script and skeleton code you can use to create your own &mw;
+	   applications
+	</para>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+  </para>
+  </sect1>
+
+  <sect1>
+  <title>
+  Configuring &mw;
+  </title>
+
+  <para>
+
+  &mw; relies on the a configure script in order to create the
+  Makefiles necessary to build on your system.  <command>./configure
+  --help</command> from the <filename class="directory">mw</filename>
+  directory lists all the configuration options.  Note that if you
+  change any configuration options, you should first make clean, then
+  make install, and finally re-link your &mw; application. In addition
+  to the usual configuration options, here are the most often used
+  options with &mw;
+
+  <variablelist>
+
+  <varlistentry>
+  <term>--prefix=<filename class="directory">/some/absolute/path</filename></term>
+  <listitem><para>
+    The most important option, and one which you almost always should use.  The default,
+    <filename class="directory">/usr/local</filename>, is almost certainly wrong, especially
+    if you are not root, or want to install more than one version of &mw; on your system.
+    The value is the directory which <command>make install</command> will create and populate
+    <filename class="directory">lib</filename> and <filename class="directory">include</filename> 
+    directories under.
+  </para></listitem>
+  </varlistentry>  
+
+  <varlistentry>
+  <term>--with-condor=<filename class="directory">/path/to/condor/release_dir</filename></term>
+  <listitem><para>
+    If this option is not specified, configure will try to infer the correct value.
+    If condor is not in your path, or if you have multiple versions of condor installed (perhaps
+    a test and production condor), you should use this option to explicitly use
+    one particular version.
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term>--without-condor</term>
+  <listitem><para>
+    Mutually exclusive with the above option.  If condor is not installed, you may
+    use this option, and a version of MW which only supports Independent mode will be
+    built.
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term>--with-pvm=<filename class="directory">/path/to/condorPVM</filename></term>
+  <listitem><para>
+
+    If you want the CondorPVM RMComm implementation, you should
+    specify the path to your condorPVM libraries.  The default value
+    for this option is the value of the environment variable
+    PVM_ROOT. You will need to set the environment variable PVM_ARCH
+    to the correct value before running configure.
+
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term>--without-pvm</term>
+  <listitem><para>
+
+    If your Condor installation does not support CondorPVM, you
+    should configure &mw; with this option.  Mutually exclusive
+    with the above.
+
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term>--without-mwfile</term>
+  <listitem><para>
+
+	Remove support for the MW-File RMComm from this configuration
+	of &mw; 
+
+  </para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term>--with--mpi</term>
+  <listitem><para>
+
+  Add support for building executables that will run with MPI.
+  In order to (currently) use this, your environment must be set up to
+  compile mpi programs via the <command>mpicxx</command> command. 
+
+  </para></listitem>
+  </varlistentry>
+
+  </variablelist>
+
+  </para>
+
+  </sect1>
+
+  <sect1>
+  <title>Building &mw;</title>
+  <para>
+  After you run <command>./configure</command> with the appropriate options,
+  build &mw; with the make command from the top level.  This will build the &mw;
+  framework and the several example applications.  There should be no compiler
+  errors or warnings for either the examples, or the libraries. If there are
+  errors, perhaps different <command>./configure</command> options will fix the
+  problems.  Once make builds clean, run make install, and make will copy
+  the libraries and includes into the install location specified by the --prefix
+  option to configure.
+  </para>
+  
+  </sect1>
+  <sect1>
+  <title>
+  Running &mw
+  </title>
+
+  <para>
+  In this section we describe the steps necessary to run a sample &mw;
+  application using the different <classname>MWRMComm</classname>
+  layers.  The sample application that we will use is newmatmul.
+  </para>
+
+  <sect2>
+  <title>
+  Running with <classname>MWIndependent</classname> for debugging on one machine.
+  </title>
+
+  <para>
+
+  Running the independent version is very easy.  First, make sure the
+  build succeeded without errors as described above.  Then, simply cd
+  into the <filename class="directory"> newmatmul</filename> directory
+  under examples, and run the command <command>./masternewmatmul_indp &lt; in_master </command>.
+  Note there is nothing inherent in &mw that requires it to read from
+  <command>stdin</command>, but this makes it easy to change certain 
+  parameters without recompilation.
+  
+  </para>
+
+  <para>
+  The first think you'll notice about &mw; is that it is very verbose,
+  and, by default, produces a lot of output about what it is doing.
+  The program should complete very quickly, and near the end of the
+  output, the driver prints the resulting matrix, after the line
+  <code>
+  The resulting Matrix is as follows
+  </code>
+
+  Note that you can run this under the debugger or profiler easily.
+  This particular application reads from standard input.  The file
+  format of this input consists of two integers, which should always
+  be "1", followed the name of the worker executable, which is 
+  also ignored for independent mode.  This is followed by the number of rows 
+  in each matrix, followed by a partitioning factor, which sizes
+  the amount of work each task does.  The shipped input file uses
+  "10" as the partition factor, which results in one task.  You can lower this
+  to "5" or "2", to see how multiple tasks are sent to the worker, and results
+  returned to the driver.  As independent mode only has one worker, these tasks
+  are processed sequentially, but would be done in parallel for the other RMComm
+  modes.
+  </para>
+
+  </sect2>
+
+  <sect2>
+  <title> Running in parallel on many machines</title>
+  <para>
+
+  Now that you've run &mw; in independent mode on one machine, and
+  verified that the basic algorithms and mechanisms work, you can run
+  &mw; and exploit available parallelism in your pool.  Select those
+  RMComm algorithms that are available at your site, based on the
+  information described above.  The default settings for the newmatmul
+  example only create one task, so only one worker will be needed.
+  Try lowering the partition factor to "1" to make the example have
+  more tasks, and more available parallelism.  You can use the
+  <command>condor_q</command> command to see the various workers, and
+  how condor assigns them to machines, as the computation progresses.
+
+  </para>
+  <sect3>
+  <title> Running with MW-File RMComm</title>
+  <para>
+
+  If your condor installation supports the Standard Universe, that is,
+  the Condor platform is not a so-called "clipped" port, you can use
+  the MW-File RMComm.  For the newmatmul example, the master
+  executable is called masternewmatmul_mwfile, and the worker is
+  called workernewmatmul_mwfile.  Submit the master executable to the
+  condor scheduler universe by submitting the example file called
+  submit_mwfile.  You can do this with the condor command
+  <command>condor_submit submit_mwfile</command>.  You may want to
+  change the email address specified in the
+  <command>notify_user</command>, or remove it altogether. </para>
+  </sect3>
+
+  <sect3>
+  <title> Running with MW-Sockets RMComm</title>
+  <para>
+
+  The Sockets RMComm implementation should work with every condor
+  installation, barring any difficulties created by firewalls.  The
+  newmatmual example master executable is named masternewmatmul_socket,
+  and the worker is workernewmatmul_socket.  The condor submit file is
+  named submit_socket, so you can submit this example to condor with
+  the command <command>condor_submit submit_socket</command>.
+
+  </para>
+  </sect3>
+
+  <sect3>
+  <title>Running with Condor-PVM RMComm</title>
+  <para>
+
+  The Condor-PVM RMComm is a good starting choice, if it is supported
+  by your Condor installation. Condor-PVM, unlike the others, runs
+  in the PVM universe.  The submit file specifies one machine, which 
+  is the master.  The master then uses the Condor-PVM mechanisms to
+  add machines to the computation dynamically.  To run this example,
+  simply <command>condor_submit submit_pvm</command>.
+
+  </para>
+  </sect3>
+
+  <sect3>
+  <title>Running with StaticMPI RMComm</title>
+  <para>
+
+  To run with an MW executable that has been enabled to run with MPI,
+  you simply follow the standard instructions for running MPI programs
+  at your site.  For example, to run the example in Section <xref
+    linkend="secknapsackexample"/>, you would run the command
+  <command>mpirun -np 8 knap-mpi data/cir20.txt params.txt</command> 
+  </para>
+      </sect3>
+
+      </sect2>
+
+  </sect1>
+  <sect1>
+  <title>Using new_skel to create your own &mw; program</title>
+  <para>
+
+  There is a fair amount of boilerplate code you need to write in
+  order to get a trivial &mw; application running.  In order to ease
+  this, there is the <command>new_app</command> script in the
+  directory <filename class="directory">examples/newskel</filename>.
+  Simply <command>cd</command> to this directory, and run the command
+  with the name of your new &mw; application.  <command>TEST</command>
+  might be a good first choice.  Newskel will create a directory under
+  examples called TEST, fill in all the requisite &mw; subclasses, and
+  try to compile and build a simple application.  You may need to
+  re-run <command>./configure</command> by hand in this directory with
+  appropriate options before you successfully <command>make</command>
+  the skeleton, but other than that, the skeleton should be
+  compilable.  This trivial application is easy for you to extend to
+  create your own &mw; computation.  The following documentation
+  assumes that you are using TEST as the name of your app, so you
+  can replace this with the real name in all applicable places.
+  
+  </para>
+
+  <para>
+  <command>new_app</command> creates the following source files for
+  you to edit:
+
+  <itemizedlist>
+
+  <listitem><para>MasterMain_TEST.C</para></listitem>
+  <listitem><para>WorkerMain_TEST.C</para></listitem>
+  <listitem><para>Driver_TEST.C</para></listitem>
+  <listitem><para>Driver_TEST.h</para></listitem>
+  <listitem><para>Task_TEST.C</para></listitem>
+  <listitem><para>Task_TEST.h</para></listitem>
+  <listitem><para>Worker_TEST.C</para></listitem>
+  <listitem><para>Worker_TEST.h</para></listitem>
+
+  </itemizedlist>
+  </para>
+
+  <sect2><title><filename>MasterMain_TEST.C</filename> and <filename>WorkerMain_TEST.C</filename></title>
+  <para>
+
+  These two files simply provide the main entry point for the master
+  and worker executables, respectively.  The only line of code you may
+  want to change is the line which configures the debug
+  <code>MWprintf</code> capability in &mw;. <code>set_MWprintf_level</code>
+  Generally, setting this to lower levels decreases the amount of
+  debug output, and increasing it raises the threshold of debug
+  messages.  see XXX Link here in the reference menu for more details.
+
+  </para>
+  </sect2>
+  
+  <sect2><title><filename>Driver_TEST.C</filename> and <filename>Driver_TEST.h</filename></title>
+  <para>
+
+  These two files subclass of <code>MWDriver</code>.  Your Driver
+  class is responsible for managing the various tasks which compose
+  the parallel computation.  The minimum set of methods you must
+  implement to do this are:
+
+  </para>
+
+  <variablelist>
+    <varlistentry>
+
+      <term>  <code>MWReturn Driver_Test::get_userinfo(int argc, char **argv)</code> </term>
+        <listitem><para>
+
+	This method is the first that the driver calls on startup, and the command-line
+	arguments from the driver executable are passed into it.  <code>get_userinfo</code>
+	should do the following, at minimum, but in this specific order:
+	</para>
+		<itemizedlist>
+		  <listitem><para>
+
+		  Set up the names and types of the worker
+		  executables.  Use the following code as a template.
+		  The second parameter to set_arch_class_attributes is
+		  the Condor ClassAd requirements expression.  Consult
+		  your condor manual for legal values here for other
+		  architectures.  Note that the &mw; code parses this
+		  string, and looks for values for OPSYS and ARCH,
+		  so they should always be present.
+
+		  <programlisting>
+RMC->add_executable("worker-executable", "((OPSYS==\"LINUX\") && (ARCH==\"INTEL\"))");
+		  </programlisting>
+		       </para></listitem>
+		  <listitem><para>
+
+		  Set up the driver checkpoint frequency.  To have the driver checkpoint every
+		  time 10 tasks complete, write the following line:
+<programlisting>
+RMC->set_checkpoint_frequency(10);
+</programlisting>
+
+		  </para></listitem>
+		  <listitem><para>Read in any driver-specific information from configuration files
+		          passed as command-line parameters</para></listitem>
+	          <listitem><para>Do all program-specific initialization</para></listitem>
+	          <listitem><para>Return <code>OK</code> if the initialization succeeded.  Otherwise &mw; will not start.</para></listitem>
+	        </itemizedlist>
+	</listitem>  
+	</varlistentry>
+
+	<varlistentry>
+
+	<term><code>MWReturn Driver_TEST::setup_initial_tasks(int *n_init , MWTask ***init_tasks)</code></term>
+	 <listitem><para>
+
+	 This method is responsible for setting up the initial set of tasks to compute.  It needs to allocate
+	 an appropriately sized (via n_init) array of properly constructed Task_TEST objects.  The &mw;
+	 framework is responsible for deleting the tasks and the array when it is done with them.
+
+	 </para></listitem>
+
+    </varlistentry>
+
+    <varlistentry>
+    <term><code>MWReturn Driver_TEST::pack_worker_init_data( void )</code></term>
+    <listitem>
+    <para>
+
+    It is common in &mw; applications that a large set of read-only
+    data needs to be shared between all tasks.  Rather than sending
+    this data over to the worker with every task, and increasing
+    network traffic, &mw; has the ability to send some initial data to
+    the worker once.  pack_worker_init_data does this.  To do this, it
+    should call the RMC routine (q.v.) pack, to send the data over.
+    There is a corresponding unpack_worker_init_data routine in the
+    worker, which should call unpack.  It is vital that the packs on
+    the Driver side match the unpacks on the worker side. As a trivial
+    example, if you wanted to pass a single integer, you'd just write
+    <programlisting>
+    int length = 100;
+    RMC->pack(&&;length, 1);
+    </programlisting>, and be
+    sure to <code>RMC->unpack</code> it on the other side.  As with the other
+    routines that return a <code>MWReturn</code>, be sure to
+    return <code>OK</code> if you want the &mw; computation to start.
+
+    </para></listitem>
+    </varlistentry>
+
+  <varlistentry>
+  <term><code>MWReturn Driver_TEST::act_on_completed_task( MWTask *t )</code></term>
+  <listitem>
+  <para>
+
+  When the worker is finished with the task, this function is called in the driver.
+  What happens here depends on your application -- you can either just print a message
+  here, or perhaps add new tasks, or remove existing tasks to the computation, based
+  on the result of the Task object.  
+  
+  </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>void Driver_TEST::printresults()</code></term>
+  <listitem><para>
+  When all of your tasks have been completed, this function is called, then the master 
+  exits.  This is a good place to print out and save your results.
+  </para></listitem>
+  </varlistentry>
+  </variablelist>
+
+  </sect2>
+  <sect2><title><filename>Task_TEST.C</filename> and <filename>Task_TEST.h</filename></title>
+  <para>
+
+  These two files implement the Task class.  This just represents the
+  state of the task -- the Worker class contains the code that
+  executes as task.  The primary methods you need to implement in your
+  Task class involve the saving and restoring of Task state to the
+  RMComm and checkpointing streams.
+
+  </para>
+  
+  <variablelist>
+
+  <varlistentry>
+  <term>The Big Three</term>
+  <listitem>
+  <para>
+
+  In C++ jargon, The Big Three methods are the assignment operator,
+  and the copy constructor, and a virtual destructor.  &mw; uses the
+  copy constructor on tasks, so be sure to correctly implement all
+  three, as the compiler-generated default is almost certainly not
+  what you want.
+
+  </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>void Task_TEST::pack_work( void )</code>and <code>void Task_TEST::unpack_work( void )</code></term>
+  <listitem>
+  <para>
+
+  These two methods are used to stream the contents of a task from the
+  master to the worker, and back again.  Note the relationship between
+  these two methods and the Task constructor.  Your User Driver class
+  uses the Task constructor to create your Task objects with certain
+  state, and which live in the master's address space.  When the master
+  wants to send a Task object to the worker, it calls pack_work on the
+  existing task on the driver side, calls the default constructor on the
+  worker side, and fills in the state of the task by calling unpack_work
+  on the worker side. Thus, it is important that the <code>pack</code>
+  calls on the driver side match up with the <code>unpack</code> calls
+  on the worker side.
+
+  </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>void Task_TEST::pack_results( void )</code>and <code>void Task_TEST::unpack_results( void )</code></term>
+  <listitem>
+  <para>
+
+  These two methods are very similar to the previous pair. However,
+  these are used when the worker has finished computing the task, and
+  needs to pass the results back to the master.
+
+  </para>
+  </listitem>
+  </varlistentry>
+
+  </variablelist>
+  </sect2>
+
+  <sect2><title><filename>Worker_TEST.h</filename> and <filename>Worker_TEST.C</filename></title>
+  <para>
+
+  The final two files implement the Worker class.  The main function of the Worker
+  class is to execute tasks.
+
+  </para>
+
+  <variablelist>
+
+  <varlistentry>
+  <term><code>void Worker_TEST::unpack_init_data()</code></term>
+  <listitem>
+  <para>
+
+  This method is the inverse of <code>Driver_Test::pack_init_data()</code>, mentioned above.  Use
+  the <code>RMC-&gt;unpack</code> methods corresponding to the pack methods used on the master side
+  to unmarshall the data it has sent.
+
+  </para>
+  </listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><code>void Worker_TEST::execute_task(MWTask *)</code></term>
+  <listitem>
+  <para>
+
+  This last method is the guts of your &mw; application.  It uses the
+  state in the MWTask it is given to compute something.  You should
+  store the results somewhere in the Task object, so the results will
+  be streamed back to the master.
+
+  </para>
+  </listitem>
+
+  </varlistentry>
+  </variablelist>
+  </sect2>
+  </sect1>
+</chapter>

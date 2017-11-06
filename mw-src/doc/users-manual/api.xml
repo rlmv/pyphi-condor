@@ -1,0 +1,36 @@
+<!-- $Id: api.xml,v 1.2 2005/01/14 21:41:52 gthain Exp $ -->
+
+<chapter id="api">
+<title>
+Using the MW API
+</title>
+
+<para>
+In this chapter, we describe &mw;'s application programming interface.
+</para>
+
+<sect1 id="sectMWDriver">
+<title> <classname>MWDriver</classname> </title>
+
+<para>
+Pure virtual methods...
+
+Checkpointint...
+
+Task List Management...
+
+Other important stuff?
+
+It is not necessary to document every method -- that is for the reference manual/doxygen?
+Though we should be able to produce a reasnable sized reference manual from doxygen as well...
+</para>
+
+</sect1>
+
+</chapter>
+<!--
+Local variables:
+mode: xml
+sgml-parent-document:("usersguide.xml" "part")
+End:
+-->

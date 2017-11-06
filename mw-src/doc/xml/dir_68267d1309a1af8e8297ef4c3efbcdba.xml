@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_82192c00172a89c36347dafcf17929ab">RMComm</innerdir>
+    <innerfile refid="MW_8h">MW.h</innerfile>
+    <innerfile refid="MWDriver_8C">MWDriver.C</innerfile>
+    <innerfile refid="MWDriver_8h">MWDriver.h</innerfile>
+    <innerfile refid="MWprintf_8h">MWprintf.h</innerfile>
+    <innerfile refid="MWTask_8C">MWTask.C</innerfile>
+    <innerfile refid="MWTask_8h">MWTask.h</innerfile>
+    <innerfile refid="MWWorker_8C">MWWorker.C</innerfile>
+    <innerfile refid="MWWorker_8h">MWWorker.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

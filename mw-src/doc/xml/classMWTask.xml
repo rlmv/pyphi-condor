@@ -1,0 +1,548 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classMWTask" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>MWTask</compoundname>
+    <includes refid="MWTask_8h" local="no">MWTask.h</includes>
+      <sectiondef kind="user-defined">
+      <header>Time and usage data</header>
+      <memberdef kind="variable" id="classMWTask_1ae503d6480ef81dcc1ccd7927e4655226" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MWTask::working_time</definition>
+        <argsstring></argsstring>
+        <name>working_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The time (wall clock) that it takes to run the &apos;execute_task&apos; function on the worker&apos;s side. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="76" column="1" bodyfile="src/MWTask.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWTask_1a5f954bdae3d554327beab944c8e51125" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MWTask::cpu_time</definition>
+        <argsstring></argsstring>
+        <name>cpu_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The amount of user+system time taken by this task, measured from start to finish of the &apos;execute_task&apos; function. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="79" column="1" bodyfile="src/MWTask.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Packing and Unpacking</header>
+      <description><para>The user must pack and unpack the contents of the class so that it can be sent to the worker and back. These functions will make RMC-&gt;pack() and RMC-&gt;unpack() calls. </para></description>
+      <memberdef kind="function" id="classMWTask_1a57073276fad38e58edda79d35021a52c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::pack_work</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>pack_work</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Pack the work portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="92" column="1"/>
+        <referencedby refid="classMWDriver_1a9dc5f80c5069e9bddcfee2ad9e5e32e4" compoundref="MWDriver_8C" startline="738" endline="788">MWDriver::refreshWorkers</referencedby>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a7b1d0f044688941bd9a0e502b48c4676" compoundref="MWDriver_8C" startline="1191" endline="1275">MWDriver::handle_checksum</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ac5802dedca5470a9a12cd2a6cdab17d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::unpack_work</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>unpack_work</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Unpack the work portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="95" column="1"/>
+        <referencedby refid="classMWWorker_1a332479873153501e8ecb38cb682cdcd2" compoundref="MWWorker_8C" startline="68" endline="93">MWWorker::greet_master</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a75f9ac3f76cbca33c6c8bd18ea3c0bab" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::pack_results</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>pack_results</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Pack the result portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="98" column="1"/>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ab22e3eb9a27b8d115063e79067856166" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::unpack_results</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>unpack_results</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Unpack the result portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="101" column="1"/>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a1a1b24e608337f787966b5d91f04f7de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::pack_subresults</definition>
+        <argsstring>(int)</argsstring>
+        <name>pack_subresults</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+<para>Pack the subresult portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="104" column="1" bodyfile="src/MWTask.h" bodystart="104" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ae6fe9fd144486e79c19a1087da1fd7ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::unpack_subresults</definition>
+        <argsstring>(int)</argsstring>
+        <name>unpack_subresults</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+<para>Unpack the subresult portion of the task. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="107" column="1" bodyfile="src/MWTask.h" bodystart="107" bodyend="107"/>
+        <references refid="classMWTask_1a013363bc92d9ce9f0fc36fb4171b03d1" compoundref="MWTask_8C" startline="52" endline="55">printself</references>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a013363bc92d9ce9f0fc36fb4171b03d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MWTask::printself</definition>
+        <argsstring>(int level=60)</argsstring>
+        <name>printself</name>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+          <defval>60</defval>
+        </param>
+        <briefdescription>
+<para>Dump this task to the screen. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="111" column="1" bodyfile="src/MWTask.C" bodystart="52" bodyend="55"/>
+        <references refid="classMWTask_1ad133dd1be9c974871a1564e78eed8715" compoundref="MWTask_8h" startline="66">number</references>
+        <referencedby refid="classMWDriver_1ae4c5921926e8780642d1b7dacf1a7016" compoundref="MWDriver_8C" startline="2178" endline="2205">MWDriver::delete_tasks_worse_than</referencedby>
+        <referencedby refid="classMWDriver_1af6a5b937b85d5a6cb90961249006942c" compoundref="MWDriver_8C" startline="2758" endline="2906">MWDriver::restart_from_ckpt</referencedby>
+        <referencedby refid="classMWTask_1ae6fe9fd144486e79c19a1087da1fd7ab" compoundref="MWTask_8h" startline="107" endline="107">unpack_subresults</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Checkpointing Utilities</header>
+      <description><para>These two functions are used when checkpointing. Simply put, they write/read the state of the task to this file pointer provided. </para></description>
+      <memberdef kind="function" id="classMWTask_1af6ec7477171732f7e3a6de76a86b37a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::write_ckpt_info</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>write_ckpt_info</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Write the state of this task out to a FILE* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="124" column="1" bodyfile="src/MWTask.h" bodystart="124" bodyend="124"/>
+        <referencedby refid="classMWDriver_1ad41bdc32bc2f56f7816810bc4d260db2" compoundref="MWDriver_8C" startline="2646" endline="2755">MWDriver::checkpoint</referencedby>
+        <referencedby refid="classMWDriver_1af6a5b937b85d5a6cb90961249006942c" compoundref="MWDriver_8C" startline="2758" endline="2906">MWDriver::restart_from_ckpt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ab370bc3712cfd33ff9a22462d62f3f0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MWTask::read_ckpt_info</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>read_ckpt_info</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Read the state of this task from a FILE* (overwriting any existing state </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="127" column="1" bodyfile="src/MWTask.h" bodystart="127" bodyend="127"/>
+        <references refid="classMWTask_1a97ee3d8338dd2e02a20631e2e595f237" compoundref="MWTask_8C" startline="68" endline="74">addGroup</references>
+        <references refid="classMWTask_1a918669fb822fed85add7b5ca3b8aeafe" compoundref="MWTask_8C" startline="77" endline="83">deleteGroup</references>
+        <references refid="classMWTask_1ab7fc4bb108116fe6f5b33b818e6a8650" compoundref="MWTask_8h" startline="153">worker</references>
+        <referencedby refid="classMWDriver_1af6a5b937b85d5a6cb90961249006942c" compoundref="MWDriver_8C" startline="2758" endline="2906">MWDriver::restart_from_ckpt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a8e5452b7365249557c65d27a15958e21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWTask::write_group_info</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>write_group_info</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="129" column="1" bodyfile="src/MWTask.C" bodystart="98" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a2b4efaec8e0b452e6c526f70630c79d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWTask::read_group_info</definition>
+        <argsstring>(FILE *fp)</argsstring>
+        <name>read_group_info</name>
+        <param>
+          <type>FILE *</type>
+          <declname>fp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="131" column="1" bodyfile="src/MWTask.C" bodystart="104" bodyend="117"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>List management</header>
+      <description><para>The task also has pointers that aid for managing the list of tasks to be done </para></description>
+      <memberdef kind="variable" id="classMWTask_1ab7fc4bb108116fe6f5b33b818e6a8650" prot="public" static="no" mutable="no">
+        <type>MWWorkerID *</type>
+        <definition>MWWorkerID* MWTask::worker</definition>
+        <argsstring></argsstring>
+        <name>worker</name>
+        <briefdescription>
+<para>A pointer to the worker ID executing this task (NULL if none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="153" column="1" bodyfile="src/MWTask.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWTask_1a453c3200a67ca95ea23dcd284dfff111" compoundref="MWTask_8C" startline="36" endline="42">MWTask</referencedby>
+        <referencedby refid="classMWTask_1ad8f7b5699465d56fa17b70f40e2d3047" compoundref="MWTask_8C" startline="44" endline="50">~MWTask</referencedby>
+        <referencedby refid="classMWTask_1ab370bc3712cfd33ff9a22462d62f3f0f" compoundref="MWTask_8h" startline="127" endline="127">read_ckpt_info</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMWTask_1ad133dd1be9c974871a1564e78eed8715" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWTask::number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+<para>The task&apos;s number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="66" column="1" bodyfile="src/MWTask.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a91c21e0a4aba8ce4e03ebf7c3064f6b5" compoundref="MWDriver_8C" startline="1278" endline="1357">MWDriver::handle_hostsuspend</referencedby>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWDriver_1a8b8a9ff2699780ce52ae600b658c9e4f" compoundref="MWDriver_8C" startline="1873" endline="1892">MWDriver::addTasks</referencedby>
+        <referencedby refid="classMWDriver_1aa044c3810502c18efcb32dc77a66a138" compoundref="MWDriver_8C" startline="1895" endline="1904">MWDriver::addTask</referencedby>
+        <referencedby refid="classMWDriver_1ad41f96ba14ccc7712be09c0374eae9c9" compoundref="MWDriver_8C" startline="1987" endline="2005">MWDriver::set_worker_timeout_limit</referencedby>
+        <referencedby refid="classMWDriver_1a8d2aea2804ff2f999ea206a3ee0f096a" compoundref="MWDriver_8C" startline="2147" endline="2175">MWDriver::print_task_keys</referencedby>
+        <referencedby refid="classMWDriver_1ae4c5921926e8780642d1b7dacf1a7016" compoundref="MWDriver_8C" startline="2178" endline="2205">MWDriver::delete_tasks_worse_than</referencedby>
+        <referencedby refid="classMWDriver_1af6a5b937b85d5a6cb90961249006942c" compoundref="MWDriver_8C" startline="2758" endline="2906">MWDriver::restart_from_ckpt</referencedby>
+        <referencedby refid="classMWDriver_1a0dfb4201b9bce44ba2a59019f7fc2dd2" compoundref="MWDriver_8C" startline="3389" endline="3406">MWDriver::addSortedTasks</referencedby>
+        <referencedby refid="classMWTask_1a453c3200a67ca95ea23dcd284dfff111" compoundref="MWTask_8C" startline="36" endline="42">MWTask</referencedby>
+        <referencedby refid="classMWTask_1a013363bc92d9ce9f0fc36fb4171b03d1" compoundref="MWTask_8C" startline="52" endline="55">printself</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWTask_1a08c4ddb0a71742a0ea3bc8150dd1357f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWTask::randomstop</definition>
+        <argsstring></argsstring>
+        <name>randomstop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="67" column="1" bodyfile="src/MWTask.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWTask_1a0499119e0f62a505c1ab2b3dacda4030" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MWTask::numsubtask</definition>
+        <argsstring></argsstring>
+        <name>numsubtask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="68" column="1" bodyfile="src/MWTask.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMWTask_1a3899784f624c803ae211ab781f180ca3" prot="public" static="no" mutable="no">
+        <type>MWTaskType</type>
+        <definition>MWTaskType MWTask::taskType</definition>
+        <argsstring></argsstring>
+        <name>taskType</name>
+        <briefdescription>
+<para>The task&apos;s type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="70" column="1" bodyfile="src/MWTask.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="classMWDriver_1a73290f6fab539708112ec28a9e49b563" compoundref="MWDriver_8C" startline="873" endline="902">MWDriver::handle_benchmark</referencedby>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWDriver_1ad41f96ba14ccc7712be09c0374eae9c9" compoundref="MWDriver_8C" startline="1987" endline="2005">MWDriver::set_worker_timeout_limit</referencedby>
+        <referencedby refid="classMWDriver_1a0579cc034d3c83ea68ab456d222b8b79" compoundref="MWDriver_8C" startline="2561" endline="2588">MWDriver::return_best_running_keyval</referencedby>
+        <referencedby refid="classMWDriver_1ad41bdc32bc2f56f7816810bc4d260db2" compoundref="MWDriver_8C" startline="2646" endline="2755">MWDriver::checkpoint</referencedby>
+        <referencedby refid="classMWTask_1a453c3200a67ca95ea23dcd284dfff111" compoundref="MWTask_8C" startline="36" endline="42">MWTask</referencedby>
+        <referencedby refid="classMWWorker_1a47f88c7a7c254d215174b77ab14bf5f3" compoundref="MWWorker_8C" startline="174" endline="179">MWWorker::worker_mainloop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classMWTask_1ae6405101d8bb9711116f5907864a99ef" prot="public" static="no" mutable="no">
+        <type>MWGroup *</type>
+        <definition>MWGroup* MWTask::group</definition>
+        <argsstring></argsstring>
+        <name>group</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="161" column="1" bodyfile="src/MWTask.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classMWTask_1ab36eac4da03b4679299f6e59ffc0546e" prot="public" static="yes" mutable="no">
+        <type><ref refid="classMWRMComm" kindref="compound">MWRMComm</ref> *</type>
+        <definition>MWRMComm* MWTask::RMC</definition>
+        <argsstring></argsstring>
+        <name>RMC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="163" column="1" bodyfile="src/MWTask.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMWTask_1a453c3200a67ca95ea23dcd284dfff111" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MWTask::MWTask</definition>
+        <argsstring>()</argsstring>
+        <name>MWTask</name>
+        <briefdescription>
+<para>Default constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="60" column="1" bodyfile="src/MWTask.C" bodystart="36" bodyend="42"/>
+        <references refid="classMWTask_1ad133dd1be9c974871a1564e78eed8715" compoundref="MWTask_8h" startline="66">number</references>
+        <references refid="classMWTask_1ab7fc4bb108116fe6f5b33b818e6a8650" compoundref="MWTask_8h" startline="153">worker</references>
+        <references refid="classMWTask_1a3899784f624c803ae211ab781f180ca3" compoundref="MWTask_8h" startline="70">taskType</references>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ad8f7b5699465d56fa17b70f40e2d3047" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>MWTask::~MWTask</definition>
+        <argsstring>()</argsstring>
+        <name>~MWTask</name>
+        <briefdescription>
+<para>Default Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="63" column="1" bodyfile="src/MWTask.C" bodystart="44" bodyend="50"/>
+        <references refid="classMWTask_1ab7fc4bb108116fe6f5b33b818e6a8650" compoundref="MWTask_8h" startline="153">worker</references>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1ad84173b0428ecbb311fd33b11296ef28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWTask::initGroups</definition>
+        <argsstring>(int num)</argsstring>
+        <name>initGroups</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="136" column="1" bodyfile="src/MWTask.C" bodystart="58" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a97ee3d8338dd2e02a20631e2e595f237" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWTask::addGroup</definition>
+        <argsstring>(int num)</argsstring>
+        <name>addGroup</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+<para>add task to a workclass/group </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="138" column="1" bodyfile="src/MWTask.C" bodystart="68" bodyend="74"/>
+        <referencedby refid="classMWDriver_1a8b8a9ff2699780ce52ae600b658c9e4f" compoundref="MWDriver_8C" startline="1873" endline="1892">MWDriver::addTasks</referencedby>
+        <referencedby refid="classMWDriver_1aa044c3810502c18efcb32dc77a66a138" compoundref="MWDriver_8C" startline="1895" endline="1904">MWDriver::addTask</referencedby>
+        <referencedby refid="classMWDriver_1a0dfb4201b9bce44ba2a59019f7fc2dd2" compoundref="MWDriver_8C" startline="3389" endline="3406">MWDriver::addSortedTasks</referencedby>
+        <referencedby refid="classMWTask_1a918669fb822fed85add7b5ca3b8aeafe" compoundref="MWTask_8C" startline="77" endline="83">deleteGroup</referencedby>
+        <referencedby refid="classMWTask_1ab370bc3712cfd33ff9a22462d62f3f0f" compoundref="MWTask_8h" startline="127" endline="127">read_ckpt_info</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a918669fb822fed85add7b5ca3b8aeafe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MWTask::deleteGroup</definition>
+        <argsstring>(int num)</argsstring>
+        <name>deleteGroup</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+<para>remove a task from a workclass/group </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="140" column="1" bodyfile="src/MWTask.C" bodystart="77" bodyend="83"/>
+        <references refid="classMWTask_1a97ee3d8338dd2e02a20631e2e595f237" compoundref="MWTask_8C" startline="68" endline="74">addGroup</references>
+        <referencedby refid="classMWDriver_1a0e1ef56017457e099e5947e81dd5d761" compoundref="MWDriver_8C" startline="1386" endline="1415">MWDriver::handle_hostresume</referencedby>
+        <referencedby refid="classMWTask_1ab370bc3712cfd33ff9a22462d62f3f0f" compoundref="MWTask_8h" startline="127" endline="127">read_ckpt_info</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a563d96a457f11a0d2d2d87033f6ee611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MWTask::doesBelong</definition>
+        <argsstring>(int num)</argsstring>
+        <name>doesBelong</name>
+        <param>
+          <type>int</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="141" column="1" bodyfile="src/MWTask.C" bodystart="86" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classMWTask_1a69a7787e65fbf28bfb782208566a32a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MWGroup *</type>
+        <definition>MWGroup * MWTask::getGroup</definition>
+        <argsstring>()</argsstring>
+        <name>getGroup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/MWTask.h" line="142" column="1" bodyfile="src/MWTask.C" bodystart="92" bodyend="95"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This the class that represents a unit of work.</para><para>The task consits of two main components. The &quot;work&quot; to be done, and the &quot;result&quot; of the completed task. In order to create an application, the user must specify methods for packing and unpacking both the &quot;work&quot; and &quot;result&quot; portions of the task. The user is not responsible for initializing the send or for packing the task&apos;s number</para><para>When the task is being serviced by a worker, it contains a link to the ID of that instance of the worker.</para><para><simplesect kind="see"><para><ref refid="classMWDriver" kindref="compound">MWDriver</ref> </para></simplesect>
+<simplesect kind="see"><para><ref refid="classMWWorker" kindref="compound">MWWorker</ref> </para></simplesect>
+<simplesect kind="author"><para>Mike Yoder, modified by Jeff Linderoth and Jean-Pierre Goux </para></simplesect>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="9">
+        <label>MWRMComm</label>
+        <link refid="classMWRMComm"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>worker_executables</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>MWTask</label>
+        <link refid="classMWTask"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>RMC</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>RMC_executable</label>
+        <link refid="structRMC__executable"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/MWTask.h" line="56" column="1" bodyfile="src/MWTask.h" bodystart="55" bodyend="176"/>
+    <listofallmembers>
+      <member refid="classMWTask_1a97ee3d8338dd2e02a20631e2e595f237" prot="public" virt="non-virtual"><scope>MWTask</scope><name>addGroup</name></member>
+      <member refid="classMWTask_1a5f954bdae3d554327beab944c8e51125" prot="public" virt="non-virtual"><scope>MWTask</scope><name>cpu_time</name></member>
+      <member refid="classMWTask_1a918669fb822fed85add7b5ca3b8aeafe" prot="public" virt="non-virtual"><scope>MWTask</scope><name>deleteGroup</name></member>
+      <member refid="classMWTask_1a563d96a457f11a0d2d2d87033f6ee611" prot="public" virt="non-virtual"><scope>MWTask</scope><name>doesBelong</name></member>
+      <member refid="classMWTask_1a69a7787e65fbf28bfb782208566a32a6" prot="public" virt="non-virtual"><scope>MWTask</scope><name>getGroup</name></member>
+      <member refid="classMWTask_1ae6405101d8bb9711116f5907864a99ef" prot="public" virt="non-virtual"><scope>MWTask</scope><name>group</name></member>
+      <member refid="classMWTask_1ad84173b0428ecbb311fd33b11296ef28" prot="public" virt="non-virtual"><scope>MWTask</scope><name>initGroups</name></member>
+      <member refid="classMWTask_1a453c3200a67ca95ea23dcd284dfff111" prot="public" virt="non-virtual"><scope>MWTask</scope><name>MWTask</name></member>
+      <member refid="classMWTask_1ad133dd1be9c974871a1564e78eed8715" prot="public" virt="non-virtual"><scope>MWTask</scope><name>number</name></member>
+      <member refid="classMWTask_1a0499119e0f62a505c1ab2b3dacda4030" prot="public" virt="non-virtual"><scope>MWTask</scope><name>numsubtask</name></member>
+      <member refid="classMWTask_1a75f9ac3f76cbca33c6c8bd18ea3c0bab" prot="public" virt="pure-virtual"><scope>MWTask</scope><name>pack_results</name></member>
+      <member refid="classMWTask_1a1a1b24e608337f787966b5d91f04f7de" prot="public" virt="virtual"><scope>MWTask</scope><name>pack_subresults</name></member>
+      <member refid="classMWTask_1a57073276fad38e58edda79d35021a52c" prot="public" virt="pure-virtual"><scope>MWTask</scope><name>pack_work</name></member>
+      <member refid="classMWTask_1a013363bc92d9ce9f0fc36fb4171b03d1" prot="public" virt="virtual"><scope>MWTask</scope><name>printself</name></member>
+      <member refid="classMWTask_1a08c4ddb0a71742a0ea3bc8150dd1357f" prot="public" virt="non-virtual"><scope>MWTask</scope><name>randomstop</name></member>
+      <member refid="classMWTask_1ab370bc3712cfd33ff9a22462d62f3f0f" prot="public" virt="virtual"><scope>MWTask</scope><name>read_ckpt_info</name></member>
+      <member refid="classMWTask_1a2b4efaec8e0b452e6c526f70630c79d3" prot="public" virt="non-virtual"><scope>MWTask</scope><name>read_group_info</name></member>
+      <member refid="classMWTask_1ab36eac4da03b4679299f6e59ffc0546e" prot="public" virt="non-virtual"><scope>MWTask</scope><name>RMC</name></member>
+      <member refid="classMWTask_1a3899784f624c803ae211ab781f180ca3" prot="public" virt="non-virtual"><scope>MWTask</scope><name>taskType</name></member>
+      <member refid="classMWTask_1ab22e3eb9a27b8d115063e79067856166" prot="public" virt="pure-virtual"><scope>MWTask</scope><name>unpack_results</name></member>
+      <member refid="classMWTask_1ae6fe9fd144486e79c19a1087da1fd7ab" prot="public" virt="virtual"><scope>MWTask</scope><name>unpack_subresults</name></member>
+      <member refid="classMWTask_1ac5802dedca5470a9a12cd2a6cdab17d3" prot="public" virt="pure-virtual"><scope>MWTask</scope><name>unpack_work</name></member>
+      <member refid="classMWTask_1ab7fc4bb108116fe6f5b33b818e6a8650" prot="public" virt="non-virtual"><scope>MWTask</scope><name>worker</name></member>
+      <member refid="classMWTask_1ae503d6480ef81dcc1ccd7927e4655226" prot="public" virt="non-virtual"><scope>MWTask</scope><name>working_time</name></member>
+      <member refid="classMWTask_1af6ec7477171732f7e3a6de76a86b37a6" prot="public" virt="virtual"><scope>MWTask</scope><name>write_ckpt_info</name></member>
+      <member refid="classMWTask_1a8e5452b7365249557c65d27a15958e21" prot="public" virt="non-virtual"><scope>MWTask</scope><name>write_group_info</name></member>
+      <member refid="classMWTask_1ad8f7b5699465d56fa17b70f40e2d3047" prot="public" virt="virtual"><scope>MWTask</scope><name>~MWTask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

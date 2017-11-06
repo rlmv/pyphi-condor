@@ -1,0 +1,21 @@
+# Now we're in the scheduler universe
+
+universe = pvm
+executable = knap-master
+arguments = ../data/cir200.txt params.txt
+output = master.out
+error = worker.out
+log = condor.log
+
+# This is machine class "0" - Itanium
+requirements = (( arch == "x86_64" ) && ( opsys == "LINUX" ))
+rank = KFlops
+machine_count = 1..1
+queue
+
+# This is machine class "1" - Intel-Linux
+requirements = (( arch == "INTEL" ) && ( opsys == "LINUX" ))
+rank = KFlops
+machine_count = 1..1
+queue
+

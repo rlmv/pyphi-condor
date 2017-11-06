@@ -1,0 +1,35 @@
+#!/bin/csh
+
+if ( "$1" == "" ) then
+        echo "Usage: $0 app_name"
+        exit 1
+endif
+
+# The linderoth transform
+set appname=`echo $1 | sed -e 's/-/_/g'`
+
+echo "(1) Creating directory ../$appname"
+if ( -d "../$appname" ) then 
+	echo " Directory '$appname' already exists, exit!"
+	exit 1
+else
+	mkdir ../$appname; cp *.C *.h configure configure.in Makefile.in in_master* submit_* ../$appname
+endif
+
+echo "(2) Making new template files in ../$appname"
+cd ../$appname
+foreach i ( `ls` )
+	perl -pi -e "s/MYAPP/$appname/g" $i
+end
+
+mv MasterMain_MYAPP.C MasterMain_$appname.C
+mv WorkerMain_MYAPP.C WorkerMain_$appname.C
+mv Driver_MYAPP.h Driver_$appname.h
+mv Driver_MYAPP.C Driver_$appname.C
+mv Worker_MYAPP.h Worker_$appname.h
+mv Worker_MYAPP.C Worker_$appname.C
+mv Task_MYAPP.h Task_$appname.h
+mv Task_MYAPP.C Task_$appname.C
+
+echo "(3) Now you must run configure with appropriate options, then make"
+

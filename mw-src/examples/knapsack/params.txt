@@ -1,0 +1,12 @@
+masterNodeOrder VALUE
+maxCpuTimeWorker 100.0
+maxNodeWorker -1
+targetNumWorkers 128
+workerNodeOrder DEPTH
+begEndCpuTimeWorker 10.0
+begEndNodeLevel 1000
+nodeLowWater 2000
+nodeHighWater -1
+cleanupCpuTimeWorker 100.0
+cleanupFactorWorker 1.0
+checkpointFrequency 0
