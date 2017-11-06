@@ -25,11 +25,21 @@
 
 #include "MW.h"
 #include "Worker_test.h"
+#include <Python.h>
+
+
+// Use PY_initialize???
 
 int main(int argc, char *argv[])
 {
     /* init a worker object */
     Worker_test graduate_student;
+
+    Py_Initialize();
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+        exit(-1);
+    }
 
     /* How much information you want the workers to print */
     set_MWprintf_level ( 95 );
@@ -38,5 +48,6 @@ int main(int argc, char *argv[])
     /* Go ! */
     graduate_student.go(argc, argv);
 
+    Py_Finalize();
     return 0;
 }
