@@ -51,7 +51,11 @@ Worker_test::benchmark( MWTask *t )
 /* unpack the init data from the driver */
 MWReturn Worker_test::unpack_init_data( void )
 {
-    /* As we don'e have init data, we do nothing */
+    RMC->unpack(&pickle_size, 1, 1);
+
+    pickle = new char[pickle_size];
+
+    RMC->unpack(pickle, pickle_size, 1);
     return OK;
 }
 
@@ -67,17 +71,8 @@ void Worker_test::execute_task( MWTask *t )
         Task_test *tl = dynamic_cast<Task_test *> ( t );
 #endif
 
-    // Py_Initialize();
-    // PyInit_caller();
-
-    // if (PyErr_Occurred())
-    //     {
-    //         PyErr_Print();
-    //         exit(-1);
-    //     }
-        //
     c_quack();
-    ///    Py_Finalize();
+    check_pickle(pickle, pickle_size);
 
     MWprintf(30, "The task I am working on is: \n\t");
     for (i=0; i<tl->size; i++)

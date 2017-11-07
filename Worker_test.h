@@ -26,21 +26,24 @@
 #include "MWWorker.h"
 #include "Task_test.h"
 
-class Worker_test : public MWWorker 
+class Worker_test : public MWWorker
 {
 public:
-       	Worker_test();
-       	~Worker_test();
+        Worker_test();
+        ~Worker_test();
 
-	/* Benchmarking */
-	double benchmark( MWTask *t );
+    /* Benchmarking */
+    double benchmark( MWTask *t );
 
-	/* unpack init data */    
-	MWReturn unpack_init_data( void );
+    /* unpack init data */
+    MWReturn unpack_init_data( void );
 
-	/* do the real work for each task */
-	void execute_task( MWTask * );
+    /* do the real work for each task */
+    void execute_task( MWTask * );
 
-	MWTask* gimme_a_task();
+    MWTask* gimme_a_task();
+
+    char * pickle;
+    int pickle_size;
 };
 #endif

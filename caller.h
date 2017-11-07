@@ -20,6 +20,7 @@
 
 __PYX_EXTERN_C void call_quack(int __pyx_skip_dispatch);
 __PYX_EXTERN_C void c_quack(void);
+__PYX_EXTERN_C void check_pickle(char *, int);
 
 #endif /* !__PYX_HAVE_API__caller */
 

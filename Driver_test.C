@@ -27,9 +27,10 @@
 #include "Worker_test.h"
 #include "Task_test.h"
 #include <unistd.h>
+#include <string>
 
 /* initialization */
-Driver_test::Driver_test()
+Driver_test::Driver_test(char * p, int p_size)
 {
     /* For statically generated tasks, you can decide how many tasks
      * you want to use based on the input information. However, you can
@@ -39,6 +40,9 @@ Driver_test::Driver_test()
 
     /* The list of tasks you will generate */
     job = NULL;
+
+    pickle = p;
+    pickle_size = p_size;
 }
 
 /* destruction */
@@ -126,20 +130,21 @@ MWReturn Driver_test::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
 {
     int i;
     int head_pos;
+    std::string s ("test");
 
     *n_init = num_tasks;
-        *init_tasks = new MWTask *[num_tasks];
+    *init_tasks = new MWTask *[num_tasks];
 
     head_pos = 0;
 
     for ( i=0; i<num_tasks-1; i++) {
-            (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]));
+        (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]), s);
         head_pos += task_size;
     }
 
     if (remain)
-        (*init_tasks)[i] = new Task_test(remain, &(job[head_pos]));
-    else (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]));
+        (*init_tasks)[i] = new Task_test(remain, &(job[head_pos]), s);
+    else (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]), s);
 
     return OK;
 }
@@ -164,6 +169,11 @@ MWReturn Driver_test::act_on_completed_task( MWTask *t )
 MWReturn Driver_test::pack_worker_init_data( void )
 {
     /* Nothing for this application */
+    MWprintf(10, "Packing init data\n");
+
+    RMC->pack(&pickle_size, 1, 1);
+    RMC->pack(pickle, pickle_size, 1);
+
     return OK;
 }
 
@@ -195,8 +205,8 @@ Driver_test::gimme_a_task()
         return new Task_test;
 }
 
-/* Return a new driver object */
-MWDriver* gimme_the_master()
-{
-    return new Driver_test;
-}
+// /* Return a new driver object */
+// MWDriver* gimme_the_master()
+// {
+//     return new Driver_test;
+// }

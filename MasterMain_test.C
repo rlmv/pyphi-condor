@@ -25,17 +25,21 @@
 
 #include "MW.h"
 #include "Driver_test.h"
+#include <string>
 
-int start()
+int start(char * pickle, int size)
 {
     int argc = 0;
     char *argv[0] = {};
     /* init the application driver object */
-    Driver_test *advisor = new Driver_test();
+
+    Driver_test *advisor = new Driver_test(pickle, size);
 
     /* how much info you wants the driver to print */
     set_MWprintf_level( 75 );
     MWprintf ( 10, "The master is starting.\n" );
+
+    MWprintf (10, "Pickle %s, len %d", pickle, size);
 
     /* Go ! */
     advisor->go( argc, argv );

@@ -25,32 +25,34 @@
 
 #include <stdio.h>
 #include "MWTask.h"
+#include <string>
 
-class Task_test : public MWTask 
+class Task_test : public MWTask
 {
 public:
-	/* constructors */
-       	Task_test();
-       	Task_test(int size, int *numbers);
+    /* constructors */
+        Task_test();
+        Task_test(int size, int *numbers, std::string s);
 
-	/* destructor */
-       	~Task_test();
+    /* destructor */
+        ~Task_test();
 
-	/* App is required to implement the following functions. */
-       	void pack_work( void );
-       	void unpack_work( void );
-       	void pack_results( void );
-       	void unpack_results( void );
+    /* App is required to implement the following functions. */
+        void pack_work( void );
+        void unpack_work( void );
+        void pack_results( void );
+        void unpack_results( void );
 
-	/* The following functions have default implementation. */
-	void printself( int level = 70 );
-       	void write_ckpt_info( FILE *fp );
-       	void read_ckpt_info( FILE *fp );
+    /* The following functions have default implementation. */
+    void printself( int level = 70 );
+        void write_ckpt_info( FILE *fp );
+        void read_ckpt_info( FILE *fp );
 
 /* The application specific information goes here */
-	int largest;  /* The result */
-       	int *numbers; /* The array that contains the intergers */
-       	int size;     /* How many integers are in the array */
+    int largest;  /* The result */
+        int *numbers; /* The array that contains the intergers */
+        int size;     /* How many integers are in the array */
+        std::string s;
 };
 
 #endif

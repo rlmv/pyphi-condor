@@ -1067,6 +1067,16 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
+/* Print.proto */
+static int __Pyx_Print(PyObject*, PyObject *, int);
+#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
+static PyObject* __pyx_print = 0;
+static PyObject* __pyx_print_kwargs = 0;
+#endif
+
+/* PrintOne.proto */
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
+
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -1098,16 +1108,21 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 /* Module declarations from 'caller' */
 static PyTypeObject *__pyx_ptype___pyx_scope_struct____Pyx_CFunc_void_______to_py = 0;
 __PYX_EXTERN_C void call_quack(int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_6caller_start_mw(int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_6caller_start_mw(PyObject *, int __pyx_skip_dispatch); /*proto*/
 __PYX_EXTERN_C void c_quack(void); /*proto*/
+__PYX_EXTERN_C void check_pickle(char *, int); /*proto*/
 static PyObject *__Pyx_CFunc_void_______to_py(void (*)(void)); /*proto*/
 #define __Pyx_MODULE_NAME "caller"
 int __pyx_module_is_main_caller = 0;
 
 /* Implementation of 'caller' */
+static const char __pyx_k_[] = "-";
+static const char __pyx_k_end[] = "end";
+static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_wrap[] = "wrap";
+static const char __pyx_k_print[] = "print";
 static const char __pyx_k_quack[] = "quack";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_quacker[] = "quacker";
@@ -1115,24 +1130,29 @@ static const char __pyx_k_cfunc_to_py[] = "cfunc.to_py";
 static const char __pyx_k_stringsource[] = "stringsource";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_Pyx_CFunc_void_______to_py_loc[] = "__Pyx_CFunc_void_______to_py.<locals>.wrap";
+static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_Pyx_CFunc_void_______to_py_loc;
 static PyObject *__pyx_n_s_cfunc_to_py;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_end;
+static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_quack;
 static PyObject *__pyx_n_s_quacker;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_wrap;
 static PyObject *__pyx_pf_6caller_call_quack(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
-static PyObject *__pyx_pf_6caller_2start_mw(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
+static PyObject *__pyx_pf_6caller_2start_mw(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_pickle); /* proto */
 static PyObject *__pyx_pf_11cfunc_dot_to_py_28__Pyx_CFunc_void_______to_py_wrap(PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_tp_new___pyx_scope_struct____Pyx_CFunc_void_______to_py(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_codeobj_;
+static PyObject *__pyx_int_50;
+static PyObject *__pyx_codeobj__2;
 
 /* "caller.pyx":9
- *     cdef int start();
+ *     cdef int start(char* pickle, int size);
  * 
  * cpdef public void call_quack():             # <<<<<<<<<<<<<<
  *     quack()
@@ -1152,7 +1172,7 @@ void call_quack(CYTHON_UNUSED int __pyx_skip_dispatch) {
  * cpdef public void call_quack():
  *     quack()             # <<<<<<<<<<<<<<
  * 
- * cpdef start_mw():
+ * cpdef start_mw(pickle):
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_quack); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -1177,7 +1197,7 @@ void call_quack(CYTHON_UNUSED int __pyx_skip_dispatch) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "caller.pyx":9
- *     cdef int start();
+ *     cdef int start(char* pickle, int size);
  * 
  * cpdef public void call_quack():             # <<<<<<<<<<<<<<
  *     quack()
@@ -1234,61 +1254,80 @@ static PyObject *__pyx_pf_6caller_call_quack(CYTHON_UNUSED PyObject *__pyx_self)
 /* "caller.pyx":12
  *     quack()
  * 
- * cpdef start_mw():             # <<<<<<<<<<<<<<
- *     start()
- * 
+ * cpdef start_mw(pickle):             # <<<<<<<<<<<<<<
+ *     size = len(pickle)
+ *     start(pickle, size)
  */
 
-static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_f_6caller_start_mw(CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, PyObject *__pyx_v_pickle); /*proto*/
+static PyObject *__pyx_f_6caller_start_mw(PyObject *__pyx_v_pickle, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  Py_ssize_t __pyx_v_size;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  char *__pyx_t_2;
   __Pyx_RefNannySetupContext("start_mw", 0);
 
   /* "caller.pyx":13
  * 
- * cpdef start_mw():
- *     start()             # <<<<<<<<<<<<<<
+ * cpdef start_mw(pickle):
+ *     size = len(pickle)             # <<<<<<<<<<<<<<
+ *     start(pickle, size)
+ * 
+ */
+  __pyx_t_1 = PyObject_Length(__pyx_v_pickle); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_v_size = __pyx_t_1;
+
+  /* "caller.pyx":14
+ * cpdef start_mw(pickle):
+ *     size = len(pickle)
+ *     start(pickle, size)             # <<<<<<<<<<<<<<
  * 
  * cdef public void c_quack():
  */
-  start();
+  __pyx_t_2 = __Pyx_PyObject_AsWritableString(__pyx_v_pickle); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(0, 14, __pyx_L1_error)
+  start(__pyx_t_2, __pyx_v_size);
 
   /* "caller.pyx":12
  *     quack()
  * 
- * cpdef start_mw():             # <<<<<<<<<<<<<<
- *     start()
- * 
+ * cpdef start_mw(pickle):             # <<<<<<<<<<<<<<
+ *     size = len(pickle)
+ *     start(pickle, size)
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("caller.start_mw", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, PyObject *__pyx_v_pickle); /*proto*/
+static PyObject *__pyx_pw_6caller_3start_mw(PyObject *__pyx_self, PyObject *__pyx_v_pickle) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("start_mw (wrapper)", 0);
-  __pyx_r = __pyx_pf_6caller_2start_mw(__pyx_self);
+  __pyx_r = __pyx_pf_6caller_2start_mw(__pyx_self, ((PyObject *)__pyx_v_pickle));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6caller_2start_mw(CYTHON_UNUSED PyObject *__pyx_self) {
+static PyObject *__pyx_pf_6caller_2start_mw(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_pickle) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("start_mw", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6caller_start_mw(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6caller_start_mw(__pyx_v_pickle, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1305,11 +1344,12 @@ static PyObject *__pyx_pf_6caller_2start_mw(CYTHON_UNUSED PyObject *__pyx_self) 
   return __pyx_r;
 }
 
-/* "caller.pyx":15
- *     start()
+/* "caller.pyx":16
+ *     start(pickle, size)
  * 
  * cdef public void c_quack():             # <<<<<<<<<<<<<<
  *     quack()
+ * 
  */
 
 void c_quack(void) {
@@ -1319,12 +1359,14 @@ void c_quack(void) {
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("c_quack", 0);
 
-  /* "caller.pyx":16
+  /* "caller.pyx":17
  * 
  * cdef public void c_quack():
  *     quack()             # <<<<<<<<<<<<<<
+ * 
+ * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_quack); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_quack); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -1337,20 +1379,21 @@ void c_quack(void) {
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "caller.pyx":15
- *     start()
+  /* "caller.pyx":16
+ *     start(pickle, size)
  * 
  * cdef public void c_quack():             # <<<<<<<<<<<<<<
  *     quack()
+ * 
  */
 
   /* function exit code */
@@ -1361,6 +1404,68 @@ void c_quack(void) {
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_WriteUnraisable("caller.c_quack", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+}
+
+/* "caller.pyx":23
+ *     object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
+ * 
+ * cdef public void check_pickle(char* pickle, int pickle_size):             # <<<<<<<<<<<<<<
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)
+ *     print("-" * 50)
+ */
+
+void check_pickle(char *__pyx_v_pickle, int __pyx_v_pickle_size) {
+  PyObject *__pyx_v_unpickle = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("check_pickle", 0);
+
+  /* "caller.pyx":24
+ * 
+ * cdef public void check_pickle(char* pickle, int pickle_size):
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)             # <<<<<<<<<<<<<<
+ *     print("-" * 50)
+ *     print(unpickle)
+ */
+  __pyx_t_1 = PyBytes_FromStringAndSize(__pyx_v_pickle, __pyx_v_pickle_size); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_unpickle = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "caller.pyx":25
+ * cdef public void check_pickle(char* pickle, int pickle_size):
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)
+ *     print("-" * 50)             # <<<<<<<<<<<<<<
+ *     print(unpickle)
+ */
+  __pyx_t_1 = PyNumber_Multiply(__pyx_kp_s_, __pyx_int_50); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "caller.pyx":26
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)
+ *     print("-" * 50)
+ *     print(unpickle)             # <<<<<<<<<<<<<<
+ */
+  if (__Pyx_PrintOne(0, __pyx_v_unpickle) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+
+  /* "caller.pyx":23
+ *     object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
+ * 
+ * cdef public void check_pickle(char* pickle, int pickle_size):             # <<<<<<<<<<<<<<
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)
+ *     print("-" * 50)
+ */
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("caller.check_pickle", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_unpickle);
   __Pyx_RefNannyFinishContext();
 }
 
@@ -1457,7 +1562,7 @@ static PyObject *__Pyx_CFunc_void_______to_py(void (*__pyx_v_f)(void)) {
  *         """wrap() -> 'void'"""
  *         f()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_28__Pyx_CFunc_void_______to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_void_______to_py_loc, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj_)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_28__Pyx_CFunc_void_______to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_void_______to_py_loc, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_wrap = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -1579,7 +1684,7 @@ static PyTypeObject __pyx_scope_struct____Pyx_CFunc_void_______to_py = {
 
 static PyMethodDef __pyx_methods[] = {
   {"call_quack", (PyCFunction)__pyx_pw_6caller_1call_quack, METH_NOARGS, 0},
-  {"start_mw", (PyCFunction)__pyx_pw_6caller_3start_mw, METH_NOARGS, 0},
+  {"start_mw", (PyCFunction)__pyx_pw_6caller_3start_mw, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -1616,11 +1721,15 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_s_, __pyx_k_, sizeof(__pyx_k_), 0, 0, 1, 0},
   {&__pyx_n_s_Pyx_CFunc_void_______to_py_loc, __pyx_k_Pyx_CFunc_void_______to_py_loc, sizeof(__pyx_k_Pyx_CFunc_void_______to_py_loc), 0, 0, 1, 1},
   {&__pyx_n_s_cfunc_to_py, __pyx_k_cfunc_to_py, sizeof(__pyx_k_cfunc_to_py), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
+  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_quack, __pyx_k_quack, sizeof(__pyx_k_quack), 0, 0, 1, 1},
   {&__pyx_n_s_quacker, __pyx_k_quacker, sizeof(__pyx_k_quacker), 0, 0, 1, 1},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
@@ -1643,7 +1752,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         """wrap() -> 'void'"""
  *         f()
  */
-  __pyx_codeobj_ = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj_)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(1, 65, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1653,6 +1762,7 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_int_50 = PyInt_FromLong(50); if (unlikely(!__pyx_int_50)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1826,11 +1936,12 @@ static int __pyx_pymod_exec_caller(PyObject *__pyx_pyinit_module)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "caller.pyx":15
- *     start()
+  /* "caller.pyx":23
+ *     object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
  * 
- * cdef public void c_quack():             # <<<<<<<<<<<<<<
- *     quack()
+ * cdef public void check_pickle(char* pickle, int pickle_size):             # <<<<<<<<<<<<<<
+ *     unpickle = PyBytes_FromStringAndSize(pickle, pickle_size)
+ *     print("-" * 50)
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -3147,6 +3258,149 @@ bad:
     Py_XDECREF(py_code);
     Py_XDECREF(py_frame);
 }
+
+/* Print */
+        #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static PyObject *__Pyx_GetStdout(void) {
+    PyObject *f = PySys_GetObject((char *)"stdout");
+    if (!f) {
+        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+    }
+    return f;
+}
+static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
+    int i;
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
+        PyObject* v;
+        if (PyFile_SoftSpace(f, 1)) {
+            if (PyFile_WriteString(" ", f) < 0)
+                goto error;
+        }
+        v = PyTuple_GET_ITEM(arg_tuple, i);
+        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
+            goto error;
+        if (PyString_Check(v)) {
+            char *s = PyString_AsString(v);
+            Py_ssize_t len = PyString_Size(v);
+            if (len > 0) {
+                switch (s[len-1]) {
+                    case ' ': break;
+                    case '\f': case '\r': case '\n': case '\t': case '\v':
+                        PyFile_SoftSpace(f, 0);
+                        break;
+                    default:  break;
+                }
+            }
+        }
+    }
+    if (newline) {
+        if (PyFile_WriteString("\n", f) < 0)
+            goto error;
+        PyFile_SoftSpace(f, 0);
+    }
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+}
+#else
+static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
+    PyObject* kwargs = 0;
+    PyObject* result = 0;
+    PyObject* end_string;
+    if (unlikely(!__pyx_print)) {
+        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
+        if (!__pyx_print)
+            return -1;
+    }
+    if (stream) {
+        kwargs = PyDict_New();
+        if (unlikely(!kwargs))
+            return -1;
+        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
+            goto bad;
+        if (!newline) {
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                goto bad;
+            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                goto bad;
+            }
+            Py_DECREF(end_string);
+        }
+    } else if (!newline) {
+        if (unlikely(!__pyx_print_kwargs)) {
+            __pyx_print_kwargs = PyDict_New();
+            if (unlikely(!__pyx_print_kwargs))
+                return -1;
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                return -1;
+            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                return -1;
+            }
+            Py_DECREF(end_string);
+        }
+        kwargs = __pyx_print_kwargs;
+    }
+    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
+    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
+        Py_DECREF(kwargs);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+bad:
+    if (kwargs != __pyx_print_kwargs)
+        Py_XDECREF(kwargs);
+    return -1;
+}
+#endif
+
+/* PrintOne */
+        #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    if (PyFile_SoftSpace(f, 0)) {
+        if (PyFile_WriteString(" ", f) < 0)
+            goto error;
+    }
+    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
+        goto error;
+    if (PyFile_WriteString("\n", f) < 0)
+        goto error;
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+    /* the line below is just to avoid C compiler
+     * warnings about unused functions */
+    return __Pyx_Print(f, NULL, 0);
+}
+#else
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
+    int res;
+    PyObject* arg_tuple = PyTuple_Pack(1, o);
+    if (unlikely(!arg_tuple))
+        return -1;
+    res = __Pyx_Print(stream, arg_tuple, 1);
+    Py_DECREF(arg_tuple);
+    return res;
+}
+#endif
 
 /* CIntToPy */
         static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
