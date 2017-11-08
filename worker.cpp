@@ -77,7 +77,6 @@ MWReturn Worker::unpack_init_data( void )
 /* Execute each task */
 void Worker::execute_task( MWTask *t )
 {
-    int i;
 
     MWprintf(30, "Enter Worker::execute_task\n");
 #ifdef NO_DYN_CAST
@@ -86,22 +85,24 @@ void Worker::execute_task( MWTask *t )
     Task *tl = dynamic_cast<Task *> ( t );
 #endif
 
-    if (use_pickle(python_worker) != OK) {
+    tl->result = use_pickle(python_worker, tl->input);
+    // CHeck exception handling
+    if (tl->result == NULL) {
         throw std::invalid_argument("Failed to run worker");
     }
 
-    MWprintf(30, "The task I am working on is: \n\t");
-    for (i=0; i<tl->size; i++)
-        MWprintf(30, "%d ", tl->numbers[i]);
-    MWprintf(30, "\n");
+    // MWprintf(30, "The task I am working on is: \n\t");
+    // for (i=0; i<tl->size; i++)
+    //     MWprintf(30, "%d ", tl->numbers[i]);
+    // MWprintf(30, "\n");
 
-    /* the real work :-) */
-    tl->largest = tl->numbers[0];
-    for (i=1; i<tl->size; i++)
-        if (tl->largest < tl->numbers[i])
-            tl->largest = tl->numbers[i];
+    // /* the real work :-) */
+    // tl->largest = tl->numbers[0];
+    // for (i=1; i<tl->size; i++)
+    //     if (tl->largest < tl->numbers[i])
+    //         tl->largest = tl->numbers[i];
 
-    MWprintf(30, "Leave Worker::execute_task, largest = %d\n", tl->largest);
+    // MWprintf(30, "Leave Worker::execute_task, largest = %d\n", tl->largest);
 }
 
 MWTask* Worker::gimme_a_task()

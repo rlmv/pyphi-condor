@@ -202,7 +202,7 @@ worker_socket: $(worker_socket_OBJECTS) $(worker_socket_DEPENDENCIES)
 check:
 
 clean:
-	-rm -f $(PROGRAMS) *.o *.a core
+	-rm -f $(PROGRAMS) *.o *.a core checkpoint
 	[ "__$(SUBDIRS)" = "__" ] || for subdir in `echo "$(SUBDIRS)"`; do (cd $$subdir && $(MAKE) $@) ; done
 	rm -f caller.cpp caller.cpython-36m-darwin.so
 

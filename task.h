@@ -26,13 +26,14 @@
 #include <stdio.h>
 #include "MWTask.h"
 #include <string>
+#include <Python.h>
 
 class Task : public MWTask
 {
  public:
     /* constructors */
     Task();
-    Task(int size, int *numbers, std::string s);
+    Task(PyObject* input);
 
     /* destructor */
     ~Task();
@@ -42,17 +43,16 @@ class Task : public MWTask
     void unpack_work( void );
     void pack_results( void );
     void unpack_results( void );
+    void pack_PyObject(PyObject* obj );
+    PyObject* unpack_PyObject( void );
 
     /* The following functions have default implementation. */
     void printself( int level = 70 );
     void write_ckpt_info( FILE *fp );
     void read_ckpt_info( FILE *fp );
 
-    /* The application specific information goes here */
-    int largest;  /* The result */
-    int *numbers; /* The array that contains the intergers */
-    int size;     /* How many integers are in the array */
-    std::string s;
+    PyObject *input;
+    PyObject *result;
 };
 
 #endif

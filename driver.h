@@ -32,7 +32,7 @@
 class Driver : public MWDriver
 {
  public:
-    Driver(char * pickle, int pickle_size);
+    Driver(char * pickle, int pickle_size, PyListObject* cuts);
     ~Driver();
 
     /* Get the info from the user.  Don't forget to get the worker_executable! */
@@ -62,19 +62,14 @@ class Driver : public MWDriver
 
  private:  /* You application specific information goes here! */
 
-    /* In this example, MW wants to find out the largest integer
-     * from a group of integers. Each worker get some of the integers,
-     * and tells the master the largest among them, the master will
-     * pick the largest among the results. */
-    int num_tasks;	/* how many tasks I've generated */
-    int remain;	/* only use for task generation */
-    int job_size; 	/* how many int I have */
-    int task_size;	/* number of integers per task */
-    int *job;	/* All the integers */
-    int largest;	/* the finial result */
 
     char * pickle;
     int pickle_size;
+
+    PyListObject * cuts;
+    int num_tasks;
+
+    PyObject* results;
 };
 
 #endif

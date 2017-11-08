@@ -9,8 +9,10 @@ if __name__ == '__main__':
         def __str__(self):
             return "My name is {}, my x is {}".format(type(self), self.x)
 
-    start_mw(A(1))
-    print('MIDDLE')
-    print('*' * 100)
+        def run(self, y):
+            return self.x + y
 
-    start_mw(A(2))
+    start_mw(A(1), list(range(200)))
+    # print('MIDDLE')
+    # print('*' * 100)
+    # start_mw(A(2))

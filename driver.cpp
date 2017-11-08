@@ -28,29 +28,32 @@
 #include "Task.h"
 #include <unistd.h>
 #include <string>
+#include <Python.h>
+#include "caller.h"
 
 /* initialization */
-Driver::Driver(char * p, int p_size)
+Driver::Driver(char * p, int p_size, PyListObject* cuts)
 {
     /* For statically generated tasks, you can decide how many tasks
      * you want to use based on the input information. However, you can
      * also dynamically generate tasks (either when init, or when
      * acr_on_completed_task, and add them to TODO queue by pushTask. */
-    num_tasks = 0;
 
     /* The list of tasks you will generate */
-    job = NULL;
-
     pickle = p;
     pickle_size = p_size;
+
+    this->cuts = cuts;
+    this->num_tasks = PyList_Size((PyObject *) cuts);
+    this->results = PyList_New(0);
 }
 
 /* destruction */
 Driver::~Driver()
 {
     /* release the memory allocated for tasks */
-    if (job)
-        delete [] job;
+
+    // TODO: release cuts
 }
 
 /* Here the application can (1) get per-run information from stdin (the input
@@ -77,20 +80,7 @@ MWReturn Driver::get_userinfo( int argc, char *argv[] )
     /* checkpoint requirement */
     set_checkpoint_frequency (10);
 
-    /* Now there are application specific configurations.
-     * Please replace them with the application logic !! */
-    job_size = 4;
-    task_size = 1;
-    job = new int[job_size];
-    job[0] = 0;
-    job[1] = 1;
-    job[2] = 2;
-    job[3] = 3;
-    largest = job[0];
-
-    num_tasks = 4;
-    RMC->set_target_num_workers(num_tasks);
-    MWprintf(30, "Patitioned into %d tasks\n", num_tasks);
+    RMC->set_target_num_workers(2);
 
     MWprintf(30, "Leave Driver::get_userinfo\n");
     return OK;
@@ -100,22 +90,17 @@ MWReturn Driver::get_userinfo( int argc, char *argv[] )
 MWReturn Driver::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
 {
     int i;
-    int head_pos;
-    std::string s ("test");
+    PyObject* cut;
+
+    MWprintf(30, "Num tasks: %d\n", num_tasks);
 
     *n_init = num_tasks;
     *init_tasks = new MWTask *[num_tasks];
 
-    head_pos = 0;
-
-    for ( i=0; i<num_tasks-1; i++) {
-        (*init_tasks)[i] = new Task(task_size, &(job[head_pos]), s);
-        head_pos += task_size;
+    for ( i=0; i < num_tasks; i++) {
+        cut = PyList_GetItem((PyObject *) cuts, i);
+        (*init_tasks)[i] = new Task(cut);
     }
-
-    if (remain)
-        (*init_tasks)[i] = new Task(remain, &(job[head_pos]), s);
-    else (*init_tasks)[i] = new Task(task_size, &(job[head_pos]), s);
 
     return OK;
 }
@@ -129,10 +114,11 @@ MWReturn Driver::act_on_completed_task( MWTask *t )
     Task *tf = dynamic_cast<Task *> (t);
 #endif
 
-    if ( tf->largest > this->largest)
-        this->largest = tf->largest;
+    print_result(tf->result);
+    if (PyList_Append(results, tf->result) != 0) {
+        return ABORT;
+    }
 
-    MWprintf(30, "Driver::act_on_completed_task: current largest = %d\n", this->largest);
     return OK;
 }
 
@@ -152,7 +138,8 @@ MWReturn Driver::pack_worker_init_data( void )
  * is keeping track of the results :-) */
 void Driver::printresults()
 {
-    MWprintf ( 10, "The largest number is %d.\n", this->largest);
+    //    MWprintf ( 10, "The largest number is %d.\n", this->largest);
+    print_result(results);
 }
 
 /* Write app-specific master checkpoint info */

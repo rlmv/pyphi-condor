@@ -23,71 +23,93 @@
 #include "Task.h"
 #include "MW.h"
 #include <string>
+#include "caller.h"
 
 /* init */
 Task::Task()
 {
-    size = 0;
-    numbers = NULL;
-    s = std::string();
+    input = NULL;
+    result = NULL;
 }
 
 /* init too */
-Task::Task(int size, int *numbers, std::string s)
+Task::Task(PyObject *input)
 {
-    if (size > 0) {
-        this->s = s;
-        this->size = size;
-        this->numbers = new int[size];
-        for (int i=0; i<size; i++)
-            this->numbers[i] = numbers[i];
-        printself(30);
-    } else MWprintf(30, "Task construction: array size <= 0! \n");
+    this->input = input;
+    this->result = NULL;
 }
 
+// TODO
 /* destruction */
 Task::~Task() {
-    if (numbers != NULL)
-        delete [] numbers;
+    // if (result != NULL)
+    //     delete [] result;
 }
 
 /* print the task to stdout */
 void
 Task::printself( int level )
 {
-    MWprintf ( level, "size=%d, string=%s, numbers=\n\t", size, s.c_str());
-    for (int i=0; i<size; i++)
-        MWprintf(level, "%d ", numbers[i]);
-    MWprintf (level, "\n");
+    // MWprintf ( level, "size=%d, job=%d\n\t", size, job);
+    // for (int i=0; i<size; i++)
+    //     MWprintf(level, "%d ", numbers[i]);
+    // MWprintf (level, "\n");
+}
+
+void Task::pack_PyObject(PyObject* obj)
+{
+    int size;
+    char *data;
+    pack_pickle(obj, &data, &size);
+    RMC->pack(&size, 1, 1);
+    RMC->pack(data, size, 1);
+}
+
+
+// TODO: what sort of error catching needs to happen?
+/* Stream and unpickle a Python object from RMC */
+PyObject* Task::unpack_PyObject()
+{
+    int size;
+    char *data;
+    RMC->unpack(&size, 1, 1);
+
+    data = new char[size];
+    RMC->unpack(data, size, 1);
+
+    return unpack_pickle(data, size);
 }
 
 /* The driver packs the input data via RMC, the data which will be sent to a worker. */
 void Task::pack_work( void )
 {
-    RMC->pack(&size, 1, 1);
-    RMC->pack(numbers, size, 1);
+    pack_PyObject(input);
 }
 
 /* The worker unpacks input data via RMC, need to allocate space for data */
 void Task::unpack_work( void )
 {
-    RMC->unpack(&size, 1, 1);
-    if (numbers != NULL)
-        delete [] numbers;
-    numbers = new int[size];
-    RMC->unpack(numbers, size, 1);
+    // if (input != NULL)
+    //     delete [] input;
+
+    input = unpack_PyObject();
+    // TODO catch error??
 }
 
 /* The worker packs result data via RMC, the result will be sent back to driver */
 void Task::pack_results( void )
 {
-    RMC->pack(&largest, 1, 1);
+    pack_PyObject(result);
+    // RMC->pack(&largest, 1, 1);
+    // RMC->pack(&result, 1, 1);
 }
 
 /* The driver unpacks result data via RMC */
 void Task::unpack_results( void )
 {
-    RMC->unpack(&largest, 1, 1);
+    result = unpack_PyObject();
+    // RMC->unpack(&largest, 1, 1);
+    // RMC->unpack(&result, 1, 1);
 }
 
 /* write checkpoint info per task, for each task haven't been finished */
