@@ -27,18 +27,31 @@ cdef public void c_quack():
     quack()
 
 cdef extern from "Python.h":
+    struct PyObject
     object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
+    char* PyBytes_AsString(PyObject *o)
+
 
 cdef public unpack_pickle(char* pickle_str, int pickle_size):
     unpickle = PyBytes_FromStringAndSize(pickle_str, pickle_size)
-    print("-" * 50)
     obj = pickle.loads(unpickle)
-    print("Unpickled", obj)
+
+    mw_print(30, '-' * 50 + '\n')
+    mw_print(30, "Unpickled %s\n" % obj)
 
     return obj
 
 
-cdef public MWReturn use_pickle(python_worker):
-   MWprintf(30, 'Executing {}'.format(python_worker))
+cdef public MWReturn use_pickle(python_worker) except *:
+    mw_print(30, "Type %s" % type(python_worker))
+    mw_print(30, "Executing %s\n" % python_worker)
 
-   return OK;
+    return OK;
+
+
+# TODO: there is probably a better way to deal handle encoding
+def mw_print(level, py_string):
+    '''Print a string through master-worker.'''
+    py_string = py_string.encode('utf8')
+    # cdef char* c_string = <bytes> py_string
+    MWprintf(level, py_string)

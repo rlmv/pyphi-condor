@@ -221,3 +221,5 @@ cython: clean
 
 run:
 	PYTHONPATH=. python run.py < in_master.indp
+
+test: cython run
