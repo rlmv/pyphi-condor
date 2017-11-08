@@ -24,6 +24,7 @@
 #include "Task_test.h"
 #include <Python.h>
 #include "caller.h"
+#include <stdexcept>
 
 
 /* init */
@@ -32,6 +33,7 @@ Worker_test::Worker_test()
     workingTask = new Task_test;
     pickle = NULL;
     pickle_size = 0;
+    python_worker = NULL;
 }
 
 /* destruct */
@@ -59,6 +61,16 @@ MWReturn Worker_test::unpack_init_data( void )
     pickle = new char[pickle_size];
 
     RMC->unpack(pickle, pickle_size, 1);
+
+    python_worker = unpack_pickle(pickle, pickle_size);
+    // TODO handle this.
+    // It seems that MWorker.C doesn't actually check the return value of
+    // unpack_init_data?
+    if (python_worker == NULL) {
+        return ABORT;
+        //throw std::invalid_argument("Failed to unpickle");
+    }
+
     return OK;
 }
 
@@ -75,7 +87,11 @@ void Worker_test::execute_task( MWTask *t )
 #endif
 
     c_quack();
-    check_pickle(pickle, pickle_size);
+
+    if (use_pickle(python_worker) != OK) {
+        throw std::invalid_argument("Failed to run worker");
+    }
+
 
     MWprintf(30, "The task I am working on is: \n\t");
     for (i=0; i<tl->size; i++)

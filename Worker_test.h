@@ -25,6 +25,7 @@
 
 #include "MWWorker.h"
 #include "Task_test.h"
+#include <Python.h>
 
 class Worker_test : public MWWorker
 {
@@ -45,5 +46,6 @@ public:
 
     char * pickle;
     int pickle_size;
+    PyObject * python_worker;
 };
 #endif

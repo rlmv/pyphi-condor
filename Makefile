@@ -204,7 +204,7 @@ check:
 clean:
 	-rm -f $(PROGRAMS) *.o *.a core
 	[ "__$(SUBDIRS)" = "__" ] || for subdir in `echo "$(SUBDIRS)"`; do (cd $$subdir && $(MAKE) $@) ; done
-	rm -f caller.cpp
+	rm -f caller.cpp caller.cpython-36m-darwin.so
 
 distclean:
 	-rm -f Makefile *.tar *.gz
