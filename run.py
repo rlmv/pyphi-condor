@@ -12,3 +12,5 @@ if __name__ == '__main__':
     start_mw(A(1))
     print('MIDDLE')
     print('*' * 100)
+
+    start_mw(A(2))

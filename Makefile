@@ -220,6 +220,6 @@ cython: clean
 	python setup.py build_ext --inplace
 
 run:
-	PYTHONPATH=. python run.py < in_master.indp
+	PYTHONPATH=. python run.py
 
 test: cython run

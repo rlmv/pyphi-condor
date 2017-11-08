@@ -66,58 +66,29 @@ Driver::~Driver()
 
 MWReturn Driver::get_userinfo( int argc, char *argv[] )
 {
-    int i, j;
-    int num_exec = 0;
-    int num_arch = 0;
-    char exec[_POSIX_PATH_MAX];
+    // placeholder. Replace with compiled worker executable.
+    // Could even be a Python executable?
+    char exec[] = "run.py";
 
     MWprintf(30, "Enter Driver::get_userinfo\n");
-    for ( i=0; i<argc; i++ ) {
-        MWprintf( 70, "arg %d: %s\n", i, argv[i] );
-    }
 
-    /* exec classes */
-    RMC->set_num_exec_classes(1);
-
-    /* arch classes */
-    scanf ("%d", &num_arch);
-    RMC->set_num_arch_classes(num_arch);
-    MWprintf( 10, "Set the arch class to %d.\n", num_arch);
-
-    /* Should have a better way to read attributes and set_arch_class_attributes */
-    for ( i=0; i<num_arch; i++) {
-        if (i==0)
-            RMC->set_arch_class_attributes (0, "((Arch==\"INTEL\") && (Opsys==\"LINUX\"))");
-        else RMC->set_arch_class_attributes (1, "((Arch==\"INTEL\") && (Opsys==\"SOLARIS26\"))");
-    }
-
-    /* executables */
-    scanf ("%d", &num_exec);
-    RMC->set_num_executables(num_exec);
-    for ( i=0; i<num_exec; i++) {
-        scanf("%s %d", exec, &j);
-        MWprintf( 30, " %s\n", exec);
-        RMC->add_executable(0, j, exec, "");
-    }
+    RMC->add_executable(exec, "((Arch==\"INTEL\") && (Opsys==\"LINUX\"))");
 
     /* checkpoint requirement */
     set_checkpoint_frequency (10);
 
     /* Now there are application specific configurations.
      * Please replace them with the application logic !! */
-    scanf( "%d", &job_size);
-    scanf( "%d", &task_size);
-    if (job_size == 0) {
-        MWprintf(10, "The job size is 0, so I quit\n");
-        return QUIT;
-    }
+    job_size = 4;
+    task_size = 1;
     job = new int[job_size];
-    for ( i=0; i<job_size; i++)
-        scanf( "%d ", &job[i]);
+    job[0] = 0;
+    job[1] = 1;
+    job[2] = 2;
+    job[3] = 3;
     largest = job[0];
 
-    remain = job_size % task_size;
-    num_tasks = remain ? (job_size/task_size + 1) : job_size/task_size ;
+    num_tasks = 4;
     RMC->set_target_num_workers(num_tasks);
     MWprintf(30, "Patitioned into %d tasks\n", num_tasks);
 
