@@ -1,12 +1,15 @@
 import pickle
 
 
-cdef extern from "master_main.h":
-    cdef int start(char* pickle_str, int size);
+cdef extern from "driver.h":
+    cdef cppclass Driver:
+        Driver(char*, int)
+        void go( int argc, char *argv[] )
 
 
 cdef extern from "MW.h":
     cdef void MWprintf ( int level, char *fmt, ... )
+    cdef void set_MWprintf_level(int level)
     cdef enum MWReturn:
         OK
         QUIT
@@ -16,7 +19,12 @@ cdef extern from "MW.h":
 cpdef start_mw(obj):
     pickle_str = pickle.dumps(obj)
     size = len(pickle_str)
-    start(pickle_str, size)
+
+    cdef Driver *driver = new Driver(pickle_str, size)
+    set_MWprintf_level(75)
+    mw_print(10, "The master is starting.\n")
+
+    driver.go(0, [])  # No argc/v here
 
 
 cdef extern from "Python.h":
