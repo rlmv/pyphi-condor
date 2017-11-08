@@ -86,12 +86,9 @@ void Worker::execute_task( MWTask *t )
     Task *tl = dynamic_cast<Task *> ( t );
 #endif
 
-    c_quack();
-
     if (use_pickle(python_worker) != OK) {
         throw std::invalid_argument("Failed to run worker");
     }
-
 
     MWprintf(30, "The task I am working on is: \n\t");
     for (i=0; i<tl->size; i++)

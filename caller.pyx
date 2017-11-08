@@ -1,12 +1,9 @@
-from quacker import quack
-
 import pickle
 
-cdef extern from "output.h":
-    cpdef void out()
 
 cdef extern from "master_main.h":
     cdef int start(char* pickle_str, int size);
+
 
 cdef extern from "MW.h":
     cdef void MWprintf ( int level, char *fmt, ... )
@@ -15,16 +12,12 @@ cdef extern from "MW.h":
         QUIT
         ABORT
 
-cpdef public void call_quack():
-    quack()
 
 cpdef start_mw(obj):
     pickle_str = pickle.dumps(obj)
     size = len(pickle_str)
     start(pickle_str, size)
 
-cdef public void c_quack():
-    quack()
 
 cdef extern from "Python.h":
     struct PyObject
@@ -43,7 +36,7 @@ cdef public unpack_pickle(char* pickle_str, int pickle_size):
 
 
 cdef public MWReturn use_pickle(python_worker) except *:
-    mw_print(30, "Type %s" % type(python_worker))
+    mw_print(30, "Type %s\n" % type(python_worker))
     mw_print(30, "Executing %s\n" % python_worker)
 
     return OK;
