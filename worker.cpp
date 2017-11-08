@@ -20,24 +20,24 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#include "Worker_test.h"
-#include "Task_test.h"
+#include "Worker.h"
+#include "Task.h"
 #include <Python.h>
 #include "caller.h"
 #include <stdexcept>
 
 
 /* init */
-Worker_test::Worker_test()
+Worker::Worker()
 {
-    workingTask = new Task_test;
+    workingTask = new Task;
     pickle = NULL;
     pickle_size = 0;
     python_worker = NULL;
 }
 
 /* destruct */
-Worker_test::~Worker_test()
+Worker::~Worker()
 {
     delete workingTask;
     delete pickle;
@@ -46,15 +46,15 @@ Worker_test::~Worker_test()
 /* Do benchmark and return result (usually the time to task t), t is supposed
  * to be a benchmark task.  In this app, it just send back a PI. */
 double
-Worker_test::benchmark( MWTask *t )
+Worker::benchmark( MWTask *t )
 {
-        Task_test *tl = dynamic_cast<Task_test *> ( t );
+        Task *tl = dynamic_cast<Task *> ( t );
         tl->printself(30);
         return 3.14159;
 }
 
 /* unpack the init data from the driver */
-MWReturn Worker_test::unpack_init_data( void )
+MWReturn Worker::unpack_init_data( void )
 {
     RMC->unpack(&pickle_size, 1, 1);
 
@@ -75,15 +75,15 @@ MWReturn Worker_test::unpack_init_data( void )
 }
 
 /* Execute each task */
-void Worker_test::execute_task( MWTask *t )
+void Worker::execute_task( MWTask *t )
 {
     int i;
 
-    MWprintf(30, "Enter Worker_test::execute_task\n");
+    MWprintf(30, "Enter Worker::execute_task\n");
 #ifdef NO_DYN_CAST
-    Task_test *tl = (Task_test *) t;
+    Task *tl = (Task *) t;
 #else
-        Task_test *tl = dynamic_cast<Task_test *> ( t );
+        Task *tl = dynamic_cast<Task *> ( t );
 #endif
 
     c_quack();
@@ -104,17 +104,17 @@ void Worker_test::execute_task( MWTask *t )
         if (tl->largest < tl->numbers[i])
             tl->largest = tl->numbers[i];
 
-    MWprintf(30, "Leave Worker_test::execute_task, largest = %d\n", tl->largest);
+    MWprintf(30, "Leave Worker::execute_task, largest = %d\n", tl->largest);
 }
 
-MWTask* Worker_test::gimme_a_task()
+MWTask* Worker::gimme_a_task()
 {
-    return new Task_test;
+    return new Task;
 }
 
 /* Just return a newly created application worker object */
 MWWorker*
 gimme_a_worker ()
 {
-        return new Worker_test;
+        return new Worker;
 }

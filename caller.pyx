@@ -5,8 +5,8 @@ import pickle
 cdef extern from "output.h":
     cpdef void out()
 
-cdef extern from "MasterMain_test.H":
-    cdef int start(char* pickle_str, int size)
+cdef extern from "master_main.h":
+    cdef int start(char* pickle_str, int size);
 
 cdef extern from "MW.h":
     cdef void MWprintf ( int level, char *fmt, ... )

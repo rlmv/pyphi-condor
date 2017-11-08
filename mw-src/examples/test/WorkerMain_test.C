@@ -20,23 +20,23 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-/* The main() of worker executable. Simply instantiate a Worker_test 
+/* The main() of worker executable. Simply instantiate a Worker
  * class and go()!  */
 
 #include "MW.h"
-#include "Worker_test.h"
+#include "Worker.h"
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
-       	/* init a worker object */
-       	Worker_test graduate_student;
+        /* init a worker object */
+        Worker graduate_student;
 
-	/* How much information you want the workers to print */
-       	set_MWprintf_level ( 75 );
-       	MWprintf ( 10, "A worker is starting.\n" );
+    /* How much information you want the workers to print */
+        set_MWprintf_level ( 75 );
+        MWprintf ( 10, "A worker is starting.\n" );
 
-	/* Go ! */ 
-	graduate_student.go(argc, argv);
+    /* Go ! */
+    graduate_student.go(argc, argv);
 
-	return 0;
+    return 0;
 }

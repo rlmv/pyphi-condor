@@ -20,81 +20,81 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#include "Task_test.h"
+#include "Task.h"
 #include "MW.h"
 
 /* init */
-Task_test::Task_test() 
+Task::Task()
 {
-	size = 0;
-	numbers = NULL;
+    size = 0;
+    numbers = NULL;
 }
 
 /* init too */
-Task_test::Task_test(int size, int *numbers) 
+Task::Task(int size, int *numbers)
 {
-	if (size > 0) {
-		this->size = size;
-		this->numbers = new int[size];
-		for (int i=0; i<size; i++)
-			this->numbers[i] = numbers[i];
-		printself(30); 
-	} else MWprintf(30, "Task construction: array size <= 0! \n");
+    if (size > 0) {
+        this->size = size;
+        this->numbers = new int[size];
+        for (int i=0; i<size; i++)
+            this->numbers[i] = numbers[i];
+        printself(30);
+    } else MWprintf(30, "Task construction: array size <= 0! \n");
 }
 
 /* destruction */
-Task_test::~Task_test() {
-	if (numbers != NULL)
-		delete [] numbers;
+Task::~Task() {
+    if (numbers != NULL)
+        delete [] numbers;
 }
 
 /* print the task to stdout */
 void
-Task_test::printself( int level ) 
+Task::printself( int level )
 {
-	MWprintf ( level, "size=%d, numbers=\n\t", size);
-	for (int i=0; i<size; i++)
-		MWprintf(level, "%d ", numbers[i]);
-	MWprintf (level, "\n");
+    MWprintf ( level, "size=%d, numbers=\n\t", size);
+    for (int i=0; i<size; i++)
+        MWprintf(level, "%d ", numbers[i]);
+    MWprintf (level, "\n");
 }
 
 /* The driver packs the input data via RMC, the data which will be sent to a worker. */
-void Task_test::pack_work( void ) 
+void Task::pack_work( void )
 {
-	RMC->pack(&size, 1, 1);
-	RMC->pack(numbers, size, 1);
+    RMC->pack(&size, 1, 1);
+    RMC->pack(numbers, size, 1);
 }
 
 /* The worker unpacks input data via RMC, need to allocate space for data */
-void Task_test::unpack_work( void ) 
+void Task::unpack_work( void )
 {
-	RMC->unpack(&size, 1, 1);
-	if (numbers != NULL)
-		delete [] numbers;
-	numbers = new int[size];
-	RMC->unpack(numbers, size, 1);
+    RMC->unpack(&size, 1, 1);
+    if (numbers != NULL)
+        delete [] numbers;
+    numbers = new int[size];
+    RMC->unpack(numbers, size, 1);
 }
 
 /* The worker packs result data via RMC, the result will be sent back to driver */
-void Task_test::pack_results( void ) 
+void Task::pack_results( void )
 {
-	RMC->pack(&largest, 1, 1);
+    RMC->pack(&largest, 1, 1);
 }
 
 /* The driver unpacks result data via RMC */
-void Task_test::unpack_results( void ) 
+void Task::unpack_results( void )
 {
-	RMC->unpack(&largest, 1, 1);
+    RMC->unpack(&largest, 1, 1);
 }
 
 /* write checkpoint info per task, for each task haven't been finished */
-void Task_test::write_ckpt_info( FILE *fp ) 
+void Task::write_ckpt_info( FILE *fp )
 {
-	/* Nothing in this app, will lose data if it crashes. */
+    /* Nothing in this app, will lose data if it crashes. */
 }
 
 /* Read checkpoint info, in the order written into the file */
-void Task_test::read_ckpt_info( FILE *fp ) 
+void Task::read_ckpt_info( FILE *fp )
 {
-	/* Nothing to be read since nothing is written */
+    /* Nothing to be read since nothing is written */
 }

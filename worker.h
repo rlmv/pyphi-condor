@@ -20,29 +20,32 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-/* The main() for the master executable.
- * Simply instantiate a driver object and go()! */
+#ifndef _WORKER_H
+#define _WORKER_H
 
-#include "MW.h"
-#include "Driver_test.h"
-#include <string>
+#include "MWWorker.h"
+#include "Task.h"
+#include <Python.h>
 
-int start(char * pickle, int size)
+class Worker : public MWWorker
 {
-    int argc = 0;
-    char *argv[0] = {};
-    /* init the application driver object */
+public:
+        Worker();
+        ~Worker();
 
-    Driver_test *advisor = new Driver_test(pickle, size);
+    /* Benchmarking */
+    double benchmark( MWTask *t );
 
-    /* how much info you wants the driver to print */
-    set_MWprintf_level( 75 );
-    MWprintf ( 10, "The master is starting.\n" );
+    /* unpack init data */
+    MWReturn unpack_init_data( void );
 
-    MWprintf (10, "Pickle %s, len %d", pickle, size);
+    /* do the real work for each task */
+    void execute_task( MWTask * );
 
-    /* Go ! */
-    advisor->go( argc, argv );
+    MWTask* gimme_a_task();
 
-    return 0;
-}
+    char * pickle;
+    int pickle_size;
+    PyObject * python_worker;
+};
+#endif

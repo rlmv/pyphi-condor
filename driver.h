@@ -20,20 +20,20 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#ifndef _test_DRIVER_H
-#define _test_DRIVER_H
+#ifndef _DRIVER_H
+#define _DRIVER_H
 
 #include "MWDriver.h"
-#include "Task_test.h"
+#include "Task.h"
 #include <string>
 
 /** Application Driver subclass derived from MWDriver */
 
-class Driver_test : public MWDriver
+class Driver : public MWDriver
 {
 public:
-    Driver_test(char * pickle, int pickle_size);
-        ~Driver_test();
+    Driver(char * pickle, int pickle_size);
+        ~Driver();
 
     /* Get the info from the user.  Don't forget to get the worker_executable! */
         MWReturn get_userinfo( int argc, char *argv[] );

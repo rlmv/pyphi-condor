@@ -20,17 +20,17 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#include "Worker_test.h"
-#include "Task_test.h"
+#include "Worker.h"
+#include "Task.h"
 
 /* init */
-Worker_test::Worker_test() 
+Worker::Worker()
 {
-    workingTask = new Task_test;
+    workingTask = new Task;
 }
 
 /* destruct */
-Worker_test::~Worker_test() 
+Worker::~Worker()
 {
     delete workingTask;
 }
@@ -38,54 +38,54 @@ Worker_test::~Worker_test()
 /* Do benchmark and return result (usually the time to task t), t is supposed
  * to be a benchmark task.  In this app, it just send back a PI. */
 double
-Worker_test::benchmark( MWTask *t ) 
+Worker::benchmark( MWTask *t )
 {
-        Task_test *tl = dynamic_cast<Task_test *> ( t );
+        Task *tl = dynamic_cast<Task *> ( t );
         tl->printself(30);
         return 3.14159;
 }
 
 /* unpack the init data from the driver */
-MWReturn Worker_test::unpack_init_data( void ) 
+MWReturn Worker::unpack_init_data( void )
 {
-	/* As we don'e have init data, we do nothing */
-	return OK;
+    /* As we don'e have init data, we do nothing */
+    return OK;
 }
 
 /* Execute each task */
-void Worker_test::execute_task( MWTask *t ) 
+void Worker::execute_task( MWTask *t )
 {
-	int i;
-	
-	MWprintf(30, "Enter Worker_test::execute_task\n");
-#ifdef NO_DYN_CAST
-	Task_test *tl = (Task_test *) t;
-#else
-    	Task_test *tl = dynamic_cast<Task_test *> ( t );
-#endif
-	
-	MWprintf(30, "The task I am working on is: \n\t");
-	for (i=0; i<tl->size; i++)
-		MWprintf(30, "%d ", tl->numbers[i]);
-	MWprintf(30, "\n");
-	
-	/* the real work :-) */
-	tl->largest = tl->numbers[0];
-    	for (i=1; i<tl->size; i++) 
-		if (tl->largest < tl->numbers[i]) 
-			tl->largest = tl->numbers[i];
+    int i;
 
-	MWprintf(30, "Leave Worker_test::execute_task, largest = %d\n", tl->largest);
+    MWprintf(30, "Enter Worker::execute_task\n");
+#ifdef NO_DYN_CAST
+    Task *tl = (Task *) t;
+#else
+        Task *tl = dynamic_cast<Task *> ( t );
+#endif
+
+    MWprintf(30, "The task I am working on is: \n\t");
+    for (i=0; i<tl->size; i++)
+        MWprintf(30, "%d ", tl->numbers[i]);
+    MWprintf(30, "\n");
+
+    /* the real work :-) */
+    tl->largest = tl->numbers[0];
+        for (i=1; i<tl->size; i++)
+        if (tl->largest < tl->numbers[i])
+            tl->largest = tl->numbers[i];
+
+    MWprintf(30, "Leave Worker::execute_task, largest = %d\n", tl->largest);
 }
 
-MWTask* Worker_test::gimme_a_task()
+MWTask* Worker::gimme_a_task()
 {
-	return new Task_test;
+    return new Task;
 }
 
 /* Just return a newly created application worker object */
 MWWorker*
 gimme_a_worker ()
 {
-       	return new Worker_test;
+        return new Worker;
 }

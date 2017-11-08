@@ -65,14 +65,14 @@ fi
 # Name of the executable.
 as_me=`$as_basename "$0" ||
 $as_expr X/"$0" : '.*/\([^/][^/]*\)/*$' \| \
-	 X"$0" : 'X\(//\)$' \| \
-	 X"$0" : 'X\(/\)$' \| \
-	 .     : '\(.\)' 2>/dev/null ||
+     X"$0" : 'X\(//\)$' \| \
+     X"$0" : 'X\(/\)$' \| \
+     .     : '\(.\)' 2>/dev/null ||
 echo X/"$0" |
     sed '/^.*\/\([^/][^/]*\)\/*$/{ s//\1/; q; }
-  	  /^X\/\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\/\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\/\(\/\/\)$/{ s//\1/; q; }
+      /^X\/\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
 
 
 # PATH needs CR, and LINENO needs CR and PATH.
@@ -133,21 +133,21 @@ do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
   for as_base in sh bash ksh sh5; do
-	 case $as_dir in
-	 /*)
-	   if ("$as_dir/$as_base" -c '
+     case $as_dir in
+     /*)
+       if ("$as_dir/$as_base" -c '
   as_lineno_1=$LINENO
   as_lineno_2=$LINENO
   as_lineno_3=`(expr $as_lineno_1 + 1) 2>/dev/null`
   test "x$as_lineno_1" != "x$as_lineno_2" &&
   test "x$as_lineno_3"  = "x$as_lineno_2" ') 2>/dev/null; then
-	     $as_unset BASH_ENV || test "${BASH_ENV+set}" != set || { BASH_ENV=; export BASH_ENV; }
-	     $as_unset ENV || test "${ENV+set}" != set || { ENV=; export ENV; }
-	     CONFIG_SHELL=$as_dir/$as_base
-	     export CONFIG_SHELL
-	     exec "$CONFIG_SHELL" "$0" ${1+"$@"}
-	   fi;;
-	 esac
+         $as_unset BASH_ENV || test "${BASH_ENV+set}" != set || { BASH_ENV=; export BASH_ENV; }
+         $as_unset ENV || test "${ENV+set}" != set || { ENV=; export ENV; }
+         CONFIG_SHELL=$as_dir/$as_base
+         export CONFIG_SHELL
+         exec "$CONFIG_SHELL" "$0" ${1+"$@"}
+       fi;;
+     esac
        done
 done
 ;;
@@ -270,7 +270,7 @@ PACKAGE_VERSION=
 PACKAGE_STRING=
 PACKAGE_BUGREPORT=
 
-ac_unique_file="./Driver_test.h"
+ac_unique_file="./Driver.h"
 ac_subst_vars='PACKAGE VERSION SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS CXX CXXFLAGS LDFLAGS CPPFLAGS ac_ct_CXX EXEEXT OBJEXT SET_MAKE AUTOCONF SOCKET_LIB USE_MWFILE JUNK1 CONDOR_DIR MW_DIR PVM_ROOT PVM_ARCH USE_CHIRP ENABLE_MWINDEPENDENT LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
@@ -676,10 +676,10 @@ $as_expr X"$0" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
          .     : '\(.\)' 2>/dev/null ||
 echo X"$0" |
     sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
-  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
-  	  /^X\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+      /^X\(\/\/\)$/{ s//\1/; q; }
+      /^X\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
   srcdir=$ac_confdir
   if test ! -r $srcdir/$ac_unique_file; then
     srcdir=..
@@ -1020,7 +1020,7 @@ _ASBOX
     *ac_space=\ *)
       sed -n \
         "s/'"'"'/'"'"'\\\\'"'"''"'"'/g;
-    	  s/^\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\)=\\(.*\\)/\\1='"'"'\\2'"'"'/p"
+          s/^\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\)=\\(.*\\)/\\1='"'"'\\2'"'"'/p"
       ;;
     *)
       sed -n \
@@ -1052,7 +1052,7 @@ _ASBOX
       echo
       for ac_var in $ac_subst_files
       do
-	eval ac_val=$`echo $ac_var`
+    eval ac_val=$`echo $ac_var`
         echo "$ac_var='"'"'$ac_val'"'"'"
       done | sort
       echo
@@ -1429,9 +1429,9 @@ if test "$cross_compiling" != yes; then
     cross_compiling=no
   else
     if test "$cross_compiling" = maybe; then
-	cross_compiling=yes
+    cross_compiling=yes
     else
-	{ { echo "$as_me:$LINENO: error: cannot run C++ compiled programs.
+    { { echo "$as_me:$LINENO: error: cannot run C++ compiled programs.
 If you meant to cross compile, use \`--host'.
 See \`config.log' for more details." >&5
 echo "$as_me: error: cannot run C++ compiled programs.
@@ -1590,7 +1590,7 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_cxx_compiler_gnu" >&5
 echo "${ECHO_T}$ac_cv_cxx_compiler_gnu" >&6
 GXX=`test $ac_compiler_gnu = yes && echo yes`
-ac_test_CXXFLAGS=${CXXFLAGS+set}
+ac_CXXFLAGS=${CXXFLAGS+set}
 ac_save_CXXFLAGS=$CXXFLAGS
 CXXFLAGS="-g"
 echo "$as_me:$LINENO: checking whether $CXX accepts -g" >&5
@@ -1637,7 +1637,7 @@ rm -f conftest.$ac_objext conftest.$ac_ext
 fi
 echo "$as_me:$LINENO: result: $ac_cv_prog_cxx_g" >&5
 echo "${ECHO_T}$ac_cv_prog_cxx_g" >&6
-if test "$ac_test_CXXFLAGS" = set; then
+if test "$ac_CXXFLAGS" = set; then
   CXXFLAGS=$ac_save_CXXFLAGS
 elif test $ac_cv_prog_cxx_g = yes; then
   if test "$GXX" = yes; then
@@ -1755,7 +1755,7 @@ if eval "test \"\${ac_cv_prog_make_${ac_make}_set+set}\" = set"; then
 else
   cat >conftest.make <<\_ACEOF
 all:
-	@echo 'ac_maketemp="$(MAKE)"'
+    @echo 'ac_maketemp="$(MAKE)"'
 _ACEOF
 # GNU make sometimes prints "make[1]: Entering...", which would confuse us.
 eval `${MAKE-make} -f conftest.make 2>/dev/null | grep temp=`
@@ -1957,10 +1957,10 @@ if test "${with_MW+set}" = set; then
   MW_DIR=$withval
 fi;
 if test -e "$MW_DIR/lib/libMW.a"; then
-	echo "-- Using MW installed in $MW_DIR"
+    echo "-- Using MW installed in $MW_DIR"
 else
-	echo "-- Can't find libMW.a in $MW_DIR/lib"
-	exit 1
+    echo "-- Can't find libMW.a in $MW_DIR/lib"
+    exit 1
 fi
 
 
@@ -2151,14 +2151,14 @@ fi
 # Name of the executable.
 as_me=`$as_basename "$0" ||
 $as_expr X/"$0" : '.*/\([^/][^/]*\)/*$' \| \
-	 X"$0" : 'X\(//\)$' \| \
-	 X"$0" : 'X\(/\)$' \| \
-	 .     : '\(.\)' 2>/dev/null ||
+     X"$0" : 'X\(//\)$' \| \
+     X"$0" : 'X\(/\)$' \| \
+     .     : '\(.\)' 2>/dev/null ||
 echo X/"$0" |
     sed '/^.*\/\([^/][^/]*\)\/*$/{ s//\1/; q; }
-  	  /^X\/\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\/\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\/\(\/\/\)$/{ s//\1/; q; }
+      /^X\/\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
 
 
 # PATH needs CR, and LINENO needs CR and PATH.
@@ -2220,21 +2220,21 @@ do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
   for as_base in sh bash ksh sh5; do
-	 case $as_dir in
-	 /*)
-	   if ("$as_dir/$as_base" -c '
+     case $as_dir in
+     /*)
+       if ("$as_dir/$as_base" -c '
   as_lineno_1=$LINENO
   as_lineno_2=$LINENO
   as_lineno_3=`(expr $as_lineno_1 + 1) 2>/dev/null`
   test "x$as_lineno_1" != "x$as_lineno_2" &&
   test "x$as_lineno_3"  = "x$as_lineno_2" ') 2>/dev/null; then
-	     $as_unset BASH_ENV || test "${BASH_ENV+set}" != set || { BASH_ENV=; export BASH_ENV; }
-	     $as_unset ENV || test "${ENV+set}" != set || { ENV=; export ENV; }
-	     CONFIG_SHELL=$as_dir/$as_base
-	     export CONFIG_SHELL
-	     exec "$CONFIG_SHELL" "$0" ${1+"$@"}
-	   fi;;
-	 esac
+         $as_unset BASH_ENV || test "${BASH_ENV+set}" != set || { BASH_ENV=; export BASH_ENV; }
+         $as_unset ENV || test "${ENV+set}" != set || { ENV=; export ENV; }
+         CONFIG_SHELL=$as_dir/$as_base
+         export CONFIG_SHELL
+         exec "$CONFIG_SHELL" "$0" ${1+"$@"}
+       fi;;
+     esac
        done
 done
 ;;
@@ -2639,9 +2639,9 @@ _ACEOF
       (echo ':t
   /@[a-zA-Z_][a-zA-Z_0-9]*@/!b' && cat $tmp/subs.frag) >$tmp/subs-$ac_sed_frag.sed
       if test -z "$ac_sed_cmds"; then
-  	ac_sed_cmds="sed -f $tmp/subs-$ac_sed_frag.sed"
+    ac_sed_cmds="sed -f $tmp/subs-$ac_sed_frag.sed"
       else
-  	ac_sed_cmds="$ac_sed_cmds | sed -f $tmp/subs-$ac_sed_frag.sed"
+    ac_sed_cmds="$ac_sed_cmds | sed -f $tmp/subs-$ac_sed_frag.sed"
       fi
       ac_sed_frag=`expr $ac_sed_frag + 1`
       ac_beg=$ac_end
@@ -2676,10 +2676,10 @@ $as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
          .     : '\(.\)' 2>/dev/null ||
 echo X"$ac_file" |
     sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
-  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
-  	  /^X\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+      /^X\(\/\/\)$/{ s//\1/; q; }
+      /^X\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
   { if $as_mkdir_p; then
     mkdir -p "$ac_dir"
   else
@@ -2695,10 +2695,10 @@ $as_expr X"$as_dir" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
          .     : '\(.\)' 2>/dev/null ||
 echo X"$as_dir" |
     sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
-  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
-  	  /^X\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+      /^X\(\/\/\)$/{ s//\1/; q; }
+      /^X\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
     done
     test ! -n "$as_dirs" || mkdir $as_dirs
   fi || { { echo "$as_me:$LINENO: error: cannot create directory \"$ac_dir\"" >&5
@@ -2826,10 +2826,10 @@ $as_expr X"$ac_dest" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
          .     : '\(.\)' 2>/dev/null ||
 echo X"$ac_dest" |
     sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{ s//\1/; q; }
-  	  /^X\(\/\/\)[^/].*/{ s//\1/; q; }
-  	  /^X\(\/\/\)$/{ s//\1/; q; }
-  	  /^X\(\/\).*/{ s//\1/; q; }
-  	  s/.*/./; q'`
+      /^X\(\/\/\)[^/].*/{ s//\1/; q; }
+      /^X\(\/\/\)$/{ s//\1/; q; }
+      /^X\(\/\).*/{ s//\1/; q; }
+      s/.*/./; q'`
   ac_builddir=.
 
 if test "$ac_dir" != .; then
@@ -2899,4 +2899,3 @@ if test "$no_create" != yes; then
   # would make configure fail if this is the last instruction.
   $ac_cs_success || { (exit 1); exit 1; }
 fi
-

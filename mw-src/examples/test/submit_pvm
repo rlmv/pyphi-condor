@@ -4,7 +4,7 @@
 universe = PVM
 
 # The name of our (master) executable
-Executable = master_test_condorpvm
+Executable = master_condorpvm
 
 # Max image size (meg)
 Image_Size = 4
@@ -22,7 +22,7 @@ Output = out_master.pvm
 Error = out_worker.pvm
 
 # Keep a log in case of problems.
-Log = _test.log
+Log = .log
 
 # Requirements
 Requirements = (Arch == "INTEL" && OPSYS=="LINUX")

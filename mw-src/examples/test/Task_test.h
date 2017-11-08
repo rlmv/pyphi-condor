@@ -20,37 +20,37 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#ifndef _test_TASK_H
-#define _test_TASK_H
+#ifndef _TASK_H
+#define _TASK_H
 
 #include <stdio.h>
 #include "MWTask.h"
 
-class Task_test : public MWTask 
+class Task : public MWTask
 {
 public:
-	/* constructors */
-       	Task_test();
-       	Task_test(int size, int *numbers);
+    /* constructors */
+        Task();
+        Task(int size, int *numbers);
 
-	/* destructor */
-       	~Task_test();
+    /* destructor */
+        ~Task();
 
-	/* App is required to implement the following functions. */
-       	void pack_work( void );
-       	void unpack_work( void );
-       	void pack_results( void );
-       	void unpack_results( void );
+    /* App is required to implement the following functions. */
+        void pack_work( void );
+        void unpack_work( void );
+        void pack_results( void );
+        void unpack_results( void );
 
-	/* The following functions have default implementation. */
-	void printself( int level = 70 );
-       	void write_ckpt_info( FILE *fp );
-       	void read_ckpt_info( FILE *fp );
+    /* The following functions have default implementation. */
+    void printself( int level = 70 );
+        void write_ckpt_info( FILE *fp );
+        void read_ckpt_info( FILE *fp );
 
 /* The application specific information goes here */
-	int largest;  /* The result */
-       	int *numbers; /* The array that contains the intergers */
-       	int size;     /* How many integers are in the array */
+    int largest;  /* The result */
+        int *numbers; /* The array that contains the intergers */
+        int size;     /* How many integers are in the array */
 };
 
 #endif

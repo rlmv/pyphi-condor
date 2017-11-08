@@ -20,27 +20,27 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#ifndef _test_WORKER_H
-#define _test_WORKER_H
+#ifndef _WORKER_H
+#define _WORKER_H
 
 #include "MWWorker.h"
-#include "Task_test.h"
+#include "Task.h"
 
-class Worker_test : public MWWorker 
+class Worker : public MWWorker
 {
 public:
-       	Worker_test();
-       	~Worker_test();
+        Worker();
+        ~Worker();
 
-	/* Benchmarking */
-	double benchmark( MWTask *t );
+    /* Benchmarking */
+    double benchmark( MWTask *t );
 
-	/* unpack init data */    
-	MWReturn unpack_init_data( void );
+    /* unpack init data */
+    MWReturn unpack_init_data( void );
 
-	/* do the real work for each task */
-	void execute_task( MWTask * );
+    /* do the real work for each task */
+    void execute_task( MWTask * );
 
-	MWTask* gimme_a_task();
+    MWTask* gimme_a_task();
 };
 #endif

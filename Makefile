@@ -49,14 +49,14 @@ CXXFLAGS = -g -O2 -Wall
 SUBDIRS =
 
 # MW-Independent will be used to debug: "setenv ENABLE_MWINDEPENDENT yes" to turn it on;
-# Type "master_test_indp < in_master.indp" to see if the example works without submit to condor.
+# Type "master_indp < in_master.indp" to see if the example works without submit to condor.
 ENABLE_MWINDEPENDENT = yes
 
 ifeq ($(ENABLE_MWINDEPENDENT), yes)
-  INDEPENDENT_PROGS = master_test_indp
+  INDEPENDENT_PROGS = master_indp
   INDEPENDENT_INCLS = $(MW_DIR)/src/RMComm/MW-Independent
-  master_test_indp_LDADD   = -L$(MW_LIBDIR) -lMW_indp -lMWRMComm_indp -lMWRC_indp -lMWutil_indp -lNWS_indp  $(SOCKET_LIB)
-  master_test_indp_OBJECTS =  Driver_test-Ind.o Worker_test-Ind.o Task_test-Ind.o MasterMain_test-Ind.o
+  master_indp_LDADD   = -L$(MW_LIBDIR) -lMW_indp -lMWRMComm_indp -lMWRC_indp -lMWutil_indp -lNWS_indp  $(SOCKET_LIB)
+  master_indp_OBJECTS =  driver_ind.o worker_ind.o task_ind.o master_main_ind.o
 endif
 
 # Check programs to be built, and dependent source files.
@@ -65,12 +65,12 @@ ifdef DEBUG_BUILD
   DEBUG_CHECKER = $(DEBUG_BUILD)
   MW_LIBDIR = $(MW_LIBDIR_DEBUG)
   # MW-File doesn't work with Insure, so will not compile *_file if DEBUG_BUILD
-  PROGRAMS = master_test_socket worker_test_socket $(INDEPENDENT_PROGS)
+  PROGRAMS = master_socket worker_socket $(INDEPENDENT_PROGS)
   INCLUDES = -I$(MWDIR)/src -I$(MW_DIR)/src/MWControlTasks -I$(MW_DIR)/src/RMComm -I$(MW_DIR)/src/RMComm/MW-CondorPVM \
 		-I$(INDEPENDENT_INCLS) $(MEASURE_DEFN)
 else
   PROGRAMS = \
-		master_test_socket worker_test_socket $(INDEPENDENT_PROGS)
+		master_socket worker_socket $(INDEPENDENT_PROGS)
   INCLUDES = -I$(MW_DIR)/src -I$(MW_DIR)/src/MWControlTasks -I$(MW_DIR)/src/RMComm -I$(MW_DIR)/src/RMComm/MW-File \
 		-I$(MW_DIR)/src/RMComm/MW-CondorPVM -I$(INDEPENDENT_INCLS) $(MEASURE_DEFN)
 endif
@@ -80,12 +80,12 @@ ifeq ($(CONDOR_DIR), no)
 else
 
 ifneq ($(PVM_ROOT), no)
-  PROGRAMS += master_test_condorpvm worker_test_condorpvm
+  PROGRAMS += master_condorpvm worker_condorpvm
 endif
 
 # if USE_MWFILE != no, also build mwfile
 ifneq ($(USE_MWFILE), no)
-PROGRAMS += master_test_file worker_test_file
+PROGRAMS += master_file worker_file
 endif
 
 endif
@@ -102,43 +102,43 @@ CXXLD = $(DEBUG_CHECKER) $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
 
 # MW-File Dependencies
-master_test_file_SOURCES = Driver_test.C Task_test.C MasterMain_test.C
-master_test_file_LDADD   = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWfilemaster $(CONDOR_DIR)/lib/libcondorapi.a -ldl
-master_test_file_OBJECTS =  Driver_test.o Task_test.o MasterMain_test.o
-master_test_file_DEPENDENCIES =  $(CONDOR_DIR)/lib/libcondorapi.a
-master_test_file_LDFLAGS =
+master_file_SOURCES = driver.cpp task.cpp master_main.cpp
+master_file_LDADD   = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWfilemaster $(CONDOR_DIR)/lib/libcondorapi.a -ldl
+master_file_OBJECTS =  driver.o task.o master_main.o
+master_file_DEPENDENCIES =  $(CONDOR_DIR)/lib/libcondorapi.a
+master_file_LDFLAGS =
 
-worker_test_file_SOURCES = Worker_test.C Task_test.C WorkerMain_test.C
-worker_test_file_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWfileworker
-worker_test_file_OBJECTS =  Worker_test.o Task_test.o WorkerMain_test.o
-worker_test_file_DEPENDENCIES =
-worker_test_file_LDFLAGS =
+worker_file_SOURCES = worker.cpp task.cpp worker_main.cpp
+worker_file_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWfileworker
+worker_file_OBJECTS =  worker.o task.o worker_main.o
+worker_file_DEPENDENCIES =
+worker_file_LDFLAGS =
 
 # MW-CondorPvm Dependencies
-master_test_condorpvm_SOURCES = Driver_test.C Task_test.C MasterMain_test.C
-master_test_condorpvm_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWcondorpvmmaster $(PVM_LIB)
-master_test_condorpvm_OBJECTS =  Driver_test.o Task_test.o MasterMain_test.o
-master_test_condorpvm_DEPENDENCIES =
-master_test_condorpvm_LDFLAGS =
+master_condorpvm_SOURCES = driver.cpp task.cpp master_main.cpp
+master_condorpvm_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWcondorpvmmaster $(PVM_LIB)
+master_condorpvm_OBJECTS =  driver.o task.o master_main.o
+master_condorpvm_DEPENDENCIES =
+master_condorpvm_LDFLAGS =
 
-worker_test_condorpvm_SOURCES = Worker_test.C Task_test.C WorkerMain_test.C
-worker_test_condorpvm_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWcondorpvmworker $(PVM_LIB)
-worker_test_condorpvm_OBJECTS =  Worker_test.o Task_test.o WorkerMain_test.o
-worker_test_condorpvm_DEPENDENCIES =
-worker_test_condorpvm_LDFLAGS =
+worker_condorpvm_SOURCES = worker.cpp task.cpp worker_main.cpp
+worker_condorpvm_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWcondorpvmworker $(PVM_LIB)
+worker_condorpvm_OBJECTS =  worker.o task.o worker_main.o
+worker_condorpvm_DEPENDENCIES =
+worker_condorpvm_LDFLAGS =
 
 # MW-Socket Dependencies
-master_test_socket_SOURCES = Driver_test.C Task_test.C MasterMain_test.C
-master_test_socket_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWsocketmaster
-master_test_socket_OBJECTS =  Driver_test.o Task_test.o MasterMain_test.o
-master_test_socket_DEPENDENCIES =
-master_test_socket_LDFLAGS =
+master_socket_SOURCES = driver.cpp task.cpp master_main.cpp
+master_socket_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWsocketmaster
+master_socket_OBJECTS =  driver.o task.o master_main.o
+master_socket_DEPENDENCIES =
+master_socket_LDFLAGS =
 
-worker_test_socket_SOURCES = Worker_test.C Task_test.C WorkerMain_test.C
-worker_test_socket_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWsocketworker
-worker_test_socket_OBJECTS =  Worker_test.o Task_test.o WorkerMain_test.o
-worker_test_socket_DEPENDENCIES =
-worker_test_socket_LDFLAGS =
+worker_socket_SOURCES = worker.cpp task.cpp worker_main.cpp
+worker_socket_LDADD = -L$(MW_LIBDIR) $(MW_BASICLIB) -lMWsocketworker
+worker_socket_OBJECTS =  worker.o task.o worker_main.o
+worker_socket_DEPENDENCIES =
+worker_socket_LDFLAGS =
 
 #-------------------------------------------------------------------------
 #   Section 2) Explicit and Implicit Rules
@@ -147,53 +147,53 @@ all: $(PROGRAMS)
 	[ "__$(SUBDIRS)" = "__" ] || for subdir in `echo "$(SUBDIRS)"`; do (cd $$subdir && $(MAKE) $@) ; done
 
 # Rules for *-Ind.o and test_indp
-Driver_test-Ind.o: Driver_test.C
-	$(CXXCOMPILE) -DINDEPENDENT -o Driver_test-Ind.o -c Driver_test.C
+driver_ind.o: driver.cpp
+	$(CXXCOMPILE) -DINDEPENDENT -o driver_ind.o -c driver.cpp
 
-Task_test-Ind.o: Task_test.C
-	$(CXXCOMPILE) -DINDEPENDENT -o Task_test-Ind.o -c Task_test.C
+task_ind.o: task.cpp
+	$(CXXCOMPILE) -DINDEPENDENT -o task_ind.o -c task.cpp
 
-Worker_test-Ind.o: Worker_test.C
-	$(CXXCOMPILE) -DINDEPENDENT -o Worker_test-Ind.o -c Worker_test.C
+worker_ind.o: worker.cpp
+	$(CXXCOMPILE) -DINDEPENDENT -o worker_ind.o -c worker.cpp
 
-MasterMain_test-Ind.o: MasterMain_test.C
-	$(CXXCOMPILE) -DINDEPENDENT -o MasterMain_test-Ind.o -c MasterMain_test.C
+master_main_ind.o: master_main.cpp
+	$(CXXCOMPILE) -DINDEPENDENT -o master_main_ind.o -c master_main.cpp
 
-master_test_indp: $(master_test_indp_OBJECTS) $(master_test_indp_DEPENDENCIES)
-	@rm -f master_test_indp
-	$(CXXLINK) $(master_test_indp_LDFLAGS) $(master_test_indp_OBJECTS) $(master_test_indp_LDADD) $(LIBS)
+master_indp: $(master_indp_OBJECTS) $(master_indp_DEPENDENCIES)
+	@rm -f master_indp
+	$(CXXLINK) $(master_indp_LDFLAGS) $(master_indp_OBJECTS) $(master_indp_LDADD) $(LIBS)
 
 # Rules for _file
-master_test_file: $(master_test_file_OBJECTS) $(master_test_file_DEPENDENCIES)
-	@rm -f master_test_file
-	$(CXXLINK) $(master_test_file_LDFLAGS) $(master_test_file_OBJECTS) $(master_test_file_LDADD) $(LIBS)
+master_file: $(master_file_OBJECTS) $(master_file_DEPENDENCIES)
+	@rm -f master_file
+	$(CXXLINK) $(master_file_LDFLAGS) $(master_file_OBJECTS) $(master_file_LDADD) $(LIBS)
 
-worker_test_file: $(worker_test_file_OBJECTS)
-	$(CONDOR_COMPILE) $(CXXLINK) $(worker_test_file_LDFLAGS) $(worker_test_file_OBJECTS) \
-	$(worker_test_file_LDADD) $(LIBS) $(INCLUDES)
+worker_file: $(worker_file_OBJECTS)
+	$(CONDOR_COMPILE) $(CXXLINK) $(worker_file_LDFLAGS) $(worker_file_OBJECTS) \
+	$(worker_file_LDADD) $(LIBS) $(INCLUDES)
 
 # Rules for _condorpvm
-master_test_condorpvm: $(master_test_condorpvm_OBJECTS) $(master_test_condorpvm_DEPENDENCIES)
-	@rm -f master_test_condorpvm
-	$(CXXLINK) $(master_test_condorpvm_LDFLAGS) $(master_test_condorpvm_OBJECTS) $(master_test_condorpvm_LDADD) $(LIBS)
+master_condorpvm: $(master_condorpvm_OBJECTS) $(master_condorpvm_DEPENDENCIES)
+	@rm -f master_condorpvm
+	$(CXXLINK) $(master_condorpvm_LDFLAGS) $(master_condorpvm_OBJECTS) $(master_condorpvm_LDADD) $(LIBS)
 
-worker_test_condorpvm: $(worker_test_condorpvm_OBJECTS) $(worker_test_condorpvm_DEPENDENCIES)
-	@rm -f worker_test_condorpvm
-	$(CXXLINK) $(worker_test_condorpvm_LDFLAGS) $(worker_test_condorpvm_OBJECTS) $(worker_test_condorpvm_LDADD) $(LIBS)
+worker_condorpvm: $(worker_condorpvm_OBJECTS) $(worker_condorpvm_DEPENDENCIES)
+	@rm -f worker_condorpvm
+	$(CXXLINK) $(worker_condorpvm_LDFLAGS) $(worker_condorpvm_OBJECTS) $(worker_condorpvm_LDADD) $(LIBS)
 
 # Rules for _socket
-master_test_socket: $(master_test_socket_OBJECTS) $(master_test_socket_DEPENDENCIES)
-	@rm -f master_test_socket
-	$(CXXLINK) $(master_test_socket_LDFLAGS) $(master_test_socket_OBJECTS) $(master_test_socket_LDADD) $(LIBS)
+master_socket: $(master_socket_OBJECTS) $(master_socket_DEPENDENCIES)
+	@rm -f master_socket
+	$(CXXLINK) $(master_socket_LDFLAGS) $(master_socket_OBJECTS) $(master_socket_LDADD) $(LIBS)
 
-worker_test_socket: $(worker_test_socket_OBJECTS) $(worker_test_socket_DEPENDENCIES)
-	@rm -f worker_test_socket
-	$(CXXLINK) $(worker_test_socket_LDFLAGS) $(worker_test_socket_OBJECTS) $(worker_test_socket_LDADD) $(LIBS)
+worker_socket: $(worker_socket_OBJECTS) $(worker_socket_DEPENDENCIES)
+	@rm -f worker_socket
+	$(CXXLINK) $(worker_socket_LDFLAGS) $(worker_socket_OBJECTS) $(worker_socket_LDADD) $(LIBS)
 
 # Default rules
-.SUFFIXES: .C .o
+.SUFFIXES: .cpp .o
 
-.C.o:
+.cpp.o:
 	$(CXXCOMPILE) -c $<
 
 #-------------------------------------------------------------------------
@@ -216,7 +216,7 @@ distclean:
 .PHONY: all check clean distclean cython
 
 
-cython:
+cython: clean
 	python setup.py build_ext --inplace
 
 run:

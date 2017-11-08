@@ -20,32 +20,34 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#ifndef _test_WORKER_H
-#define _test_WORKER_H
+/* The main() of worker executable. Simply instantiate a Worker
+ * class and go()!  */
 
-#include "MWWorker.h"
-#include "Task_test.h"
+#include "MW.h"
+#include "Worker.h"
 #include <Python.h>
 
-class Worker_test : public MWWorker
+
+// Use PY_initialize???
+
+int main(int argc, char *argv[])
 {
-public:
-        Worker_test();
-        ~Worker_test();
+    /* init a worker object */
+    Worker graduate_student;
 
-    /* Benchmarking */
-    double benchmark( MWTask *t );
+    Py_Initialize();
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+        exit(-1);
+    }
 
-    /* unpack init data */
-    MWReturn unpack_init_data( void );
+    /* How much information you want the workers to print */
+    set_MWprintf_level ( 95 );
+    MWprintf ( 10, "A worker is starting.\n" );
 
-    /* do the real work for each task */
-    void execute_task( MWTask * );
+    /* Go ! */
+    graduate_student.go(argc, argv);
 
-    MWTask* gimme_a_task();
-
-    char * pickle;
-    int pickle_size;
-    PyObject * python_worker;
-};
-#endif
+    Py_Finalize();
+    return 0;
+}

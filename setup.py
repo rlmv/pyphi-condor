@@ -13,8 +13,7 @@ LIB_DIR = os.path.abspath('./mw-build/lib')
 module1 = Extension('caller',
                     sources=[
                         'caller.pyx',
-#                        'hello.pyx',
-                        'output.cpp'] + glob('*.C'),
+                        ] + glob('*.cpp'),
                     language='c++',
                     define_macros=[('INDEPENDENT', 1)],
                     include_dirs=[

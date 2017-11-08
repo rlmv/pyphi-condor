@@ -23,14 +23,14 @@
 /* These methods will be implemented to reflect the application behavior */
 
 #include "MW.h"
-#include "Driver_test.h"
-#include "Worker_test.h"
-#include "Task_test.h"
+#include "Driver.h"
+#include "Worker.h"
+#include "Task.h"
 #include <unistd.h>
 #include <string>
 
 /* initialization */
-Driver_test::Driver_test(char * p, int p_size)
+Driver::Driver(char * p, int p_size)
 {
     /* For statically generated tasks, you can decide how many tasks
      * you want to use based on the input information. However, you can
@@ -46,7 +46,7 @@ Driver_test::Driver_test(char * p, int p_size)
 }
 
 /* destruction */
-Driver_test::~Driver_test()
+Driver::~Driver()
 {
     /* release the memory allocated for tasks */
     if (job)
@@ -64,14 +64,14 @@ Driver_test::~Driver_test()
  * (d) RMC->add_executable() 	for combination of exec_class, arch_class;
  * (e) set_checkpoint_freqency(), ... and other information.  */
 
-MWReturn Driver_test::get_userinfo( int argc, char *argv[] )
+MWReturn Driver::get_userinfo( int argc, char *argv[] )
 {
     int i, j;
     int num_exec = 0;
     int num_arch = 0;
     char exec[_POSIX_PATH_MAX];
 
-    MWprintf(30, "Enter Driver_test::get_userinfo\n");
+    MWprintf(30, "Enter Driver::get_userinfo\n");
     for ( i=0; i<argc; i++ ) {
         MWprintf( 70, "arg %d: %s\n", i, argv[i] );
     }
@@ -121,12 +121,12 @@ MWReturn Driver_test::get_userinfo( int argc, char *argv[] )
     RMC->set_target_num_workers(num_tasks);
     MWprintf(30, "Patitioned into %d tasks\n", num_tasks);
 
-    MWprintf(30, "Leave Driver_test::get_userinfo\n");
+    MWprintf(30, "Leave Driver::get_userinfo\n");
     return OK;
 }
 
 /* setup (generate and push) the first batch of tasks in the beginning */
-MWReturn Driver_test::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
+MWReturn Driver::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
 {
     int i;
     int head_pos;
@@ -138,35 +138,35 @@ MWReturn Driver_test::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
     head_pos = 0;
 
     for ( i=0; i<num_tasks-1; i++) {
-        (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]), s);
+        (*init_tasks)[i] = new Task(task_size, &(job[head_pos]), s);
         head_pos += task_size;
     }
 
     if (remain)
-        (*init_tasks)[i] = new Task_test(remain, &(job[head_pos]), s);
-    else (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]), s);
+        (*init_tasks)[i] = new Task(remain, &(job[head_pos]), s);
+    else (*init_tasks)[i] = new Task(task_size, &(job[head_pos]), s);
 
     return OK;
 }
 
 /* Implement application behavior to process a just completed task */
-MWReturn Driver_test::act_on_completed_task( MWTask *t )
+MWReturn Driver::act_on_completed_task( MWTask *t )
 {
 #ifdef NO_DYN_CAST
-    Task_test *tf = (Task_test*) t;
+    Task *tf = (Task*) t;
 #else
-    Task_test *tf = dynamic_cast<Task_test *> (t);
+    Task *tf = dynamic_cast<Task *> (t);
 #endif
 
     if ( tf->largest > this->largest)
         this->largest = tf->largest;
 
-    MWprintf(30, "Driver_test::act_on_completed_task: current largest = %d\n", this->largest);
+    MWprintf(30, "Driver::act_on_completed_task: current largest = %d\n", this->largest);
     return OK;
 }
 
 /* The first batch of data for a newly spawned worker, e.g. init data */
-MWReturn Driver_test::pack_worker_init_data( void )
+MWReturn Driver::pack_worker_init_data( void )
 {
     /* Nothing for this application */
     MWprintf(10, "Packing init data\n");
@@ -179,34 +179,34 @@ MWReturn Driver_test::pack_worker_init_data( void )
 
 /* Print out the result when MW is done. MW assume that the application
  * is keeping track of the results :-) */
-void Driver_test::printresults()
+void Driver::printresults()
 {
     MWprintf ( 10, "The largest number is %d.\n", this->largest);
 }
 
 /* Write app-specific master checkpoint info */
 void
-Driver_test::write_master_state( FILE *fp )
+Driver::write_master_state( FILE *fp )
 {
     /* Nothing to be written */
 }
 
 /* Read app-specific master checkpoint info */
 void
-Driver_test::read_master_state( FILE *fp )
+Driver::read_master_state( FILE *fp )
 {
     /* Nothing to be read */
 }
 
 /* Return a new application task object */
 MWTask*
-Driver_test::gimme_a_task()
+Driver::gimme_a_task()
 {
-        return new Task_test;
+        return new Task;
 }
 
 // /* Return a new driver object */
 // MWDriver* gimme_the_master()
 // {
-//     return new Driver_test;
+//     return new Driver;
 // }

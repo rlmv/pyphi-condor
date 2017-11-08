@@ -20,12 +20,12 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#include "Task_test.h"
+#include "Task.h"
 #include "MW.h"
 #include <string>
 
 /* init */
-Task_test::Task_test()
+Task::Task()
 {
     size = 0;
     numbers = NULL;
@@ -33,7 +33,7 @@ Task_test::Task_test()
 }
 
 /* init too */
-Task_test::Task_test(int size, int *numbers, std::string s)
+Task::Task(int size, int *numbers, std::string s)
 {
     if (size > 0) {
         this->s = s;
@@ -46,14 +46,14 @@ Task_test::Task_test(int size, int *numbers, std::string s)
 }
 
 /* destruction */
-Task_test::~Task_test() {
+Task::~Task() {
     if (numbers != NULL)
         delete [] numbers;
 }
 
 /* print the task to stdout */
 void
-Task_test::printself( int level )
+Task::printself( int level )
 {
     MWprintf ( level, "size=%d, string=%s, numbers=\n\t", size, s.c_str());
     for (int i=0; i<size; i++)
@@ -62,14 +62,14 @@ Task_test::printself( int level )
 }
 
 /* The driver packs the input data via RMC, the data which will be sent to a worker. */
-void Task_test::pack_work( void )
+void Task::pack_work( void )
 {
     RMC->pack(&size, 1, 1);
     RMC->pack(numbers, size, 1);
 }
 
 /* The worker unpacks input data via RMC, need to allocate space for data */
-void Task_test::unpack_work( void )
+void Task::unpack_work( void )
 {
     RMC->unpack(&size, 1, 1);
     if (numbers != NULL)
@@ -79,25 +79,25 @@ void Task_test::unpack_work( void )
 }
 
 /* The worker packs result data via RMC, the result will be sent back to driver */
-void Task_test::pack_results( void )
+void Task::pack_results( void )
 {
     RMC->pack(&largest, 1, 1);
 }
 
 /* The driver unpacks result data via RMC */
-void Task_test::unpack_results( void )
+void Task::unpack_results( void )
 {
     RMC->unpack(&largest, 1, 1);
 }
 
 /* write checkpoint info per task, for each task haven't been finished */
-void Task_test::write_ckpt_info( FILE *fp )
+void Task::write_ckpt_info( FILE *fp )
 {
     /* Nothing in this app, will lose data if it crashes. */
 }
 
 /* Read checkpoint info, in the order written into the file */
-void Task_test::read_ckpt_info( FILE *fp )
+void Task::read_ckpt_info( FILE *fp )
 {
     /* Nothing to be read since nothing is written */
 }

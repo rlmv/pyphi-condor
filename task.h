@@ -20,34 +20,39 @@
   * RIGHT.
   *
   ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-/* The main() of worker executable. Simply instantiate a Worker_test
- * class and go()!  */
+#ifndef _TASK_H
+#define _TASK_H
 
-#include "MW.h"
-#include "Worker_test.h"
-#include <Python.h>
+#include <stdio.h>
+#include "MWTask.h"
+#include <string>
 
-
-// Use PY_initialize???
-
-int main(int argc, char *argv[])
+class Task : public MWTask
 {
-    /* init a worker object */
-    Worker_test graduate_student;
+public:
+    /* constructors */
+        Task();
+        Task(int size, int *numbers, std::string s);
 
-    Py_Initialize();
-    if (PyErr_Occurred()) {
-        PyErr_Print();
-        exit(-1);
-    }
+    /* destructor */
+        ~Task();
 
-    /* How much information you want the workers to print */
-    set_MWprintf_level ( 95 );
-    MWprintf ( 10, "A worker is starting.\n" );
+    /* App is required to implement the following functions. */
+        void pack_work( void );
+        void unpack_work( void );
+        void pack_results( void );
+        void unpack_results( void );
 
-    /* Go ! */
-    graduate_student.go(argc, argv);
+    /* The following functions have default implementation. */
+    void printself( int level = 70 );
+        void write_ckpt_info( FILE *fp );
+        void read_ckpt_info( FILE *fp );
 
-    Py_Finalize();
-    return 0;
-}
+/* The application specific information goes here */
+    int largest;  /* The result */
+        int *numbers; /* The array that contains the intergers */
+        int size;     /* How many integers are in the array */
+        std::string s;
+};
+
+#endif

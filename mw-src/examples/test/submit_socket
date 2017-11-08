@@ -4,7 +4,7 @@
 universe = Scheduler
 
 # The name of our (master) executable
-Executable = master_test_socket
+Executable = master_socket
 
 # Max image size (meg)
 Image_Size = 4
@@ -22,7 +22,7 @@ Output = out_master.socket
 Error = out_worker.socket
 
 # Keep a log in case of problems.
-Log = _test.log
+Log = .log
 
 #Requirements
 Requirements = (Arch == "INTEL" && OPSYS=="LINUX")

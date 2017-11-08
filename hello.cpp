@@ -10,7 +10,7 @@
             ]
         ],
         "depends": [
-            "/Users/robertmarchman/IIT/chtc/test_cython/MasterMain_test.H",
+            "/Users/robertmarchman/IIT/chtc/test_cython/master_main.h",
             "/Users/robertmarchman/IIT/chtc/test_cython/output.h"
         ],
         "include_dirs": [

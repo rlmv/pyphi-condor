@@ -24,12 +24,12 @@
  * Simply instantiate a driver object and go()! */
 
 #include "MW.h"
-#include "Driver_test.h"
+#include "Driver.h"
 
 int start( int argc, char *argv[] )
 {
         /* init the application driver object */
-        Driver_test *advisor = new Driver_test();
+        Driver *advisor = new Driver();
 
     /* how much info you wants the driver to print */
         set_MWprintf_level( 75 );

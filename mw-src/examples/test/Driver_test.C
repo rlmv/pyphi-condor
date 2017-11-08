@@ -23,180 +23,180 @@
 /* These methods will be implemented to reflect the application behavior */
 
 #include "MW.h"
-#include "Driver_test.h"
-#include "Worker_test.h"
-#include "Task_test.h"
+#include "Driver.h"
+#include "Worker.h"
+#include "Task.h"
 #include <unistd.h>
 
 /* initialization */
-Driver_test::Driver_test() 
+Driver::Driver()
 {
-	/* For statically generated tasks, you can decide how many tasks
-	 * you want to use based on the input information. However, you can 
-	 * also dynamically generate tasks (either when init, or when 
-	 * acr_on_completed_task, and add them to TODO queue by pushTask. */
-	num_tasks = 0;
-	
-	/* The list of tasks you will generate */
-	job = NULL;
+    /* For statically generated tasks, you can decide how many tasks
+     * you want to use based on the input information. However, you can
+     * also dynamically generate tasks (either when init, or when
+     * acr_on_completed_task, and add them to TODO queue by pushTask. */
+    num_tasks = 0;
+
+    /* The list of tasks you will generate */
+    job = NULL;
 }
 
 /* destruction */
-Driver_test::~Driver_test() 
+Driver::~Driver()
 {
-	/* release the memory allocated for tasks */
-	if (job) 
-		delete [] job;
+    /* release the memory allocated for tasks */
+    if (job)
+        delete [] job;
 }
 
-/* Here the application can (1) get per-run information from stdin (the input 
+/* Here the application can (1) get per-run information from stdin (the input
  * file redirected by Condor), or (2) get configuration info from user-defined
  * config file; or (3) just hard-code your config here. The app should tell MW
- * (or RMC the Resource Manager and Communicator, which is a class member) 
- * some basic info by calling the functions below: 
+ * (or RMC the Resource Manager and Communicator, which is a class member)
+ * some basic info by calling the functions below:
  * (a) RMC->set_num_exec_classes()      num of different processes you have
- * (b) RMC->set_num_arch_classes() 	num of different platforms you have 
- * (c) RMC->set_arch_class_attributes()  	for each platform 
+ * (b) RMC->set_num_arch_classes() 	num of different platforms you have
+ * (c) RMC->set_arch_class_attributes()  	for each platform
  * (d) RMC->add_executable() 	for combination of exec_class, arch_class;
  * (e) set_checkpoint_freqency(), ... and other information.  */
 
-MWReturn Driver_test::get_userinfo( int argc, char *argv[] ) 
+MWReturn Driver::get_userinfo( int argc, char *argv[] )
 {
-	int i, j;
-	int num_exec = 0;
-	int num_arch = 0;
-	char exec[_POSIX_PATH_MAX];
-	
-	MWprintf(30, "Enter Driver_test::get_userinfo\n");
-	for ( i=0; i<argc; i++ ) {
-		MWprintf( 70, "arg %d: %s\n", i, argv[i] );
-	}
+    int i, j;
+    int num_exec = 0;
+    int num_arch = 0;
+    char exec[_POSIX_PATH_MAX];
 
-	/* exec classes */
-	RMC->set_num_exec_classes(1);
-	
-	/* arch classes */
-	scanf ("%d", &num_arch);
-	RMC->set_num_arch_classes(num_arch);
-	MWprintf( 10, "Set the arch class to %d.\n", num_arch);
-	
-	/* Should have a better way to read attributes and set_arch_class_attributes */
-	for ( i=0; i<num_arch; i++) {
-		if (i==0)
-			RMC->set_arch_class_attributes (0, "((Arch==\"INTEL\") && (Opsys==\"LINUX\"))");
-		else RMC->set_arch_class_attributes (1, "((Arch==\"INTEL\") && (Opsys==\"SOLARIS26\"))");
-	}
+    MWprintf(30, "Enter Driver::get_userinfo\n");
+    for ( i=0; i<argc; i++ ) {
+        MWprintf( 70, "arg %d: %s\n", i, argv[i] );
+    }
 
-	/* executables */	
-	scanf ("%d", &num_exec);
-	RMC->set_num_executables(num_exec);
-	for ( i=0; i<num_exec; i++) {
-		scanf("%s %d", exec, &j);
-		MWprintf( 30, " %s\n", exec);
-		RMC->add_executable(0, j, exec, ""); 
-	}
+    /* exec classes */
+    RMC->set_num_exec_classes(1);
 
-	/* checkpoint requirement */
-	set_checkpoint_frequency (10);
-	
-	/* Now there are application specific configurations. 
-	 * Please replace them with the application logic !! */
-	scanf( "%d", &job_size);
-	scanf( "%d", &task_size);
-	if (job_size == 0) {
-		MWprintf(10, "The job size is 0, so I quit\n");
-		return QUIT;
-	}
-	job = new int[job_size];
-	for ( i=0; i<job_size; i++) 
-		scanf( "%d ", &job[i]);
-	largest = job[0];
+    /* arch classes */
+    scanf ("%d", &num_arch);
+    RMC->set_num_arch_classes(num_arch);
+    MWprintf( 10, "Set the arch class to %d.\n", num_arch);
 
-	remain = job_size % task_size;
-	num_tasks = remain ? (job_size/task_size + 1) : job_size/task_size ; 
-	RMC->set_target_num_workers(num_tasks);
-	MWprintf(30, "Patitioned into %d tasks\n", num_tasks);
-	
-	MWprintf(30, "Leave Driver_test::get_userinfo\n");
-	return OK;
+    /* Should have a better way to read attributes and set_arch_class_attributes */
+    for ( i=0; i<num_arch; i++) {
+        if (i==0)
+            RMC->set_arch_class_attributes (0, "((Arch==\"INTEL\") && (Opsys==\"LINUX\"))");
+        else RMC->set_arch_class_attributes (1, "((Arch==\"INTEL\") && (Opsys==\"SOLARIS26\"))");
+    }
+
+    /* executables */
+    scanf ("%d", &num_exec);
+    RMC->set_num_executables(num_exec);
+    for ( i=0; i<num_exec; i++) {
+        scanf("%s %d", exec, &j);
+        MWprintf( 30, " %s\n", exec);
+        RMC->add_executable(0, j, exec, "");
+    }
+
+    /* checkpoint requirement */
+    set_checkpoint_frequency (10);
+
+    /* Now there are application specific configurations.
+     * Please replace them with the application logic !! */
+    scanf( "%d", &job_size);
+    scanf( "%d", &task_size);
+    if (job_size == 0) {
+        MWprintf(10, "The job size is 0, so I quit\n");
+        return QUIT;
+    }
+    job = new int[job_size];
+    for ( i=0; i<job_size; i++)
+        scanf( "%d ", &job[i]);
+    largest = job[0];
+
+    remain = job_size % task_size;
+    num_tasks = remain ? (job_size/task_size + 1) : job_size/task_size ;
+    RMC->set_target_num_workers(num_tasks);
+    MWprintf(30, "Patitioned into %d tasks\n", num_tasks);
+
+    MWprintf(30, "Leave Driver::get_userinfo\n");
+    return OK;
 }
 
 /* setup (generate and push) the first batch of tasks in the beginning */
-MWReturn Driver_test::setup_initial_tasks(int *n_init , MWTask ***init_tasks) 
+MWReturn Driver::setup_initial_tasks(int *n_init , MWTask ***init_tasks)
 {
-	int i;
-	int head_pos;
-	
-	*n_init = num_tasks;
-    	*init_tasks = new MWTask *[num_tasks];
+    int i;
+    int head_pos;
 
-	head_pos = 0;
+    *n_init = num_tasks;
+        *init_tasks = new MWTask *[num_tasks];
 
-	for ( i=0; i<num_tasks-1; i++) {
-    		(*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]));
-		head_pos += task_size;
-	}
+    head_pos = 0;
 
-	if (remain)
-		(*init_tasks)[i] = new Task_test(remain, &(job[head_pos]));
-	else (*init_tasks)[i] = new Task_test(task_size, &(job[head_pos]));
+    for ( i=0; i<num_tasks-1; i++) {
+            (*init_tasks)[i] = new Task(task_size, &(job[head_pos]));
+        head_pos += task_size;
+    }
 
-	return OK;
+    if (remain)
+        (*init_tasks)[i] = new Task(remain, &(job[head_pos]));
+    else (*init_tasks)[i] = new Task(task_size, &(job[head_pos]));
+
+    return OK;
 }
 
 /* Implement application behavior to process a just completed task */
-MWReturn Driver_test::act_on_completed_task( MWTask *t ) 
+MWReturn Driver::act_on_completed_task( MWTask *t )
 {
 #ifdef NO_DYN_CAST
-	Task_test *tf = (Task_test*) t;
+    Task *tf = (Task*) t;
 #else
-	Task_test *tf = dynamic_cast<Task_test *> (t);
+    Task *tf = dynamic_cast<Task *> (t);
 #endif
-	
-	if ( tf->largest > this->largest)
-		this->largest = tf->largest;
-	
-	MWprintf(30, "Driver_test::act_on_completed_task: current largest = %d\n", this->largest);
-	return OK;
+
+    if ( tf->largest > this->largest)
+        this->largest = tf->largest;
+
+    MWprintf(30, "Driver::act_on_completed_task: current largest = %d\n", this->largest);
+    return OK;
 }
 
 /* The first batch of data for a newly spawned worker, e.g. init data */
-MWReturn Driver_test::pack_worker_init_data( void ) 
+MWReturn Driver::pack_worker_init_data( void )
 {
-	/* Nothing for this application */
-	return OK;
+    /* Nothing for this application */
+    return OK;
 }
 
-/* Print out the result when MW is done. MW assume that the application 
+/* Print out the result when MW is done. MW assume that the application
  * is keeping track of the results :-) */
-void Driver_test::printresults() 
+void Driver::printresults()
 {
-	MWprintf ( 10, "The largest number is %d.\n", this->largest);
+    MWprintf ( 10, "The largest number is %d.\n", this->largest);
 }
 
 /* Write app-specific master checkpoint info */
 void
-Driver_test::write_master_state( FILE *fp ) 
+Driver::write_master_state( FILE *fp )
 {
-	/* Nothing to be written */
+    /* Nothing to be written */
 }
 
 /* Read app-specific master checkpoint info */
-void 
-Driver_test::read_master_state( FILE *fp ) 
+void
+Driver::read_master_state( FILE *fp )
 {
-	/* Nothing to be read */
+    /* Nothing to be read */
 }
 
 /* Return a new application task object */
 MWTask*
-Driver_test::gimme_a_task() 
+Driver::gimme_a_task()
 {
-    	return new Task_test;
+        return new Task;
 }
 
 /* Return a new driver object */
-MWDriver* gimme_the_master() 
+MWDriver* gimme_the_master()
 {
-	return new Driver_test;
+    return new Driver;
 }
