@@ -30,12 +30,15 @@
 Worker_test::Worker_test()
 {
     workingTask = new Task_test;
+    pickle = NULL;
+    pickle_size = 0;
 }
 
 /* destruct */
 Worker_test::~Worker_test()
 {
     delete workingTask;
+    delete pickle;
 }
 
 /* Do benchmark and return result (usually the time to task t), t is supposed
