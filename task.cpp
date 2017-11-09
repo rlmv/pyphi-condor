@@ -24,6 +24,7 @@
 #include "MW.h"
 #include <string>
 #include "caller.h"
+#include <stdexcept>
 
 /* init */
 Task::Task()
@@ -72,12 +73,19 @@ PyObject* Task::unpack_PyObject()
 {
     int size;
     char *data;
+    PyObject *result;
+
     RMC->unpack(&size, 1, 1);
 
     data = new char[size];
     RMC->unpack(data, size, 1);
 
-    return unpack_pickle(data, size);
+    result = unpack_pickle(data, size);
+    if (result == NULL) {
+        PyErr_Print();
+        throw std::invalid_argument("Failed unpack task");
+    }
+    return result;
 }
 
 /* The driver packs the input data via RMC, the data which will be sent to a worker. */
@@ -89,7 +97,7 @@ void Task::pack_work( void )
 /* The worker unpacks input data via RMC, need to allocate space for data */
 void Task::unpack_work( void )
 {
-    // if (input != NULL)
+    // if (input != NULL
     //     delete [] input;
 
     input = unpack_PyObject();

@@ -39,17 +39,17 @@ cdef public unpack_pickle(char* pickle_str, int pickle_size):
     unpickle = PyBytes_FromStringAndSize(pickle_str, pickle_size)
     obj = pickle.loads(unpickle)
 
-    mw_print(30, '-' * 50 + '\n')
-    mw_print(30, "Unpickled %s\n" % obj)
+    mw_print(30, "Unpickled %s\n" % str(obj))
 
     return obj
 
 
 # TODO: what needs to happen with reference counting here?
 cdef public void pack_pickle(obj, char** pickle_str, int* pickle_size) except *:
+
     py_pickle_str = pickle.dumps(obj)
     pickle_size[0] = len(py_pickle_str)
-    # Py_INCREF(py_pickle_str)
+#    Py_INCREF(py_pickle_str)
     pickle_str[0] = py_pickle_str
 
 

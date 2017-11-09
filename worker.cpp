@@ -87,9 +87,9 @@ void Worker::execute_task( MWTask *t )
 
     tl->result = use_pickle(python_worker, tl->input);
     // CHeck exception handling
-    if (tl->result == NULL) {
-        throw std::invalid_argument("Failed to run worker");
-    }
+    // if (tl->result == NULL) {   //
+    //     throw std::invalid_argument("Failed to run worker");
+    // }
 
     // MWprintf(30, "The task I am working on is: \n\t");
     // for (i=0; i<tl->size; i++)

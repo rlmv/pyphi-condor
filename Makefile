@@ -215,7 +215,6 @@ distclean:
 
 .PHONY: all check clean distclean cython
 
-
 cython: clean
 	python setup.py build_ext --inplace
 

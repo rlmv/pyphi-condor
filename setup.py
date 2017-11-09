@@ -32,7 +32,9 @@ module1 = Extension('caller',
                         'MWRC_indp',
                         'MWutil_indp',
                         'NWS_indp'],
-                    extra_compile_args=['-Wno-c++11-compat-deprecated-writable-strings']
+                    extra_compile_args=[
+                        '-Wno-c++11-compat-deprecated-writable-strings',
+                    ]
 )
 
 setup(
