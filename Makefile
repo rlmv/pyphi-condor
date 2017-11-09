@@ -204,7 +204,7 @@ check:
 clean:
 	-rm -f $(PROGRAMS) *.o *.a core checkpoint
 	[ "__$(SUBDIRS)" = "__" ] || for subdir in `echo "$(SUBDIRS)"`; do (cd $$subdir && $(MAKE) $@) ; done
-	rm -f caller.cpp caller.cpython-36m-darwin.so
+	rm -f caller.cpp caller.cpython-36m-darwin.so worker_exec.c*
 
 distclean:
 	-rm -f Makefile *.tar *.gz
@@ -222,3 +222,35 @@ run:
 	PYTHONPATH=. python run.py
 
 test: cython run
+
+
+# Makefile for creating our standalone Cython program
+PYTHON := python
+PYVERSION := $(shell $(PYTHON) -c "import sys; print(sys.version[:3])")
+PYPREFIX := $(shell $(PYTHON) -c "import sys; print(sys.prefix)")
+
+CC := gcc
+LINKCC := gcc
+INCDIR := $(shell  python3-config --includes)
+LINKFORSHARED := $(shell python3-config --ldflags)
+LIBS := $(shell python3-config --libs)
+
+worker_exec: worker_exec.o
+	$(LINKCC) -o $@ $^ $(LINKFORSHARED)
+
+worker_exec.o: worker_exec.c
+	$(CC) -c $^ $(INCDIR)
+
+CYTHON := cython
+worker_exec.c: worker_exec.pyx
+	$(CYTHON) --embed worker_exec.pyx
+
+#all: embedded
+
+# clean:
+# 	@echo Cleaning Demos/embed
+# 	@rm -f *~ *.o *.so core core.* *.c embedded test.output
+
+# test: clean all
+# 	PYTHONHOME=$(PYPREFIX) ./embedded > test.output
+# 	$(PYTHON) assert_equal.py embedded.output test.output
