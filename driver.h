@@ -24,7 +24,7 @@
 #define _DRIVER_H
 
 #include "MWDriver.h"
-#include "Task.h"
+#include "task.h"
 #include <string>
 
 /** Application Driver subclass derived from MWDriver */

@@ -3,14 +3,13 @@ import pickle
 from cpython cimport Py_INCREF
 
 from cpython.mem cimport PyMem_Malloc, PyMem_Free
+from cpython.object cimport PyObject
+from cpython.bytes cimport PyBytes_FromStringAndSize
+from cpython.unicode cimport PyUnicode_AsUTF8String
 
 
 cdef extern from "Python.h":
-    ctypedef struct PyObject
     ctypedef PyObject PyListObject
-    object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
-    char* PyBytes_AsString(PyObject *o)
-    char* PyUnicode_AsUTF8(PyObject *o)
 
 
 cdef extern from "driver.h":
@@ -74,6 +73,7 @@ cdef public use_pickle(python_worker, job):
 
     return python_worker.run(job)
 
+
 cdef public void print_result(result):
     print('=' * 20)
     print('Result: %s' % result)
@@ -101,8 +101,9 @@ def start_worker(py_argc, py_argv):
         raise MemoryError()
 
     try:
-        for i, s in enumerate(py_argv):
-            argv[i] = PyUnicode_AsUTF8(<PyObject*>s)
+        args = [PyUnicode_AsUTF8String(arg) for arg in py_argv]
+        for i in range(argc):
+            argv[i] = args[i]
             if argv[i] == NULL:
                 raise Exception('Issue encoding argv')
 
