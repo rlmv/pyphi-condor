@@ -2,16 +2,23 @@ import pickle
 
 from cpython cimport Py_INCREF
 
+
 cdef extern from "Python.h":
-    struct PyObject
+    ctypedef struct PyObject
     ctypedef PyObject PyListObject
     object PyBytes_FromStringAndSize(char *s, Py_ssize_t len)
     char* PyBytes_AsString(PyObject *o)
+    char* PyUnicode_AsUTF8(PyObject *o)
 
 
 cdef extern from "driver.h":
     cdef cppclass Driver:
         Driver(char*, int, PyListObject*)
+        void go( int argc, char *argv[] )
+
+cdef extern from "worker.h":
+    cdef cppclass Worker:
+        Worker()
         void go( int argc, char *argv[] )
 
 
@@ -65,7 +72,6 @@ cdef public use_pickle(python_worker, job):
 
     return python_worker.run(job)
 
-
 cdef public void print_result(result):
     print('=' * 20)
     print('Result: %s' % result)
@@ -78,3 +84,28 @@ def mw_print(level, py_string):
     py_string = py_string.encode('utf8')
     # cdef char* c_string = <bytes> py_string
     MWprintf(level, py_string)
+
+
+from libc.stdlib cimport malloc, free
+
+# TODO: convert argc/v
+cdef int start_worker(py_argc, py_argv):
+
+    cdef int argc = py_argc
+
+    cdef char** argv = <char**>malloc(argc * sizeof(char*))
+
+    set_MWprintf_level(95)
+    mw_print(10, "A worker is starting.\n")
+
+    for i, s in enumerate(py_argv):
+        argv[i] = PyUnicode_AsUTF8(<PyObject*>s)
+        MWprintf(30, "Arg %d %s\n", <int>i, argv[i])
+
+    cdef Worker *worker = new Worker()
+
+    worker.go(argc, argv)
+
+    free(argv)
+
+    return 0

@@ -1,6 +1,6 @@
-print(__name__)
+from caller cimport start_worker
+
+import sys
 
 if __name__ == "__main__":
-    print("Hi, I'm embedded.")
-else:
-    print("I'm being imported.")
+    start_worker(len(sys.argv), sys.argv)

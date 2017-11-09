@@ -229,11 +229,11 @@ PYTHON := python
 PYVERSION := $(shell $(PYTHON) -c "import sys; print(sys.version[:3])")
 PYPREFIX := $(shell $(PYTHON) -c "import sys; print(sys.prefix)")
 
-CC := gcc
-LINKCC := gcc
+CC := clang
+LINKCC := clang
 INCDIR := $(shell  python3-config --includes)
 LINKFORSHARED := $(shell python3-config --ldflags)
-LIBS := $(shell python3-config --libs)
+LIBS := $(shell python3-config --libs) $MW_LIBDIR
 
 worker_exec: worker_exec.o
 	$(LINKCC) -o $@ $^ $(LINKFORSHARED)
