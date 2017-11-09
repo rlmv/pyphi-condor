@@ -2,6 +2,8 @@ import pickle
 
 from cpython cimport Py_INCREF
 
+from cpython.mem cimport PyMem_Malloc, PyMem_Free
+
 
 cdef extern from "Python.h":
     ctypedef struct PyObject
@@ -86,26 +88,30 @@ def mw_print(level, py_string):
     MWprintf(level, py_string)
 
 
-from libc.stdlib cimport malloc, free
-
-# TODO: convert argc/v
-cdef int start_worker(py_argc, py_argv):
-
+def start_worker(py_argc, py_argv):
     cdef int argc = py_argc
-
-    cdef char** argv = <char**>malloc(argc * sizeof(char*))
+    cdef Worker *worker
+    cdef char** argv
 
     set_MWprintf_level(95)
     mw_print(10, "A worker is starting.\n")
 
-    for i, s in enumerate(py_argv):
-        argv[i] = PyUnicode_AsUTF8(<PyObject*>s)
-        MWprintf(30, "Arg %d %s\n", <int>i, argv[i])
+    argv = <char**>PyMem_Malloc(argc * sizeof(char*))
+    if argv == NULL:
+        raise MemoryError()
 
-    cdef Worker *worker = new Worker()
+    try:
+        for i, s in enumerate(py_argv):
+            argv[i] = PyUnicode_AsUTF8(<PyObject*>s)
+            if argv[i] == NULL:
+                raise Exception('Issue encoding argv')
 
-    worker.go(argc, argv)
+            MWprintf(30, "Arg %d %s\n", <int>i, argv[i])
 
-    free(argv)
+        worker = new Worker()
+        worker.go(argc, argv)
+
+    finally:
+        PyMem_Free(argv)
 
     return 0
