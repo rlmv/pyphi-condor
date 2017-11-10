@@ -5,9 +5,9 @@ from distutils.core import setup, Extension
 import os
 from glob import glob
 
-MW_DIR = os.path.abspath('./mw-src')
-INC_DIR = os.path.join(MW_DIR, 'src')
-LIB_DIR = os.path.abspath('../mw-condor/lib')
+
+INC_DIR = os.path.abspath('../mw-build/include')
+LIB_DIR = os.path.abspath('../mw-build/lib')
 
 
 module1 = Extension('caller',
@@ -34,7 +34,8 @@ module1 = Extension('caller',
                         'MWutil_indp',
                         'NWS_indp'],
                     extra_compile_args=[
-                        '-Wno-c++11-compat-deprecated-writable-strings',
+                    ],
+                    extra_link_args=[
                     ]
 )
 
