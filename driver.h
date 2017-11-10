@@ -23,6 +23,7 @@
 #ifndef _DRIVER_H
 #define _DRIVER_H
 
+#include <Python.h>
 #include "MWDriver.h"
 #include "task.h"
 #include <string>

@@ -23,9 +23,9 @@
 #ifndef _WORKER_H
 #define _WORKER_H
 
+#include <Python.h>
 #include "MWWorker.h"
 #include "task.h"
-#include <Python.h>
 
 class Worker : public MWWorker
 {

@@ -7,7 +7,7 @@ from glob import glob
 
 MW_DIR = os.path.abspath('./mw-src')
 INC_DIR = os.path.join(MW_DIR, 'src')
-LIB_DIR = os.path.abspath('./mw-build/lib')
+LIB_DIR = os.path.abspath('../mw-condor/lib')
 
 
 module1 = Extension('caller',

@@ -23,8 +23,9 @@
 /* The main() of worker executable. Simply instantiate a Worker
  * class and go()!  */
 
+
 #include "MW.h"
-#include "Worker.h"
+#include "worker.h"
 #include <Python.h>
 
 
@@ -51,3 +52,4 @@ int main(int argc, char *argv[])
     Py_Finalize();
     return 0;
 }
+

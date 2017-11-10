@@ -23,10 +23,10 @@
 #ifndef _TASK_H
 #define _TASK_H
 
+#include <Python.h>
 #include <stdio.h>
 #include "MWTask.h"
 #include <string>
-#include <Python.h>
 
 class Task : public MWTask
 {

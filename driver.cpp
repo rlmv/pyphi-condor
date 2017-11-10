@@ -22,13 +22,13 @@
  ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
 /* These methods will be implemented to reflect the application behavior */
 
+#include <Python.h>
 #include "MW.h"
-#include "Driver.h"
-#include "Worker.h"
-#include "Task.h"
+#include "driver.h"
+#include "worker.h"
+#include "task.h"
 #include <unistd.h>
 #include <string>
-#include <Python.h>
 #include "caller.h"
 
 /* initialization */

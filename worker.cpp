@@ -20,8 +20,8 @@
  * RIGHT.
  *
  ****************************Copyright-DO-NOT-REMOVE-THIS-LINE**/
-#include "Worker.h"
-#include "Task.h"
+#include "worker.h"
+#include "task.h"
 #include <Python.h>
 #include "caller.h"
 #include <stdexcept>
